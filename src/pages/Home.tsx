@@ -107,6 +107,7 @@ export default function Home() {
               showMobileWarning={false}
               showTooltip={false}
               transparent={true}
+              disableCursorTarget={true}
               imgStyle={{ filter: isDark ? 'invert(1)' : 'none', maxWidth: '90vw' }}
             />
           </div>

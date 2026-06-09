@@ -19,6 +19,7 @@ interface TiltedCardProps {
   imageOverlay?: React.ReactNode;
   transparent?: boolean;
   imgStyle?: React.CSSProperties;
+  disableCursorTarget?: boolean;
 }
 
 const springValues = {
@@ -43,7 +44,8 @@ export default function TiltedCard({
   displayOverlayContent = false,
   imageOverlay = null,
   transparent = false,
-  imgStyle = {}
+  imgStyle = {},
+  disableCursorTarget = false
 }: TiltedCardProps) {
   const ref = useRef<HTMLFigureElement>(null);
 
@@ -98,7 +100,7 @@ export default function TiltedCard({
   return (
     <figure
       ref={ref}
-      className="tilted-card-figure cursor-target"
+      className={`tilted-card-figure ${disableCursorTarget ? '' : 'cursor-target'}`}
       style={{
         height: containerHeight,
         width: containerWidth
