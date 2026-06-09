@@ -17,6 +17,8 @@ interface TiltedCardProps {
   overlayContent?: React.ReactNode;
   displayOverlayContent?: boolean;
   imageOverlay?: React.ReactNode;
+  transparent?: boolean;
+  imgStyle?: React.CSSProperties;
 }
 
 const springValues = {
@@ -39,7 +41,9 @@ export default function TiltedCard({
   showTooltip = true,
   overlayContent = null,
   displayOverlayContent = false,
-  imageOverlay = null
+  imageOverlay = null,
+  transparent = false,
+  imgStyle = {}
 }: TiltedCardProps) {
   const ref = useRef<HTMLFigureElement>(null);
 
@@ -114,10 +118,13 @@ export default function TiltedCard({
           height: imageHeight,
           rotateX,
           rotateY,
-          scale
+          scale,
+          boxShadow: transparent ? 'none' : undefined,
+          borderRadius: transparent ? 0 : undefined,
+          background: transparent ? 'transparent' : undefined
         }}
       >
-        <div style={{ width: imageWidth, height: imageHeight, borderRadius: 15, overflow: 'hidden', position: 'absolute', top: 0, left: 0 }}>
+        <div style={{ width: imageWidth, height: imageHeight, borderRadius: transparent ? 0 : 15, overflow: 'hidden', position: 'absolute', top: 0, left: 0 }}>
           <motion.img
             src={imageSrc}
             alt={altText}
@@ -125,8 +132,10 @@ export default function TiltedCard({
             style={{
               width: '100%',
               height: '100%',
+              objectFit: transparent ? 'contain' : 'cover',
               filter: displayOverlayContent ? 'blur(4px)' : 'none',
-              transform: displayOverlayContent ? 'scale(1.05)' : 'none'
+              transform: displayOverlayContent ? 'scale(1.05)' : 'none',
+              ...imgStyle
             }}
           />
           {imageOverlay}

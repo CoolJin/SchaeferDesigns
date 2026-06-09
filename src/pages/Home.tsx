@@ -8,6 +8,7 @@ import UIShowcase from '../components/UIShowcase'
 import LineWaves from '../components/LineWaves'
 import GlassSurface from '../components/GlassSurface'
 import TextMarquee from '../components/TextMarquee'
+import TiltedCard from '../components/TiltedCard'
 import { useTheme } from '../hooks/useTheme'
 
 const MARQUEE_ITEMS = ['Konzept','Design','Entwicklung','Strategie','Motion','Branding','UX','Identity']
@@ -93,7 +94,22 @@ export default function Home() {
           }
         `}</style>
         <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '-12vh' }}>
-          <img src="/LogoBreit.svg" alt="SchaeferDesigns Logo" style={{ height: 'clamp(120px, 25vw, 300px)', width: 'auto', maxWidth: '90vw', marginBottom: 40, filter: isDark ? 'invert(1)' : 'none' }} />
+          <div style={{ marginBottom: 40, width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <TiltedCard
+              imageSrc="/LogoBreit.svg"
+              altText="SchaeferDesigns Logo"
+              containerWidth="clamp(250px, 60vw, 800px)"
+              containerHeight="clamp(100px, 20vw, 250px)"
+              imageWidth="100%"
+              imageHeight="100%"
+              rotateAmplitude={12}
+              scaleOnHover={1.05}
+              showMobileWarning={false}
+              showTooltip={false}
+              transparent={true}
+              imgStyle={{ filter: isDark ? 'invert(1)' : 'none', maxWidth: '90vw' }}
+            />
+          </div>
           <div style={{ marginBottom: 40, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
             <div style={{ width: '100%', maxWidth: 420 }}>
               <TextPressure text="DESIGN" flex={true} alpha={false} stroke={false} width={true} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
