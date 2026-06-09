@@ -236,8 +236,8 @@ export default function Home() {
       <section className="contact-section">
         <Reveal>
           <div className="section-label" style={{ textAlign: 'center' }}>// bereit?</div>
-          <h2 className="contact-heading">Lass uns<br />reden.</h2>
-          <p className="contact-sub">Kein Formular. Kein Funnel. Einfach direkt.</p>
+          <h2 className="contact-heading">Lassen Sie uns<br />sprechen.</h2>
+          <p className="contact-sub">Gemeinsam machen wir Ihre Ideen zur Realität.</p>
           <Link to="/contact" className="btn"><span>Projekt starten</span></Link>
         </Reveal>
       </section>
