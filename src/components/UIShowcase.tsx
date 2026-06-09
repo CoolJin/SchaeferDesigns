@@ -186,22 +186,6 @@ export default function UIShowcase() {
           </div>
         </Reveal>
 
-        {/* Inputs */}
-        <Reveal delay={200}>
-          <div style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, overflow: 'hidden', background: 'var(--paper)', display: 'flex', flexDirection: 'column', minHeight: 320 }}>
-            <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: 40 }}>Formulare</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, maxWidth: 800 }}>
-              <div className="form-field" style={{ marginBottom: 0 }}>
-                <label>Name</label>
-                <input type="text" placeholder="Dein Name" />
-              </div>
-              <div className="form-field" style={{ marginBottom: 0 }}>
-                <label>E-Mail</label>
-                <input type="email" placeholder="hallo@beispiel.de" />
-              </div>
-            </div>
-          </div>
-        </Reveal>
 
         {/* Cards */}
         <Reveal delay={300}>
