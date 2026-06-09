@@ -209,10 +209,10 @@ export default function Home() {
           <Reveal delay={100}>
             <div className="steps-grid">
               {[
-                { n: '01 —', t: 'Kontakt', d: 'Du meldest dich, oder ich baue proaktiv eine erste Demo deiner neuen Seite.' },
+                { n: '01 —', t: 'Kontakt', d: 'Sie melden sich, oder ich baue proaktiv eine erste Demo Ihrer neuen Seite.' },
                 { n: '02 —', t: 'Konzept', d: 'Wir besprechen die Demo, passen Texte und Design an und klären alle Details.' },
-                { n: '03 —', t: 'Bauen', d: 'Ich entwickle deine Seite mit modernster KI-Technologie — blitzschnell und sauber.' },
-                { n: '04 —', t: 'Support', d: 'Nach dem Launch bleibe ich dein direkter Ansprechpartner für Fragen und Updates.' },
+                { n: '03 —', t: 'Entwickeln', d: 'Ich entwickle Ihre Seite mithilfe von KI bis Alles perfekt funktioniert.' },
+                { n: '04 —', t: 'Support', d: 'Nach dem Veröffentlichen der Seite bleibe ich Ihr direkter Ansprechpartner für Fragen und Updates.' },
               ].map(s => (
                 <div className="step" key={s.n}>
                   <div className="step-num">{s.n}</div>
