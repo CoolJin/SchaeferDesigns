@@ -236,7 +236,7 @@ export default function Home() {
       <section className="contact-section">
         <Reveal>
           <div className="section-label" style={{ textAlign: 'center' }}>// bereit?</div>
-          <h2 className="contact-heading">Lassen Sie<br /><span style={{ whiteSpace: 'nowrap' }}>uns sprechen.</span></h2>
+          <h2 className="contact-heading" style={{ textAlign: 'center' }}>Lassen Sie<br /><span style={{ whiteSpace: 'nowrap' }}>uns sprechen.</span></h2>
           <p className="contact-sub">Gemeinsam machen wir Ihre Ideen zur Realität.</p>
           <Link to="/contact" className="btn"><span>Projekt starten</span></Link>
         </Reveal>
