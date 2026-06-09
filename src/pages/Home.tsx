@@ -98,8 +98,8 @@ export default function Home() {
             <TiltedCard
               imageSrc="/LogoBreit.svg"
               altText="SchaeferDesigns Logo"
-              containerWidth="clamp(250px, 60vw, 800px)"
-              containerHeight="clamp(100px, 20vw, 250px)"
+              containerWidth="clamp(300px, 75vw, 1000px)"
+              containerHeight="clamp(130px, 25vw, 320px)"
               imageWidth="100%"
               imageHeight="100%"
               rotateAmplitude={12}
