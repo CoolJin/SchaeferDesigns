@@ -3,8 +3,9 @@ import { motion } from 'framer-motion'
 import Reveal from '../components/Reveal'
 import Footer from '../components/Footer'
 import Stepper, { Step } from '../components/Stepper'
-import ElasticSlider from '../components/ElasticSlider'
-import { ChevronDown } from 'lucide-react'
+import DualRangeSlider from '../components/DualRangeSlider'
+import CustomSelect from '../components/CustomSelect'
+import Checkbox from '../components/Checkbox'
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
@@ -12,7 +13,8 @@ export default function Contact() {
   // Step 1 State
   const [projectType, setProjectType] = useState('')
   const [noProjectType, setNoProjectType] = useState(false)
-  const [budget, setBudget] = useState(5000)
+  const [budgetMin, setBudgetMin] = useState(1500)
+  const [budgetMax, setBudgetMax] = useState(5000)
   const [noBudget, setNoBudget] = useState(false)
   
   // Step 2 State
@@ -26,13 +28,21 @@ export default function Contact() {
 
   const handleFinalSubmit = () => {
     // Hier würde der echte API-Call passieren
-    console.log({ projectType, budget, description, otherInfo, name, email, phone })
+    console.log({ projectType, budgetMin, budgetMax, description, otherInfo, name, email, phone })
     setSent(true)
   }
 
+  const projectTypeOptions = [
+    { value: 'Neue Webseite', label: 'Neue Webseite' },
+    { value: 'Redesign', label: 'Redesign' },
+    { value: 'E-Commerce', label: 'E-Commerce' },
+    { value: 'Automatisierung', label: 'Automatisierung' },
+    { value: 'Wartung', label: 'Wartung / Sonstiges' }
+  ]
+
   return (
     <motion.div className="page-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
-      <div className="inner-hero" style={{ minHeight: '60vh', paddingBottom: 0 }}>
+      <div className="inner-hero" style={{ minHeight: '40vh', paddingBottom: 40 }}>
         <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
           <div className="section-label">// lass uns reden</div>
           <h1>Kontakt.</h1>
@@ -40,10 +50,15 @@ export default function Contact() {
         </motion.div>
       </div>
 
-      <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 48px 80px', display: 'flex', flexDirection: 'column', gap: 60 }}>
+      <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 48px 80px', display: 'flex', flexDirection: 'column', gap: 40 }}>
+        {/* Lange Hauptlinie unter dem Text */}
+        <Reveal>
+          <div style={{ width: '100%', height: '1px', backgroundColor: 'var(--border)' }}></div>
+        </Reveal>
+
         {/* Contact Details Top */}
         <Reveal>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 40 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 40, marginTop: 16 }}>
             {[
               { label: 'E-Mail', val: 'hello@schaeferdesigns.de' },
               { label: 'Telefon', val: '+49 711 000 000' },
@@ -78,45 +93,33 @@ export default function Contact() {
                 </div>
                 
                 <div className="form-field" style={{ marginBottom: 40 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 8 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 12 }}>
                     <label style={{ margin: 0 }}>Projektart</label>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--muted)', textTransform: 'none', letterSpacing: 'normal' }}>
-                      <input type="checkbox" checked={noProjectType} onChange={(e) => setNoProjectType(e.target.checked)} />
-                      Keine Angabe
-                    </label>
+                    <Checkbox checked={noProjectType} onChange={setNoProjectType} label="Keine Angabe" />
                   </div>
-                  <div style={{ position: 'relative', opacity: noProjectType ? 0.5 : 1, pointerEvents: noProjectType ? 'none' : 'auto', transition: 'all 0.3s' }}>
-                    <select 
-                      value={projectType} 
-                      onChange={(e) => setProjectType(e.target.value)}
-                      style={{ width: '100%', padding: '16px', background: 'transparent', border: '1.5px solid var(--border)', borderRadius: 12, color: 'var(--ink)', fontSize: '1rem', appearance: 'none', cursor: 'pointer' }}
-                    >
-                      <option value="" disabled>Bitte wählen...</option>
-                      <option value="Neue Webseite">Neue Webseite</option>
-                      <option value="Redesign">Redesign</option>
-                      <option value="E-Commerce">E-Commerce</option>
-                      <option value="Automatisierung">Automatisierung</option>
-                      <option value="Wartung">Wartung / Sonstiges</option>
-                    </select>
-                    <ChevronDown size={20} style={{ position: 'absolute', right: 16, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: 'var(--muted)' }} />
-                  </div>
+                  <CustomSelect 
+                    options={projectTypeOptions}
+                    value={projectType}
+                    onChange={setProjectType}
+                    disabled={noProjectType}
+                  />
                 </div>
 
                 <div className="form-field">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 40 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 12 }}>
                     <label style={{ margin: 0 }}>Budgetrahmen</label>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--muted)', textTransform: 'none', letterSpacing: 'normal' }}>
-                      <input type="checkbox" checked={noBudget} onChange={(e) => setNoBudget(e.target.checked)} />
-                      Keine Angabe
-                    </label>
+                    <Checkbox checked={noBudget} onChange={setNoBudget} label="Keine Angabe" />
                   </div>
-                  <ElasticSlider 
-                    startingValue={0}
-                    defaultValue={5000}
-                    maxValue={10000}
-                    isStepped={true}
-                    stepSize={100}
-                    onChange={(val) => setBudget(val)}
+                  <DualRangeSlider 
+                    min={0}
+                    max={20000}
+                    step={500}
+                    defaultMinValue={budgetMin}
+                    defaultMaxValue={budgetMax}
+                    onChange={(minVal, maxVal) => {
+                      setBudgetMin(minVal);
+                      setBudgetMax(maxVal);
+                    }}
                     disabled={noBudget}
                   />
                 </div>
