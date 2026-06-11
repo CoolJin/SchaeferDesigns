@@ -14,8 +14,8 @@ interface DualRangeSliderProps {
 export default function DualRangeSlider({
   min = 0,
   max = 10000,
-  step = 100,
-  defaultMinValue = 2000,
+  step = 50,
+  defaultMinValue = 1500,
   defaultMaxValue = 5000,
   onChange,
   disabled = false

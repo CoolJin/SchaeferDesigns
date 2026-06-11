@@ -1,5 +1,6 @@
 .custom-checkbox-label {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 12px;
   cursor: pointer;
@@ -10,6 +11,7 @@
   text-transform: none;
   letter-spacing: normal;
   transition: opacity 0.2s;
+  margin: 0;
 }
 
 .custom-checkbox-label:hover {

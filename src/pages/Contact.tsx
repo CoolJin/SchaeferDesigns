@@ -9,6 +9,7 @@ import Checkbox from '../components/Checkbox'
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
+  const [activeStep, setActiveStep] = useState(1)
   
   // Step 1 State
   const [projectType, setProjectType] = useState('')
@@ -40,6 +41,23 @@ export default function Contact() {
     { value: 'Wartung', label: 'Wartung / Sonstiges' }
   ]
 
+  // Validation Logic
+  const isStep1Valid = noProjectType || projectType !== '';
+  const isStep2Valid = description.trim().length >= 100;
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isStep3Valid = name.trim() !== '' && isEmailValid;
+
+  const isNextDisabled = 
+    (activeStep === 1 && !isStep1Valid) ||
+    (activeStep === 2 && !isStep2Valid) ||
+    (activeStep === 3 && !isStep3Valid);
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Nur Zahlen, Leerzeichen und das Plus-Zeichen erlauben
+    const val = e.target.value.replace(/[^\d+ ]/g, '');
+    setPhone(val);
+  }
+
   return (
     <motion.div className="page-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
       <div className="inner-hero" style={{ minHeight: '40vh', paddingBottom: 40 }}>
@@ -64,7 +82,7 @@ export default function Contact() {
               { label: 'Telefon', val: '+49 711 000 000' },
               { label: 'Studio', val: 'Stuttgart, Deutschland' },
             ].map(item => (
-              <div key={item.label} style={{ padding: '24px 0', borderTop: '1px solid var(--border)' }}>
+              <div key={item.label} style={{ padding: '24px 0' }}>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '.68rem', letterSpacing: '.2em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 8 }}>{item.label}</div>
                 <div style={{ fontSize: '1.1rem', fontWeight: 500 }}>{item.val}</div>
               </div>
@@ -82,9 +100,14 @@ export default function Contact() {
           ) : (
             <Stepper
               initialStep={1}
+              onStepChange={setActiveStep}
               onFinalStepCompleted={handleFinalSubmit}
               backButtonText="Zurück"
               nextButtonText="Weiter"
+              nextButtonProps={{
+                disabled: isNextDisabled,
+                style: { opacity: isNextDisabled ? 0.3 : 1, pointerEvents: isNextDisabled ? 'none' : 'auto' }
+              }}
             >
               <Step>
                 <div style={{ marginBottom: 32 }}>
@@ -94,7 +117,7 @@ export default function Contact() {
                 
                 <div className="form-field" style={{ marginBottom: 40 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 12 }}>
-                    <label style={{ margin: 0 }}>Projektart</label>
+                    <label style={{ margin: 0 }}>Projektart <span style={{ color: 'var(--accent)' }}>*</span></label>
                     <Checkbox checked={noProjectType} onChange={setNoProjectType} label="Keine Angabe" />
                   </div>
                   <CustomSelect 
@@ -112,8 +135,8 @@ export default function Contact() {
                   </div>
                   <DualRangeSlider 
                     min={0}
-                    max={20000}
-                    step={500}
+                    max={10000}
+                    step={50}
                     defaultMinValue={budgetMin}
                     defaultMaxValue={budgetMax}
                     onChange={(minVal, maxVal) => {
@@ -132,13 +155,18 @@ export default function Contact() {
                 </div>
 
                 <div className="form-field" style={{ marginBottom: 32 }}>
-                  <label>Projektbeschreibung</label>
+                  <label>Projektbeschreibung <span style={{ color: 'var(--accent)' }}>*</span></label>
                   <textarea 
                     placeholder="Erzähl mir mehr über deine Idee..." 
                     rows={4} 
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                   />
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 8 }}>
+                    <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: description.trim().length >= 100 ? 'var(--ink)' : 'var(--muted)' }}>
+                      {description.trim().length} / 100 Min. Zeichen
+                    </span>
+                  </div>
                 </div>
 
                 <div className="form-field">
@@ -159,7 +187,7 @@ export default function Contact() {
                 </div>
 
                 <div className="form-field" style={{ marginBottom: 24 }}>
-                  <label>Voller Name</label>
+                  <label>Voller Name <span style={{ color: 'var(--accent)' }}>*</span></label>
                   <input 
                     type="text" 
                     placeholder="Max Mustermann" 
@@ -169,7 +197,7 @@ export default function Contact() {
                 </div>
 
                 <div className="form-field" style={{ marginBottom: 24 }}>
-                  <label>E-Mail</label>
+                  <label>E-Mail <span style={{ color: 'var(--accent)' }}>*</span></label>
                   <input 
                     type="email" 
                     placeholder="max@beispiel.de" 
@@ -184,7 +212,7 @@ export default function Contact() {
                     type="tel" 
                     placeholder="+49 123 456789" 
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={handlePhoneChange}
                   />
                 </div>
               </Step>

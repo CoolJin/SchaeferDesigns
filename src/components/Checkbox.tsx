@@ -10,13 +10,7 @@ interface CheckboxProps {
 
 export default function Checkbox({ checked, onChange, label }: CheckboxProps) {
   return (
-    <label className="custom-checkbox-label">
-      <input
-        type="checkbox"
-        className="custom-checkbox-input"
-        checked={checked}
-        onChange={(e) => onChange(e.target.checked)}
-      />
+    <div className="custom-checkbox-label" onClick={() => onChange(!checked)}>
       <div className={`custom-checkbox-box ${checked ? 'checked' : ''}`}>
         <motion.div
           initial={{ scale: 0 }}
@@ -27,6 +21,6 @@ export default function Checkbox({ checked, onChange, label }: CheckboxProps) {
         </motion.div>
       </div>
       <span className="custom-checkbox-text">{label}</span>
-    </label>
+    </div>
   );
 }
