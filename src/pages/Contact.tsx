@@ -98,9 +98,9 @@ export default function Contact() {
             {sent ? (
               <motion.div 
                 key="success"
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
                 style={{ textAlign: 'center', padding: '120px 0', border: '1px solid var(--border)', borderRadius: '2rem', background: 'var(--paper)' }}
               >
                 <div style={{ fontSize: '4rem', fontWeight: 900, letterSpacing: '-.05em' }}>Danke.</div>
