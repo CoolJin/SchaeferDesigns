@@ -16,6 +16,7 @@ export default function Checkbox({ checked, onChange, label }: CheckboxProps) {
           initial={{ scale: 0 }}
           animate={{ scale: checked ? 1 : 0 }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}
         >
           <Check size={14} strokeWidth={3} className="custom-checkbox-icon" />
         </motion.div>

@@ -188,22 +188,41 @@ export default function Contact() {
 
                 <div className="form-field" style={{ marginBottom: 24 }}>
                   <label>Voller Name <span style={{ color: 'var(--accent)' }}>*</span></label>
-                  <input 
-                    type="text" 
-                    placeholder="Max Mustermann" 
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
+                  <div style={{ position: 'relative' }}>
+                    <input 
+                      type="text" 
+                      placeholder="Max Mustermann" 
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      style={{ paddingRight: 40, borderColor: name.trim() !== '' ? 'var(--ink)' : 'var(--border)' }}
+                    />
+                    {name.trim() !== '' && (
+                      <div style={{ position: 'absolute', right: 16, top: '50%', transform: 'translateY(-50%)', color: 'var(--ink)' }}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 <div className="form-field" style={{ marginBottom: 24 }}>
                   <label>E-Mail <span style={{ color: 'var(--accent)' }}>*</span></label>
-                  <input 
-                    type="email" 
-                    placeholder="max@beispiel.de" 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
+                  <div style={{ position: 'relative' }}>
+                    <input 
+                      type="email" 
+                      placeholder="max@beispiel.de" 
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      style={{ paddingRight: 40, borderColor: email.length > 0 && isEmailValid ? 'var(--ink)' : (email.length > 0 && !isEmailValid ? 'red' : 'var(--border)') }}
+                    />
+                    {email.length > 0 && isEmailValid && (
+                      <div style={{ position: 'absolute', right: 16, top: '50%', transform: 'translateY(-50%)', color: 'var(--ink)' }}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      </div>
+                    )}
+                  </div>
+                  {email.length > 0 && !isEmailValid && (
+                    <span style={{ fontSize: '0.8rem', color: 'red', marginTop: 8, display: 'block' }}>Bitte eine gültige E-Mail Adresse eingeben.</span>
+                  )}
                 </div>
 
                 <div className="form-field">
