@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import Reveal from '../components/Reveal'
 import Footer from '../components/Footer'
 import Stepper, { Step } from '../components/Stepper'
@@ -54,7 +54,9 @@ export default function Contact() {
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Nur Zahlen, Leerzeichen und das Plus-Zeichen erlauben
-    const val = e.target.value.replace(/[^\d+ ]/g, '');
+    let val = e.target.value.replace(/[^\d+ ]/g, '');
+    // Plus-Zeichen nur an erster Stelle erlauben (alle anderen entfernen)
+    val = val.replace(/(?!^)\+/g, '');
     setPhone(val);
   }
 
@@ -92,14 +94,28 @@ export default function Contact() {
 
         {/* Multi-Step Form */}
         <Reveal delay={100}>
-          {sent ? (
-            <div style={{ textAlign: 'center', padding: '120px 0', border: '1px solid var(--border)', borderRadius: '2rem', background: 'var(--paper)' }}>
-              <div style={{ fontSize: '4rem', fontWeight: 900, letterSpacing: '-.05em' }}>Danke.</div>
-              <p style={{ color: 'var(--muted)', marginTop: 16, fontFamily: 'var(--font-mono)', fontSize: '.85rem' }}>Ich melde mich innerhalb von 4 Stunden.</p>
-            </div>
-          ) : (
-            <Stepper
-              initialStep={1}
+          <AnimatePresence mode="wait">
+            {sent ? (
+              <motion.div 
+                key="success"
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                style={{ textAlign: 'center', padding: '120px 0', border: '1px solid var(--border)', borderRadius: '2rem', background: 'var(--paper)' }}
+              >
+                <div style={{ fontSize: '4rem', fontWeight: 900, letterSpacing: '-.05em' }}>Danke.</div>
+                <p style={{ color: 'var(--muted)', marginTop: 16, fontFamily: 'var(--font-mono)', fontSize: '.85rem' }}>Ich melde mich bei Ihnen innerhalb kurzer Zeit.</p>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="form"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, scale: 0.98, y: -20 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              >
+                <Stepper
+                  initialStep={1}
               onStepChange={setActiveStep}
               onFinalStepCompleted={handleFinalSubmit}
               backButtonText="Zurück"
@@ -236,7 +252,9 @@ export default function Contact() {
                 </div>
               </Step>
             </Stepper>
-          )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </Reveal>
       </div>
 
