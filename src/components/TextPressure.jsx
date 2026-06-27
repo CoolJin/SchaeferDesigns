@@ -9,8 +9,8 @@ const dist = (a, b) => {
 };
 
 const getAttr = (distance, maxDist, minVal, maxVal) => {
-  const val = maxVal - Math.abs((maxVal * distance) / maxDist);
-  return Math.max(minVal, val + minVal);
+  const ratio = Math.max(0, 1 - distance / maxDist);
+  return minVal + ratio * (maxVal - minVal);
 };
 
 const debounce = (func, delay) => {
