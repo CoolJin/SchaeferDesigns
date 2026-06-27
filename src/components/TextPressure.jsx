@@ -1,5 +1,3 @@
-// Component ported from https://codepen.io/JuanFuentes/full/rgXKGQ
-
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 
 const dist = (a, b) => {
@@ -9,8 +7,8 @@ const dist = (a, b) => {
 };
 
 const getAttr = (distance, maxDist, minVal, maxVal) => {
-  const ratio = Math.max(0, 1 - distance / maxDist);
-  return minVal + ratio * (maxVal - minVal);
+  const val = maxVal - Math.abs((maxVal * distance) / maxDist);
+  return Math.max(minVal, val + minVal);
 };
 
 const debounce = (func, delay) => {
@@ -136,7 +134,7 @@ const TextPressure = ({
 
           const d = dist(mouseRef.current, charCenter);
 
-          const wdth = width ? Math.floor(getAttr(d, maxDist, 25, 151)) : 100;
+          const wdth = width ? Math.floor(getAttr(d, maxDist, 5, 200)) : 100;
           const wght = weight ? Math.floor(getAttr(d, maxDist, 100, 900)) : 400;
           const italVal = italic ? getAttr(d, maxDist, 0, 1).toFixed(2) : 0;
           const alphaVal = alpha ? getAttr(d, maxDist, 0, 1).toFixed(2) : 1;
