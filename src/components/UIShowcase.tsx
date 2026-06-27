@@ -336,7 +336,7 @@ export default function UIShowcase() {
                   flex={true}
                   alpha={false}
                   stroke={false}
-                  width={false}
+                  width={true}
                   weight={true}
                   italic={true}
                   textColor={isDark ? "#ffffff" : "#000000"}
