@@ -1,80 +1,61 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 
-const dist = (a: {x: number, y: number}, b: {x: number, y: number}) => {
+const dist = (a, b) => {
   const dx = b.x - a.x;
   const dy = b.y - a.y;
   return Math.sqrt(dx * dx + dy * dy);
 };
 
-const getAttr = (distance: number, maxDist: number, minVal: number, maxVal: number) => {
+const getAttr = (distance, maxDist, minVal, maxVal) => {
   const val = maxVal - Math.abs((maxVal * distance) / maxDist);
   return Math.max(minVal, val + minVal);
 };
 
-const debounce = (func: (...args: any[]) => void, delay: number) => {
-  let timeoutId: number | ReturnType<typeof setTimeout>;
-  return (...args: any[]) => {
+const debounce = (func, delay) => {
+  let timeoutId;
+  return (...args) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => {
-      func(...args);
+      func.apply(null, args);
     }, delay);
   };
 };
-
-interface TextPressureProps {
-  text?: string;
-  fontFamily?: string;
-  fontUrl?: string;
-  width?: boolean;
-  weight?: boolean;
-  italic?: boolean;
-  alpha?: boolean;
-  flex?: boolean;
-  stroke?: boolean;
-  scale?: boolean;
-  textColor?: string;
-  strokeColor?: string;
-  className?: string;
-  minFontSize?: number;
-}
 
 const TextPressure = ({
   text = 'Compressa',
   fontFamily = 'Compressa VF',
   fontUrl = 'https://res.cloudinary.com/dr6lvwubh/raw/upload/v1529908256/CompressaPRO-GX.woff2',
-
   width = true,
   weight = true,
   italic = true,
   alpha = false,
-
   flex = true,
   stroke = false,
   scale = false,
-
   textColor = '#FFFFFF',
   strokeColor = '#FF0000',
   className = '',
-
   minFontSize = 24
-}: TextPressureProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const spansRef = useRef<(HTMLSpanElement | null)[]>([]);
+}) => {
+  const containerRef = useRef(null);
+  const titleRef = useRef(null);
+  const spansRef = useRef([]);
 
   const mouseRef = useRef({ x: 0, y: 0 });
   const cursorRef = useRef({ x: 0, y: 0 });
 
   const [fontSize, setFontSize] = useState(minFontSize);
+  const [scaleY, setScaleY] = useState(1);
+  const [lineHeight, setLineHeight] = useState(1);
 
   const chars = text.split('');
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = e => {
       cursorRef.current.x = e.clientX;
       cursorRef.current.y = e.clientY;
     };
-    const handleTouchMove = (e: TouchEvent) => {
+    const handleTouchMove = e => {
       const t = e.touches[0];
       cursorRef.current.x = t.clientX;
       cursorRef.current.y = t.clientY;
@@ -102,56 +83,34 @@ const TextPressure = ({
 
     const { width: containerW, height: containerH } = containerRef.current.getBoundingClientRect();
 
-    if (containerW === 0) return;
-
     let newFontSize = containerW / (chars.length / 2);
     newFontSize = Math.max(newFontSize, minFontSize);
 
     setFontSize(newFontSize);
-    titleRef.current.style.fontSize = `${newFontSize}px`;
-  }, [chars.length, minFontSize]);
+    setScaleY(1);
+    setLineHeight(1);
+
+    requestAnimationFrame(() => {
+      if (!titleRef.current) return;
+      const textRect = titleRef.current.getBoundingClientRect();
+
+      if (scale && textRect.height > 0) {
+        const yRatio = containerH / textRect.height;
+        setScaleY(yRatio);
+        setLineHeight(yRatio);
+      }
+    });
+  }, [chars.length, minFontSize, scale]);
 
   useEffect(() => {
-    const debouncedSetSize = debounce(setSize, 50);
-
-    let observer: ResizeObserver | null = null;
-    if (containerRef.current) {
-      observer = new ResizeObserver(() => {
-        debouncedSetSize();
-      });
-      observer.observe(containerRef.current);
-    }
-
-    // Robust font-loading fallback: poll setSize a few times after mount
-    // to ensure any delayed font renders or layout shifts are caught accurately.
-    let pollCount = 0;
-    const pollInterval = setInterval(() => {
-      setSize(); // Call synchronously to avoid debounce overlap
-      pollCount++;
-      if (pollCount >= 20) clearInterval(pollInterval); // Poll for 2 seconds
-    }, 100);
-
-    if (document.fonts) {
-      document.fonts.load(`16px "${fontFamily}"`).then(() => {
-        debouncedSetSize();
-      }).catch(() => {});
-      document.fonts.ready.then(() => {
-        debouncedSetSize();
-      });
-    }
-
-    window.addEventListener('resize', debouncedSetSize);
+    const debouncedSetSize = debounce(setSize, 100);
     debouncedSetSize();
-
-    return () => {
-      window.removeEventListener('resize', debouncedSetSize);
-      if (observer) observer.disconnect();
-      clearInterval(pollInterval);
-    };
-  }, [setSize, fontFamily]);
+    window.addEventListener('resize', debouncedSetSize);
+    return () => window.removeEventListener('resize', debouncedSetSize);
+  }, [setSize]);
 
   useEffect(() => {
-    let rafId: number;
+    let rafId;
     const animate = () => {
       mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / 15;
       mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) / 15;
@@ -181,26 +140,10 @@ const TextPressure = ({
           if (span.style.fontVariationSettings !== newFontVariationSettings) {
             span.style.fontVariationSettings = newFontVariationSettings;
           }
-          if (alpha && span.style.opacity !== alphaVal.toString()) {
-            span.style.opacity = alphaVal.toString();
+          if (alpha && span.style.opacity !== alphaVal) {
+            span.style.opacity = alphaVal;
           }
         });
-
-        // Continuous Layout Fixer (High-Performance)
-        // Reads unscaled layout dimensions and forces exact fit.
-        if (containerRef.current) {
-          const cHeight = containerRef.current.offsetHeight;
-          const cWidth = containerRef.current.offsetWidth;
-          const tHeight = titleRef.current.offsetHeight;
-          const tWidth = titleRef.current.offsetWidth;
-
-          if (cHeight > 0 && tHeight > 0) {
-            const yRatio = scale ? (cHeight / tHeight) : 1;
-            const xRatio = tWidth > cWidth ? (cWidth / tWidth) : 1; // Prevent horizontal overflow
-            
-            titleRef.current.style.transform = `scale(${xRatio}, ${yRatio})`;
-          }
-        }
       }
 
       rafId = requestAnimationFrame(animate);
@@ -219,16 +162,16 @@ const TextPressure = ({
           font-style: normal;
         }
 
-        .flex-pressure {
+        .flex {
           display: flex;
           justify-content: space-between;
         }
 
-        .stroke-pressure span {
+        .stroke span {
           position: relative;
           color: ${textColor};
         }
-        .stroke-pressure span::after {
+        .stroke span::after {
           content: attr(data-char);
           position: absolute;
           left: 0;
@@ -246,7 +189,7 @@ const TextPressure = ({
     );
   }, [fontFamily, fontUrl, textColor, strokeColor]);
 
-  const dynamicClassName = [className, flex ? 'flex-pressure' : '', stroke ? 'stroke-pressure' : ''].filter(Boolean).join(' ');
+  const dynamicClassName = [className, flex ? 'flex' : '', stroke ? 'stroke' : ''].filter(Boolean).join(' ');
 
   return (
     <div
@@ -266,7 +209,8 @@ const TextPressure = ({
           fontFamily,
           textTransform: 'uppercase',
           fontSize: fontSize,
-          lineHeight: 1,
+          lineHeight,
+          transform: `scale(1, ${scaleY})`,
           transformOrigin: 'center top',
           margin: 0,
           textAlign: 'center',
@@ -279,7 +223,7 @@ const TextPressure = ({
         {chars.map((char, i) => (
           <span
             key={i}
-            ref={el => { spansRef.current[i] = el }}
+            ref={el => (spansRef.current[i] = el)}
             data-char={char}
             style={{
               display: 'inline-block',
