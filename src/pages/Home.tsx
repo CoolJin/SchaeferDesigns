@@ -113,7 +113,7 @@ export default function Home() {
           </div>
           <div style={{ marginBottom: 40, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
             <div style={{ width: '100%', maxWidth: 420 }}>
-              <TextPressure text="DESIGN" flex={true} alpha={false} stroke={false} width={true} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
+              <TextPressure text="DESIGN" flex={true} alpha={false} stroke={false} width={false} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
             </div>
             <div style={{ width: '100%', maxWidth: 630 }}>
               <TextPressure text="DAS WIRKT" flex={true} alpha={false} stroke={false} width={true} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
