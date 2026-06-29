@@ -492,7 +492,7 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   .contact-info-grid { grid-template-columns: 1fr !important; }
   .contact-form { margin: 40px auto 0; padding: 0 16px; }
   .dual-slider-container { width: 100%; }
-  .dual-slider-container input[type="range"] { height: 40px; margin-top: -20px; } /* Increase touch target */
+  .dual-slider-container input[type="range"] { height: 40px; margin-top: 0; top: 50%; transform: translateY(-50%); } /* Increase touch target & center */
   .dual-slider-labels { flex-direction: column; gap: 8px; align-items: flex-start; }
   .stepper-buttons { flex-direction: column; gap: 16px; }
   .stepper-buttons button { width: 100%; }

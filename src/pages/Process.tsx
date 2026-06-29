@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import Reveal from '../components/Reveal'
 import Footer from '../components/Footer'
 
@@ -69,9 +70,9 @@ export default function Process() {
           <h2 style={{ fontSize: 'clamp(2rem,4vw,4rem)', fontWeight: 900, letterSpacing: '-.04em' }}>
             Bereit<br />loszulegen?
           </h2>
-          <a href="/contact" className="btn" style={{ background: 'transparent', border: '1.5px solid rgba(255,255,255,.25)', color: 'var(--paper)' }}>
+          <Link to="/contact" className="btn" style={{ background: 'transparent', border: '1.5px solid rgba(255,255,255,.25)', color: 'var(--paper)' }}>
             <span>Kontakt aufnehmen</span>
-          </a>
+          </Link>
         </div>
       </section>
 
