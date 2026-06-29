@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Nav from './components/Nav'
 import TargetCursor from './components/TargetCursor'
@@ -32,7 +32,7 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <Router basename="/SchaeferDesigns">
+    <Router basename={import.meta.env.BASE_URL}>
       <div className="app-container">
         <TargetCursor />
         <NoiseCanvas />
