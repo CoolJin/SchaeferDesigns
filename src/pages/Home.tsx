@@ -110,8 +110,8 @@ export default function Home() {
                 src={logoBreit} 
                 alt="SchaeferDesigns Logo" 
                 style={{ 
-                  width: '72vw', 
-                  maxWidth: '400px', 
+                  width: '90vw', 
+                  maxWidth: '500px', 
                   height: 'auto', 
                   filter: isDark ? 'invert(1)' : 'none',
                   marginTop: '10px'
