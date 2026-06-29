@@ -35,7 +35,7 @@
   --spotlight-color: rgba(255, 255, 255, 0.3);
 }
 
-.chroma-card:hover {
+.chroma-card:hover, .chroma-card.is-hovered {
   border-color: var(--card-border);
 }
 
@@ -50,7 +50,7 @@
   z-index: 2;
 }
 
-.chroma-card:hover::before {
+.chroma-card:hover::before, .chroma-card.is-hovered::before {
   opacity: 1;
 }
 

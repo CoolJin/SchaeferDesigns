@@ -89,23 +89,31 @@ export const ChromaGrid = ({
     }
   };
 
-  const handleCardMove = (e: React.MouseEvent<HTMLElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    card.style.setProperty('--mouse-x', `${x}px`);
-    card.style.setProperty('--mouse-y', `${y}px`);
-  };
-
   useEffect(() => {
     const node = rootRef.current;
     if (node) {
+      const handleCardMoveDelegate = (e: MouseEvent) => {
+        const card = (e.target as HTMLElement).closest('.chroma-card');
+        if (card) {
+          card.classList.add('is-hovered');
+          if ((card as any)._hoverTimeout) clearTimeout((card as any)._hoverTimeout);
+          (card as any)._hoverTimeout = setTimeout(() => card.classList.remove('is-hovered'), 100);
+
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+          (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+        }
+      };
+
       node.addEventListener('pointermove', handleMove as any);
       node.addEventListener('pointerleave', handleLeave as any);
+      node.addEventListener('mousemove', handleCardMoveDelegate);
       return () => {
         node.removeEventListener('pointermove', handleMove as any);
         node.removeEventListener('pointerleave', handleLeave as any);
+        node.removeEventListener('mousemove', handleCardMoveDelegate);
       };
     }
   }, [handleMove, handleLeave]);
@@ -124,7 +132,6 @@ export const ChromaGrid = ({
         <article
           key={i}
           className="chroma-card cursor-target"
-          onMouseMove={handleCardMove}
           onClick={() => handleCardClick(c.url)}
           style={{
             '--card-border': c.borderColor || 'transparent',

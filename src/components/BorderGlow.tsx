@@ -116,19 +116,27 @@ const BorderGlow = ({
     return degrees;
   }, [getCenterOfElement]);
 
-  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    const card = cardRef.current;
-    if (!card) return;
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    const rect = card.getBoundingClientRect();
+  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const node = cardRef.current;
+    
+    node.classList.add('is-hovered');
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    hoverTimeoutRef.current = setTimeout(() => {
+      node.classList.remove('is-hovered');
+    }, 100);
+
+    const rect = node.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    const edge = getEdgeProximity(card, x, y);
-    const angle = getCursorAngle(card, x, y);
+    const edge = getEdgeProximity(node, x, y);
+    const angle = getCursorAngle(node, x, y);
 
-    card.style.setProperty('--edge-proximity', `${(edge * 100).toFixed(3)}`);
-    card.style.setProperty('--cursor-angle', `${angle.toFixed(3)}deg`);
+    node.style.setProperty('--edge-proximity', `${(edge * 100).toFixed(3)}`);
+    node.style.setProperty('--cursor-angle', `${angle.toFixed(3)}deg`);
   }, [getEdgeProximity, getCursorAngle]);
 
   useEffect(() => {
