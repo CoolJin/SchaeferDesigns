@@ -32,7 +32,7 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/SchaeferDesigns">
       <NoiseCanvas />
       <TargetCursor />
       <Nav />
