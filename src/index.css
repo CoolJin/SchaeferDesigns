@@ -533,8 +533,17 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   font-family: var(--font-sans); font-size: 2.5rem; font-weight: 700;
   letter-spacing: -0.02em; color: var(--ink); text-decoration: none;
   opacity: 0.7; transition: opacity 0.3s, transform 0.3s;
+  position: relative; display: inline-block;
 }
 .mobile-nav-link.active { opacity: 1; transform: scale(1.05); }
+
+.mobile-nav-link.active::before,
+.mobile-nav-link.active::after {
+  content: ''; position: absolute; top: 50%; transform: translateY(-50%);
+  width: 16px; height: 3px; background-color: var(--ink); border-radius: 2px;
+}
+.mobile-nav-link.active::before { left: -32px; }
+.mobile-nav-link.active::after { right: -32px; }
 
 /* ── MOBILE GLOBAL TWEAKS ────────────────────────────────── */
 @media (max-width: 900px) {
