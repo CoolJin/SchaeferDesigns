@@ -132,26 +132,9 @@ const BorderGlow = ({
   }, [getEdgeProximity, getCursorAngle]);
 
   useEffect(() => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || !animated) return;
     const card = cardRef.current;
-    let isMobile = window.innerWidth <= 900;
-    
-    if (isMobile) {
-      let rafId: number;
-      let time = 0;
-      card.classList.add('sweep-active');
-      card.style.setProperty('--edge-proximity', '100');
-      
-      const loop = () => {
-        time += 0.02;
-        const angle = (time * 50) % 360;
-        card.style.setProperty('--cursor-angle', `${angle}deg`);
-        rafId = requestAnimationFrame(loop);
-      };
-      loop();
-      return () => cancelAnimationFrame(rafId);
-    } else {
-      if (!animated) return;
+
       const angleStart = 110;
       const angleEnd = 465;
       card.classList.add('sweep-active');
@@ -168,7 +151,6 @@ const BorderGlow = ({
         onUpdate: v => card.style.setProperty('--edge-proximity', String(v)),
         onEnd: () => card.classList.remove('sweep-active'),
       });
-    }
   }, [animated]);
 
   const glowVars = buildGlowVars(glowColor, glowIntensity);

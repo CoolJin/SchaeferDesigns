@@ -20,6 +20,7 @@ import FloatingLines from './FloatingLines'
 import PixelBlast from './PixelBlast'
 import GridDistortion from './GridDistortion'
 import LetterGlitch from './LetterGlitch'
+import SimulatedMouse from './SimulatedMouse'
 
 // Images
 import forestDark from '../assets/forest-dark.png'
@@ -87,10 +88,15 @@ export default function UIShowcase() {
   const [buttonsHovered, setButtonsHovered] = useState(false)
   const [isInView, setIsInView] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
-  const sectionRef = useRef<HTMLDivElement>(null)
+  
+  const ref = useRef<HTMLDivElement>(null)
   const proximityRef = useRef<HTMLDivElement>(null)
+  const kartenRef = useRef<HTMLDivElement>(null)
+  const typografieRef = useRef<HTMLDivElement>(null)
+  
   const theme = useTheme()
   const isDark = theme === 'dark'
+  const sectionRef = useRef<HTMLDivElement>(null)
   
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth <= 900)
@@ -238,9 +244,10 @@ export default function UIShowcase() {
         </Reveal>
 
 
-        {/* Cards */}
-        <Reveal delay={300}>
-          <div style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, overflow: 'hidden', background: 'var(--paper)', display: 'flex', flexDirection: 'column', minHeight: 320 }}>
+        {/* Cards & Hover Effects */}
+        <Reveal delay={200}>
+          <div ref={kartenRef} style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, overflow: 'hidden', background: 'var(--paper)', display: 'flex', flexDirection: 'column', minHeight: 320 }}>
+            <SimulatedMouse containerRef={kartenRef} />
             <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: 40 }}>Karten & Hover</h3>
             <div style={{ display: 'flex', gap: 40, flexWrap: 'wrap', alignItems: 'center', justifyContent: isMobile ? 'center' : 'flex-start' }}>
               <div style={{ width: isMobile ? '100%' : 300, height: 300 }} className="cursor-target">
@@ -375,7 +382,8 @@ export default function UIShowcase() {
 
         {/* Typography */}
         <Reveal delay={400}>
-          <div style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', minHeight: 320, overflow: 'hidden' }}>
+          <div ref={typografieRef} style={{ position: 'relative', padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', minHeight: 320, overflow: 'hidden' }}>
+            <SimulatedMouse containerRef={typografieRef} />
             <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: 40 }}>Typografie</h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 60 }}>

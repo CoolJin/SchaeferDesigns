@@ -58,34 +58,10 @@ const ScrambledText = ({
       });
     };
 
-    let isMobile = window.innerWidth <= 900;
-    let rafId;
-
-    if (isMobile) {
-      let time = 0;
-      const animate = () => {
-        time += 0.05;
-        if (rootRef.current) {
-          const rect = rootRef.current.getBoundingClientRect();
-          const cx = rect.left + rect.width / 2;
-          const cy = rect.top + rect.height / 2;
-          const x = cx + Math.cos(time) * (rect.width / 2);
-          const y = cy + Math.sin(time * 1.5) * 50;
-          handleMove({ clientX: x, clientY: y });
-        }
-        rafId = requestAnimationFrame(animate);
-      };
-      animate();
-    } else {
-      window.addEventListener('pointermove', handleMove);
-    }
+    window.addEventListener('pointermove', handleMove);
 
     return () => {
-      if (isMobile) {
-        cancelAnimationFrame(rafId);
-      } else {
-        window.removeEventListener('pointermove', handleMove);
-      }
+      window.removeEventListener('pointermove', handleMove);
       split.revert();
     };
   }, [radius, duration, speed, scrambleChars]);
