@@ -102,7 +102,6 @@ export default function UIShowcase() {
   const textPressureRef = useRef<HTMLDivElement>(null)
   const scrambledTextRef = useRef<HTMLDivElement>(null)
   const rotatingTextRef = useRef<HTMLDivElement>(null)
-  const proximityRef = useRef<HTMLDivElement>(null)
   
   const theme = useTheme()
   const isDark = theme === 'dark'
