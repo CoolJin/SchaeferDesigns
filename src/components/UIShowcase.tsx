@@ -25,16 +25,42 @@ import SimulatedMouse from './SimulatedMouse'
 // Images
 import forestDark from '../assets/forest-dark.png'
 import forestBright from '../assets/forest-bright.png'
-const HoverBackground = ({ children, hoverBg = 'transparent' }: { children: React.ReactNode, hoverBg?: string }) => {
+let hoverBgCounter = 0;
+
+const HoverBackground = ({ children, hoverBg = 'transparent', simulateMouse = false }: { children: React.ReactNode, hoverBg?: string, simulateMouse?: boolean }) => {
   const [isHovered, setIsHovered] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
   const ref = useRef<HTMLDivElement>(null)
+  
+  // Assign a unique id to each instance
+  const [id] = useState(() => `hover-bg-${++hoverBgCounter}`);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth <= 900)
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [])
+
+  useEffect(() => {
+    const handleCloseOthers = (e: any) => {
+      if (e.detail !== id) setIsHovered(false);
+    };
+    window.addEventListener('close-other-backgrounds', handleCloseOthers);
+    return () => window.removeEventListener('close-other-backgrounds', handleCloseOthers);
+  }, [id]);
+
+  useEffect(() => {
+    const handleGlobalClick = (e: any) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setIsHovered(false);
+      }
+    };
+    if (isHovered && isMobile) {
+      // Small timeout to prevent immediate close on the opening click
+      setTimeout(() => window.addEventListener('click', handleGlobalClick), 0);
+      return () => window.removeEventListener('click', handleGlobalClick);
+    }
+  }, [isHovered, isMobile]);
 
   useEffect(() => {
     if (!isMobile) return
@@ -52,18 +78,27 @@ const HoverBackground = ({ children, hoverBg = 'transparent' }: { children: Reac
     return () => observer.disconnect()
   }, [isMobile])
 
+  const handleClick = () => {
+    if (!isMobile) return;
+    setIsHovered(prev => {
+      const next = !prev;
+      if (next) window.dispatchEvent(new CustomEvent('close-other-backgrounds', { detail: id }));
+      return next;
+    });
+  };
+
   return (
     <div 
       ref={ref}
       style={{ width: '100%', height: '100%', position: 'absolute', inset: 0, cursor: 'crosshair', zIndex: 0 }}
       onMouseEnter={() => !isMobile && setIsHovered(true)}
       onMouseLeave={() => !isMobile && setIsHovered(false)}
-      onClick={() => isMobile && setIsHovered(prev => !prev)}
+      onClick={handleClick}
     >
       {isMobile && !isHovered && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.5, pointerEvents: 'none' }}>
           <div style={{ padding: '8px 16px', background: 'var(--paper)', border: '1px solid var(--border)', borderRadius: 100, fontSize: '0.8rem', fontFamily: 'var(--font-mono)' }}>
-            Tap to interact
+            Tippe, um aufzudecken
           </div>
         </div>
       )}
@@ -76,6 +111,7 @@ const HoverBackground = ({ children, hoverBg = 'transparent' }: { children: Reac
             transition={{ duration: 0.5, ease: "easeInOut" }}
             style={{ width: '100%', height: '100%', backgroundColor: hoverBg || 'transparent' }}
           >
+            {isMobile && simulateMouse && <SimulatedMouse containerRef={ref} />}
             {children}
           </motion.div>
         )}
@@ -509,7 +545,7 @@ export default function UIShowcase() {
           <Reveal delay={600}>
             <div className="wc2" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Silk Flow</h3>
-              <HoverBackground>
+              <HoverBackground simulateMouse={true}>
                 <Silk
                     speed={5}
                     scale={1}
@@ -525,7 +561,7 @@ export default function UIShowcase() {
           <Reveal delay={700}>
             <div className="wc3" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Floating Lines</h3>
-              <HoverBackground>
+              <HoverBackground simulateMouse={true}>
                 <FloatingLines isDark={isDark}
                     enabledWaves={['top', 'middle', 'bottom']}
                     lineCount={[10, 15, 20]}
@@ -545,7 +581,7 @@ export default function UIShowcase() {
           <Reveal delay={800}>
             <div className="wc4" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Pixel Blast</h3>
-              <HoverBackground hoverBg={isDark ? 'transparent' : '#cccccc'}>
+              <HoverBackground hoverBg={isDark ? 'transparent' : '#cccccc'} simulateMouse={true}>
                 <PixelBlast
                     variant="circle"
                     pixelSize={6}
@@ -573,7 +609,7 @@ export default function UIShowcase() {
           <Reveal delay={900}>
             <div className="wc5" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Line Waves</h3>
-              <HoverBackground>
+              <HoverBackground simulateMouse={true}>
                 <LineWaves
                     speed={0.15}
                     innerLineCount={32}
@@ -597,7 +633,7 @@ export default function UIShowcase() {
           <Reveal delay={600}>
             <div className="wc11" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Grid Distortion</h3>
-              <HoverBackground>
+              <HoverBackground simulateMouse={true}>
                 <GridDistortion imageSrc={forestImg} />
               </HoverBackground>
             </div>
@@ -607,7 +643,7 @@ export default function UIShowcase() {
           <Reveal delay={700}>
             <div className="wc13" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Letter Glitch</h3>
-              <HoverBackground hoverBg={isDark ? 'transparent' : '#cccccc'}>
+              <HoverBackground hoverBg={isDark ? 'transparent' : '#cccccc'} simulateMouse={true}>
                 <LetterGlitch isDark={isDark} glitchColors={isDark ? ['#2b4539', '#61dca3', '#61b3dc'] : ['#1a2a22', '#3a8a66', '#3a6b8a']} />
               </HoverBackground>
             </div>
