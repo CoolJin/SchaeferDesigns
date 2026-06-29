@@ -53,6 +53,9 @@ export default function UIShowcase() {
   const proximityRef = useRef<HTMLDivElement>(null)
   const theme = useTheme()
   const isDark = theme === 'dark'
+  
+  const getImgPath = (name: string) => import.meta.env.BASE_URL + name
+  const forestImg = isDark ? getImgPath('forest-dark.png') : getImgPath('forest-bright.png')
 
   // Unmount glass when scrolled out of view; also used for idle-fps gating
   useEffect(() => {
@@ -214,7 +217,7 @@ export default function UIShowcase() {
                   }}>
                     {/* Background Image */}
                     <img 
-                      src={isDark ? "/forest-dark.png" : "/forest-bright.png"} 
+                      src={forestImg} 
                       alt="Forest Background" 
                       style={{
                         position: 'absolute',
@@ -259,7 +262,7 @@ export default function UIShowcase() {
 
               <div>
                 <TiltedCard
-                  imageSrc={isDark ? "/forest-dark.png" : "/forest-bright.png"}
+                  imageSrc={forestImg}
                   altText="Forest Landscape"
                   captionText=""
                   containerHeight="300px"
@@ -307,7 +310,7 @@ export default function UIShowcase() {
               <div style={{ width: 300, height: 300 }} className="cursor-target">
                 <ChromaGrid 
                   items={[{
-                    image: isDark ? "/forest-dark.png" : "/forest-bright.png",
+                    image: forestImg,
                     title: "Chroma-Raster",
                     subtitle: "Fokussierter Graustufen-Hover mit Farbeffekt",
                   }]}
@@ -512,7 +515,7 @@ export default function UIShowcase() {
             <div className="wc11" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10 }}>Grid Distortion</h3>
               <HoverBackground>
-                <GridDistortion imageSrc={isDark ? "/forest-dark.png" : "/forest-bright.png"} />
+                <GridDistortion imageSrc={forestImg} />
               </HoverBackground>
             </div>
           </Reveal>
