@@ -107,7 +107,7 @@ export default function SimulatedMouse({ containerRef, autoClick = false, invisi
       }
 
       if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate3d(${clientX}px, ${clientY}px, 0) scale(${scale})`;
+        cursorRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
       }
 
       if (el) {
