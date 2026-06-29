@@ -444,7 +444,6 @@ export default function UIShowcase() {
 
               {/* RotatingText */}
               <div ref={rotatingTextRef} style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 'clamp(1.2rem, 5vw, 2rem)', fontWeight: 800, whiteSpace: 'nowrap' }}>
-                <SimulatedMouse containerRef={rotatingTextRef} />
                 <span>Modernes </span>
                 <RotatingText
                   texts={['Design', 'Layout', 'Branding', 'Web']}
@@ -470,10 +469,19 @@ export default function UIShowcase() {
               </div>
 
               {/* VariableProximity */}
-              <div ref={proximityRef} style={{ display: 'flex', justifyContent: 'center', fontSize: '1.5rem', textAlign: 'center', position: 'relative' }}>
+              <div ref={proximityRef} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', textAlign: 'center', position: 'relative' }}>
                 <SimulatedMouse containerRef={proximityRef} />
                 <VariableProximity
-                  label="Bewege den Cursor in die Nähe dieses Textes"
+                  label="Bewege den Cursor"
+                  fromFontVariationSettings="'wght' 400, 'opsz' 9"
+                  toFontVariationSettings="'wght' 1000, 'opsz' 40"
+                  radius={120}
+                  falloff='gaussian'
+                  containerRef={proximityRef}
+                  style={{ color: isDark ? '#fff' : '#000', marginBottom: '8px' }}
+                />
+                <VariableProximity
+                  label="in die Nähe dieses Textes"
                   fromFontVariationSettings="'wght' 400, 'opsz' 9"
                   toFontVariationSettings="'wght' 1000, 'opsz' 40"
                   radius={120}
