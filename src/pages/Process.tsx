@@ -60,6 +60,7 @@ export default function Process() {
               </div>
             </Reveal>
           ))}
+        </div>
       </div>
 
       {/* Dark CTA */}
