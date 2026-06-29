@@ -18,7 +18,7 @@ const CursorSVG = () => (
   </svg>
 );
 
-export default function SimulatedMouse({ containerRef, autoClick = false, invisible = false }: { containerRef: React.RefObject<HTMLDivElement>, autoClick?: boolean, invisible?: boolean }) {
+export default function SimulatedMouse({ containerRef, autoClick = false, invisible = false, xAmplitude = 0.35, yAmplitude = 0.35 }: { containerRef: React.RefObject<HTMLDivElement>, autoClick?: boolean, invisible?: boolean, xAmplitude?: number, yAmplitude?: number }) {
   const cursorRef = useRef<HTMLDivElement>(null);
   const lastHoveredElement = useRef<Element | null>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
@@ -46,8 +46,8 @@ export default function SimulatedMouse({ containerRef, autoClick = false, invisi
       const cx = rect.width / 2;
       const cy = rect.height / 2;
       
-      const x = cx + Math.sin(time) * (rect.width * 0.35);
-      const y = cy + Math.sin(time * 2) * (rect.height * 0.35);
+      const x = cx + Math.sin(time) * (rect.width * xAmplitude);
+      const y = cy + Math.sin(time * 2) * (rect.height * yAmplitude);
 
       const clientX = rect.left + x;
       const clientY = rect.top + y;
