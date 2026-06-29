@@ -10,6 +10,7 @@ import GlassSurface from '../components/GlassSurface'
 import TextMarquee from '../components/TextMarquee'
 import TiltedCard from '../components/TiltedCard'
 import { useTheme } from '../hooks/useTheme'
+import logoBreit from '../assets/LogoBreit.svg'
 
 const MARQUEE_ITEMS = ['Konzept','Design','Entwicklung','Strategie','Motion','Branding','UX','Identity']
 
