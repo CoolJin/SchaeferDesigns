@@ -64,8 +64,8 @@ export default function Process() {
       </div>
 
       {/* Dark CTA */}
-      <section className="process-section" style={{ padding: '80px 48px' }}>
-        <div className="process-inner" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <section className="process-section cta-section">
+        <div className="process-inner process-cta-inner" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h2 style={{ fontSize: 'clamp(2rem,4vw,4rem)', fontWeight: 900, letterSpacing: '-.04em' }}>
             Bereit<br />loszulegen?
           </h2>
