@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import ReactMarkdown from 'react-markdown'
 import Footer from '../components/Footer'
 import impressumText from '../content/impressum.txt?raw'
 
@@ -12,9 +11,10 @@ export default function Impressum() {
           opacity: 0.8, 
           lineHeight: 1.7, 
           fontSize: '1.05rem',
-          color: 'var(--ink)'
+          color: 'var(--ink)',
+          whiteSpace: 'pre-wrap'
         }}>
-          <ReactMarkdown>{impressumText}</ReactMarkdown>
+          {impressumText}
         </div>
       </div>
       <Footer />

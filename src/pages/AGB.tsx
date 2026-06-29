@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import ReactMarkdown from 'react-markdown'
 import Footer from '../components/Footer'
 import agbText from '../content/agb.txt?raw'
 
@@ -12,9 +11,10 @@ export default function AGB() {
           opacity: 0.8, 
           lineHeight: 1.7, 
           fontSize: '1.05rem',
-          color: 'var(--ink)'
+          color: 'var(--ink)',
+          whiteSpace: 'pre-wrap'
         }}>
-          <ReactMarkdown>{agbText}</ReactMarkdown>
+          {agbText}
         </div>
       </div>
       <Footer />
