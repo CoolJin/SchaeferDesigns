@@ -110,8 +110,8 @@ export default function Home() {
                 src={logoBreit} 
                 alt="SchaeferDesigns Logo" 
                 style={{ 
-                  width: '90vw', 
-                  maxWidth: '500px', 
+                  width: '72vw', 
+                  maxWidth: '400px', 
                   height: 'auto', 
                   filter: isDark ? 'invert(1)' : 'none',
                   marginTop: '10px'
@@ -137,10 +137,10 @@ export default function Home() {
           </div>
           <div ref={heroRef} style={{ marginBottom: 40, width: '100%', padding: '0 5%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, position: 'relative' }}>
             <SimulatedMouse containerRef={heroRef} autoClick={false} invisible={true} xAmplitude={0.45} yAmplitude={0.15} />
-            <div style={{ width: '100%', maxWidth: 420 }}>
+            <div style={{ width: '150%', maxWidth: 630 }}>
               <TextPressure className="hero-pressure" text="DESIGN" flex={false} alpha={false} stroke={false} width={true} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
             </div>
-            <div style={{ width: '100%', maxWidth: 630 }}>
+            <div style={{ width: '150%', maxWidth: 945 }}>
               <TextPressure className="hero-pressure" text="DAS WIRKT" flex={false} alpha={false} stroke={false} width={true} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
             </div>
           </div>
