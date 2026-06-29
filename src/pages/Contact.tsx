@@ -64,9 +64,9 @@ export default function Contact() {
     <motion.div className="page-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
       <div className="inner-hero" style={{ minHeight: '40vh', paddingBottom: 40 }}>
         <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
-          <div className="section-label">// lass uns reden</div>
-          <h1>Kontakt.</h1>
-          <p>Ein Projekt, eine Idee, oder einfach nur Hallo — ich freue mich auf jede Nachricht.</p>
+          <div className="section-label">// lassen sie uns sprechen</div>
+          <h1>Kontakt</h1>
+          <p>Ein Projekt, eine Idee, oder einfach nur ein Hallo, ich freue mich auf jede Nachricht.</p>
         </motion.div>
       </div>
 
@@ -103,7 +103,7 @@ export default function Contact() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 style={{ textAlign: 'center', padding: '120px 0', border: '1px solid var(--border)', borderRadius: '2rem', background: 'var(--paper)' }}
               >
-                <div style={{ fontSize: '4rem', fontWeight: 900, letterSpacing: '-.05em' }}>Danke.</div>
+                <div style={{ fontSize: '4rem', fontWeight: 900, letterSpacing: '-.05em' }}>Danke</div>
                 <p style={{ color: 'var(--muted)', marginTop: 16, fontFamily: 'var(--font-mono)', fontSize: '.85rem' }}>Ich melde mich bei Ihnen innerhalb kurzer Zeit.</p>
               </motion.div>
             ) : (
@@ -113,6 +113,7 @@ export default function Contact() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, scale: 0.98, y: -20 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
+                style={{ maxWidth: 600, margin: '0 auto', width: '100%' }}
               >
                 <Stepper
                   initialStep={1}
@@ -127,8 +128,8 @@ export default function Contact() {
             >
               <Step>
                 <div style={{ marginBottom: 32 }}>
-                  <h2 style={{ fontSize: '2rem', marginBottom: 8, letterSpacing: '-0.03em' }}>Was brauchst du?</h2>
-                  <p style={{ color: 'var(--muted)' }}>Erzähl mir grob, worum es geht.</p>
+                  <h2 style={{ fontSize: '2rem', marginBottom: 8, letterSpacing: '-0.03em' }}>Was brauchen Sie?</h2>
+                  <p style={{ color: 'var(--muted)' }}>Erzählen Sie mir grob, worum es geht.</p>
                 </div>
                 
                 <div className="form-field" style={{ marginBottom: 40 }}>
@@ -167,13 +168,13 @@ export default function Contact() {
               <Step>
                 <div style={{ marginBottom: 32 }}>
                   <h2 style={{ fontSize: '2rem', marginBottom: 8, letterSpacing: '-0.03em' }}>Die Details</h2>
-                  <p style={{ color: 'var(--muted)' }}>Lass mich wissen, was du im Kopf hast.</p>
+                  <p style={{ color: 'var(--muted)' }}>Lassen Sie mich wissen, was Sie im Kopf haben.</p>
                 </div>
 
                 <div className="form-field" style={{ marginBottom: 32 }}>
                   <label>Projektbeschreibung <span style={{ color: 'var(--accent)' }}>*</span></label>
                   <textarea 
-                    placeholder="Erzähl mir mehr über deine Idee..." 
+                    placeholder="Erzählen Sie mir mehr über Ihre Idee..." 
                     rows={4} 
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -199,7 +200,7 @@ export default function Contact() {
               <Step>
                 <div style={{ marginBottom: 32 }}>
                   <h2 style={{ fontSize: '2rem', marginBottom: 8, letterSpacing: '-0.03em' }}>Fast geschafft!</h2>
-                  <p style={{ color: 'var(--muted)' }}>Wie kann ich dich erreichen?</p>
+                  <p style={{ color: 'var(--muted)' }}>Wie kann ich Sie erreichen?</p>
                 </div>
 
                 <div className="form-field" style={{ marginBottom: 24 }}>
