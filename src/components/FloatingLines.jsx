@@ -246,7 +246,7 @@ export default function FloatingLines({ isDark = true,
   mixBlendMode = 'screen'
 }) {
   const containerRef = useRef(null);
-  const targetMouse = useRef([0, 0]);
+  const targetMouseRef = useRef(new Vector2(-1000, -1000));
   const cursorRef = useRef(null);
   const currentMouseRef = useRef(new Vector2(-1000, -1000));
   const targetInfluenceRef = useRef(0);
