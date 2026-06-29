@@ -5,6 +5,8 @@ import Reveal from '../components/Reveal'
 import Footer from '../components/Footer'
 import TextPressure from '../components/TextPressure'
 import UIShowcase from '../components/UIShowcase'
+import MagnetLines from '../components/MagnetLines'
+import logoBreit from '../assets/LogoBreit.svg'
 import LineWaves from '../components/LineWaves'
 import GlassSurface from '../components/GlassSurface'
 import TextMarquee from '../components/TextMarquee'
@@ -96,7 +98,7 @@ export default function Home() {
         <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '-12vh' }}>
           <div style={{ marginBottom: 40, width: '100%', display: 'flex', justifyContent: 'center' }}>
             <TiltedCard
-              imageSrc="/LogoBreit.svg"
+              imageSrc={logoBreit}
               altText="SchaeferDesigns Logo"
               containerWidth="clamp(300px, 75vw, 1000px)"
               containerHeight="clamp(130px, 25vw, 320px)"

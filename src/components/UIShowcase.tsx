@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import forestDark from '../assets/forest-dark.png'
+import forestBright from '../assets/forest-bright.png'
 import Reveal from './Reveal'
 import GlassSurface from './GlassSurface'
 import LineWaves from './LineWaves'
@@ -54,8 +56,7 @@ export default function UIShowcase() {
   const theme = useTheme()
   const isDark = theme === 'dark'
   
-  const getImgPath = (name: string) => import.meta.env.BASE_URL + name
-  const forestImg = isDark ? getImgPath('forest-dark.png') : getImgPath('forest-bright.png')
+  const forestImg = isDark ? forestDark : forestBright
 
   // Unmount glass when scrolled out of view; also used for idle-fps gating
   useEffect(() => {
