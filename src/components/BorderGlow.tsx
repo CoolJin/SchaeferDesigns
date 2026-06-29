@@ -153,12 +153,21 @@ const BorderGlow = ({
       });
   }, [animated]);
 
+  useEffect(() => {
+    const node = cardRef.current;
+    if (node) {
+      node.addEventListener('pointermove', handlePointerMove as any);
+      return () => {
+        node.removeEventListener('pointermove', handlePointerMove as any);
+      };
+    }
+  }, [handlePointerMove]);
+
   const glowVars = buildGlowVars(glowColor, glowIntensity);
 
   return (
     <div
       ref={cardRef}
-      onPointerMove={handlePointerMove}
       className={`border-glow-card ${className}`}
       style={{
         '--card-bg': backgroundColor,

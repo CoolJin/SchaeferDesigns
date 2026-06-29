@@ -98,9 +98,11 @@ export default function UIShowcase() {
   const tiltedCardRef = useRef<HTMLDivElement>(null)
   const chromaGridRef = useRef<HTMLDivElement>(null)
   
-  const textPressureRef = useRef<HTMLDivElement>(null)
   const trueFocusRef = useRef<HTMLDivElement>(null)
+  const textPressureRef = useRef<HTMLDivElement>(null)
   const scrambledTextRef = useRef<HTMLDivElement>(null)
+  const rotatingTextRef = useRef<HTMLDivElement>(null)
+  const proximityRef = useRef<HTMLDivElement>(null)
   
   const theme = useTheme()
   const isDark = theme === 'dark'
@@ -416,10 +418,9 @@ export default function UIShowcase() {
 
               {/* TrueFocus */}
               <div ref={trueFocusRef} style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
-                <SimulatedMouse containerRef={trueFocusRef} />
                 <TrueFocus 
                   sentence="Fokus Behalten"
-                  manualMode={true}
+                  manualMode={false}
                   blurAmount={5}
                   borderColor="var(--accent)"
                   glowColor="rgba(255, 0, 0, 0.4)"
@@ -443,7 +444,8 @@ export default function UIShowcase() {
               </div>
 
               {/* RotatingText */}
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 'clamp(1.2rem, 5vw, 2rem)', fontWeight: 800, whiteSpace: 'nowrap' }}>
+              <div ref={rotatingTextRef} style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 'clamp(1.2rem, 5vw, 2rem)', fontWeight: 800, whiteSpace: 'nowrap' }}>
+                <SimulatedMouse containerRef={rotatingTextRef} />
                 <span>Modernes </span>
                 <RotatingText
                   texts={['Design', 'Layout', 'Branding', 'Web']}
@@ -470,6 +472,7 @@ export default function UIShowcase() {
 
               {/* VariableProximity */}
               <div ref={proximityRef} style={{ display: 'flex', justifyContent: 'center', fontSize: '1.5rem', textAlign: 'center', position: 'relative' }}>
+                <SimulatedMouse containerRef={proximityRef} />
                 <VariableProximity
                   label="Bewege den Cursor in die Nähe dieses Textes"
                   fromFontVariationSettings="'wght' 400, 'opsz' 9"

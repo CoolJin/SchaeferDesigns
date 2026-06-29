@@ -64,45 +64,8 @@ export default function TiltedCard({
   const [lastY, setLastY] = useState(0);
 
   useEffect(() => {
-    const isMobile = window.innerWidth <= 900;
-    if (!isMobile) return;
-
-    let animationFrameId: number;
-    let time = 0;
-
-    const simulateMouse = () => {
-      time += 0.015;
-      
-      const rotationX = Math.cos(time * 0.8) * rotateAmplitude;
-      const rotationY = Math.sin(time) * rotateAmplitude;
-
-      rotateX.set(rotationX);
-      rotateY.set(rotationY);
-      scale.set(scaleOnHover);
-      opacity.set(0.6); // slight tooltip/glare opacity on mobile
-
-      animationFrameId = requestAnimationFrame(simulateMouse);
-    };
-
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        animationFrameId = requestAnimationFrame(simulateMouse);
-      } else {
-        cancelAnimationFrame(animationFrameId);
-        rotateX.set(0);
-        rotateY.set(0);
-        scale.set(1);
-        opacity.set(0);
-      }
-    }, { rootMargin: '50px' });
-
-    if (ref.current) observer.observe(ref.current);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      observer.disconnect();
-    };
-  }, [rotateX, rotateY, scale, opacity, rotateAmplitude, scaleOnHover]);
+    // Removed mobile loop
+  }, []);
 
   function handleMouse(e: React.MouseEvent<HTMLElement>) {
     if (!ref.current) return;

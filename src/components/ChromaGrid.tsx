@@ -98,6 +98,18 @@ export const ChromaGrid = ({
     card.style.setProperty('--mouse-y', `${y}px`);
   };
 
+  useEffect(() => {
+    const node = rootRef.current;
+    if (node) {
+      node.addEventListener('pointermove', handleMove as any);
+      node.addEventListener('pointerleave', handleLeave as any);
+      return () => {
+        node.removeEventListener('pointermove', handleMove as any);
+        node.removeEventListener('pointerleave', handleLeave as any);
+      };
+    }
+  }, [handleMove, handleLeave]);
+
   return (
     <div
       ref={rootRef}
@@ -107,8 +119,6 @@ export const ChromaGrid = ({
         '--cols': columns,
         '--rows': rows
       } as React.CSSProperties}
-      onPointerMove={handleMove}
-      onPointerLeave={handleLeave}
     >
       {data.map((c, i) => (
         <article

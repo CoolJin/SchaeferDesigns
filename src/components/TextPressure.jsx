@@ -116,17 +116,7 @@ const TextPressure = ({
   useEffect(() => {
     let rafId;
     let time = 0;
-    const isMobile = window.innerWidth <= 900;
-
     const animate = () => {
-      if (isMobile && containerRef.current) {
-        time += 0.02;
-        const rect = containerRef.current.getBoundingClientRect();
-        // Simulate mouse moving back and forth across the container
-        cursorRef.current.x = rect.left + (Math.sin(time) * 0.5 + 0.5) * rect.width;
-        cursorRef.current.y = rect.top + rect.height / 2;
-      }
-
       mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / 15;
       mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) / 15;
 
