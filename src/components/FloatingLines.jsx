@@ -246,8 +246,8 @@ export default function FloatingLines({ isDark = true,
   mixBlendMode = 'screen'
 }) {
   const containerRef = useRef(null);
-  const targetMouseRef = useRef(new Vector2(-1000, -1000));
-  const [cursorPos, setCursorPos] = useState(null);
+  const targetMouse = useRef([0, 0]);
+  const cursorRef = useRef(null);
   const currentMouseRef = useRef(new Vector2(-1000, -1000));
   const targetInfluenceRef = useRef(0);
   const currentInfluenceRef = useRef(0);
@@ -426,7 +426,6 @@ export default function FloatingLines({ isDark = true,
 
       const isMobile = window.innerWidth <= 900;
       if (isMobile && interactive) {
-         // simulated loop
          const rect = renderer.domElement.getBoundingClientRect();
          const cx = rect.width / 2;
          const cy = rect.height / 2;
@@ -435,9 +434,14 @@ export default function FloatingLines({ isDark = true,
          const dpr = renderer.getPixelRatio();
          targetMouseRef.current.set(sx * dpr, (rect.height - sy) * dpr);
          targetInfluenceRef.current = 1.0;
-         setCursorPos({ x: sx, y: sy });
+         if (cursorRef.current) {
+           cursorRef.current.style.transform = `translate(${sx}px, ${sy}px)`;
+           cursorRef.current.style.opacity = '1';
+         }
       } else if (!isMobile) {
-         setCursorPos(null);
+        if (cursorRef.current) {
+          cursorRef.current.style.opacity = '0';
+        }
       }
 
       if (interactive) {
@@ -503,10 +507,12 @@ export default function FloatingLines({ isDark = true,
       className="floating-lines-container"
       style={{
         mixBlendMode: mixBlendMode,
-        position: 'relative'
+        position: 'relative',
+        width: '100%',
+        height: '100%'
       }}
     >
-      {cursorPos && <SimulatedCursor x={cursorPos.x} y={cursorPos.y} />}
+      <SimulatedCursor cursorRef={cursorRef} />
     </div>
   );
 }

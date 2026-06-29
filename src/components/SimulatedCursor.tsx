@@ -1,18 +1,17 @@
 import React from 'react';
 
 interface SimulatedCursorProps {
-  x: number;
-  y: number;
-  opacity?: number;
+  cursorRef: React.RefObject<HTMLDivElement | null>;
 }
 
-export default function SimulatedCursor({ x, y, opacity = 1 }: SimulatedCursorProps) {
+export default function SimulatedCursor({ cursorRef }: SimulatedCursorProps) {
   return (
     <div
+      ref={cursorRef}
       style={{
         position: 'absolute',
-        left: x - 8,
-        top: y - 8,
+        left: -8,
+        top: -8,
         width: 16,
         height: 16,
         borderRadius: '50%',
@@ -22,8 +21,9 @@ export default function SimulatedCursor({ x, y, opacity = 1 }: SimulatedCursorPr
         zIndex: 9999,
         mixBlendMode: 'difference',
         boxShadow: '0 0 10px rgba(0,0,0,0.5)',
-        opacity: opacity,
+        opacity: 0,
         transition: 'opacity 0.3s ease',
+        willChange: 'transform'
       }}
     />
   );

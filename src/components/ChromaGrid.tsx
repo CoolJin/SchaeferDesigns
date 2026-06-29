@@ -40,7 +40,7 @@ export const ChromaGrid = ({
   const setX = useRef<Function | null>(null);
   const setY = useRef<Function | null>(null);
   const pos = useRef({ x: 0, y: 0 });
-  const [cursorPos, setCursorPos] = useState<{ x: number; y: number } | null>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
 
   const data = items || [];
@@ -78,7 +78,7 @@ export const ChromaGrid = ({
 
     useEffect(() => {
       if (!isMobile) {
-        setCursorPos(null);
+        if (cursorRef.current) cursorRef.current.style.opacity = '0';
         return;
       }
       
@@ -91,7 +91,10 @@ export const ChromaGrid = ({
           const x = rect.width / 2 + Math.cos(time) * (rect.width / 3);
           const y = rect.height / 2 + Math.sin(time) * (rect.height / 3);
           moveTo(x, y);
-          setCursorPos({ x, y });
+          if (cursorRef.current) {
+            cursorRef.current.style.transform = `translate(${x}px, ${y}px)`;
+            cursorRef.current.style.opacity = '1';
+          }
         }
         rafId = requestAnimationFrame(animate);
       };
@@ -170,7 +173,7 @@ export const ChromaGrid = ({
       ))}
       <div className="chroma-overlay" />
       <div ref={fadeRef} className="chroma-fade" />
-      {cursorPos && <SimulatedCursor x={cursorPos.x} y={cursorPos.y} />}
+      <SimulatedCursor cursorRef={cursorRef} />
     </div>
   );
 };

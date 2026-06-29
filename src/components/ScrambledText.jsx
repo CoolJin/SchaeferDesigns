@@ -19,7 +19,7 @@ const ScrambledText = ({
 }) => {
   const rootRef = useRef(null);
   const charsRef = useRef([]);
-  const [cursorPos, setCursorPos] = useState(null);
+  const cursorRef = useRef(null);
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -74,7 +74,10 @@ const ScrambledText = ({
           const x = cx + Math.cos(time) * (rect.width / 2);
           const y = cy + Math.sin(time * 1.5) * 50;
           handleMove({ clientX: x, clientY: y });
-          setCursorPos({ x: x - rect.left, y: y - rect.top });
+          if (cursorRef.current) {
+            cursorRef.current.style.transform = `translate(${x - rect.left}px, ${y - rect.top}px)`;
+            cursorRef.current.style.opacity = '1';
+          }
         }
         rafId = requestAnimationFrame(animate);
       };
@@ -96,7 +99,7 @@ const ScrambledText = ({
   return (
     <div ref={rootRef} className={`text-block ${className}`} style={{ ...style, position: 'relative' }}>
       <p>{children}</p>
-      {cursorPos && <SimulatedCursor x={cursorPos.x} y={cursorPos.y} />}
+      <SimulatedCursor cursorRef={cursorRef} />
     </div>
   );
 };

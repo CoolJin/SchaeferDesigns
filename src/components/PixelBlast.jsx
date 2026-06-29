@@ -329,7 +329,7 @@ const PixelBlast = ({
   const containerRef = useRef(null);
   const visibilityRef = useRef({ visible: true });
   const speedRef = useRef(speed);
-  const [cursorPos, setCursorPos] = useState(null);
+  const cursorRef = useRef(null);
 
   const threeRef = useRef(null);
   const prevConfigRef = useRef(null);
@@ -511,17 +511,19 @@ const PixelBlast = ({
         const isMobile = window.innerWidth <= 900;
         if (isMobile) {
           autoTime += 0.02;
-          const rect = renderer.domElement.getBoundingClientRect();
-          const cx = rect.width / 2;
-          const cy = rect.height / 2;
-          const rx = rect.width / 3;
-          const ry = rect.height / 3;
-          const sx = cx + Math.cos(autoTime) * rx;
-          const sy = cy + Math.sin(autoTime * 1.5) * ry;
-          if (touch) touch.addTouch({ x: sx / rect.width, y: sy / rect.height });
-          setCursorPos({ x: sx, y: sy });
+          const sx = window.innerWidth / 2 + Math.cos(clock.getElapsedTime()) * window.innerWidth / 3;
+          const sy = window.innerHeight / 2 + Math.sin(clock.getElapsedTime() * 1.5) * window.innerHeight / 3;
+          
+          if (touch) touch.addTouch({ x: sx / window.innerWidth, y: sy / window.innerHeight });
+          
+          if (cursorRef.current) {
+            cursorRef.current.style.transform = `translate(${sx}px, ${sy}px)`;
+            cursorRef.current.style.opacity = '1';
+          }
         } else {
-          setCursorPos(null);
+          if (cursorRef.current) {
+            cursorRef.current.style.opacity = '0';
+          }
         }
 
         if (composer) {
@@ -623,7 +625,7 @@ const PixelBlast = ({
       style={{ ...style, position: 'relative' }}
       aria-label="PixelBlast interactive background"
     >
-      {cursorPos && <SimulatedCursor x={cursorPos.x} y={cursorPos.y} />}
+      <SimulatedCursor cursorRef={cursorRef} />
     </div>
   );
 };

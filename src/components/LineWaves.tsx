@@ -168,7 +168,7 @@ export default function LineWaves({
 }: LineWavesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const pauseRef = useRef(pause);
-  const [cursorPos, setCursorPos] = useState<{ x: number; y: number } | null>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     pauseRef.current = pause;
@@ -265,7 +265,10 @@ export default function LineWaves({
           program.uniforms.uMouse.value[0] = sx / rect.width;
           program.uniforms.uMouse.value[1] = 1.0 - (sy / rect.height);
           
-          setCursorPos({ x: sx, y: sy });
+          if (cursorRef.current) {
+            cursorRef.current.style.transform = `translate(${sx}px, ${sy}px)`;
+            cursorRef.current.style.opacity = '1';
+          }
         } else {
           if (enableMouseInteraction) {
             currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0]);
@@ -277,7 +280,9 @@ export default function LineWaves({
             program.uniforms.uMouse.value[0] = 0.5;
             program.uniforms.uMouse.value[1] = 0.5;
           }
-          setCursorPos(null);
+          if (cursorRef.current) {
+            cursorRef.current.style.opacity = '0';
+          }
         }
       }
       renderer.render({ scene: mesh });
@@ -302,7 +307,7 @@ export default function LineWaves({
       className="line-waves-container"
       style={{ width: '100%', height: '100%', position: 'relative', pointerEvents: enableMouseInteraction ? 'auto' : 'none' }}
     >
-      {cursorPos && <SimulatedCursor x={cursorPos.x} y={cursorPos.y} />}
+      <SimulatedCursor cursorRef={cursorRef} />
     </div>
   );
 }
