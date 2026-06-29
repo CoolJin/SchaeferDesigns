@@ -27,7 +27,7 @@ import forestDark from '../assets/forest-dark.png'
 import forestBright from '../assets/forest-bright.png'
 let hoverBgCounter = 0;
 
-const HoverBackground = ({ children, hoverBg = 'transparent', simulateMouse = false }: { children: React.ReactNode, hoverBg?: string, simulateMouse?: boolean }) => {
+const HoverBackground = ({ children, hoverBg = 'transparent', simulateMouse = false, autoClickMouse = false }: { children: React.ReactNode, hoverBg?: string, simulateMouse?: boolean, autoClickMouse?: boolean }) => {
   const [isHovered, setIsHovered] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
   const ref = useRef<HTMLDivElement>(null)
@@ -111,7 +111,7 @@ const HoverBackground = ({ children, hoverBg = 'transparent', simulateMouse = fa
             transition={{ duration: 0.5, ease: "easeInOut" }}
             style={{ width: '100%', height: '100%', backgroundColor: hoverBg || 'transparent' }}
           >
-            {isMobile && simulateMouse && <SimulatedMouse containerRef={ref} />}
+            {isMobile && simulateMouse && <SimulatedMouse containerRef={ref} autoClick={autoClickMouse} />}
             {children}
           </motion.div>
         )}
@@ -581,7 +581,7 @@ export default function UIShowcase() {
           <Reveal delay={800}>
             <div className="wc4" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Pixel Blast</h3>
-              <HoverBackground hoverBg={isDark ? 'transparent' : '#cccccc'} simulateMouse={true}>
+              <HoverBackground hoverBg={isDark ? 'transparent' : '#cccccc'} simulateMouse={true} autoClickMouse={true}>
                 <PixelBlast
                     variant="circle"
                     pixelSize={6}

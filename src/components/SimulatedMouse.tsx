@@ -18,7 +18,7 @@ const CursorSVG = () => (
   </svg>
 );
 
-export default function SimulatedMouse({ containerRef }: { containerRef: React.RefObject<HTMLDivElement> }) {
+export default function SimulatedMouse({ containerRef, autoClick = false }: { containerRef: React.RefObject<HTMLDivElement>, autoClick?: boolean }) {
   const cursorRef = useRef<HTMLDivElement>(null);
   const lastHoveredElement = useRef<Element | null>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
@@ -79,28 +79,27 @@ export default function SimulatedMouse({ containerRef }: { containerRef: React.R
       const now = performance.now();
       const timeSinceClick = now - lastClickTime;
 
-      if (timeSinceClick > 2000) {
-        lastClickTime = now;
-        isClicking = true;
-        if (lastHoveredElement.current) {
-          lastHoveredElement.current.dispatchEvent(new PointerEvent('pointerdown', { 
-            bubbles: true, cancelable: true, clientX, clientY, pointerId: 999, pointerType: 'mouse' 
-          }));
+      if (autoClick) {
+        if (timeSinceClick > 2000) {
+          lastClickTime = now;
+          isClicking = true;
+          if (lastHoveredElement.current) {
+            lastHoveredElement.current.dispatchEvent(new PointerEvent('pointerdown', { 
+              bubbles: true, cancelable: true, clientX, clientY, pointerId: 999, pointerType: 'mouse' 
+            }));
+          }
         }
-      }
 
-      if (timeSinceClick < 150) {
-        const progress = timeSinceClick / 150;
-        scale = progress < 0.5 ? 1 - (progress * 2) * 0.15 : 0.85 + ((progress - 0.5) * 2) * 0.15;
-      } else if (isClicking) {
-        isClicking = false;
-        if (lastHoveredElement.current) {
-          lastHoveredElement.current.dispatchEvent(new PointerEvent('pointerup', { 
-            bubbles: true, cancelable: true, clientX, clientY, pointerId: 999, pointerType: 'mouse' 
-          }));
-          lastHoveredElement.current.dispatchEvent(new MouseEvent('click', { 
-            bubbles: true, cancelable: true, clientX, clientY 
-          }));
+        if (timeSinceClick < 150) {
+          const progress = timeSinceClick / 150;
+          scale = progress < 0.5 ? 1 - (progress * 2) * 0.3 : 0.7 + ((progress - 0.5) * 2) * 0.3;
+        } else if (isClicking) {
+          isClicking = false;
+          if (lastHoveredElement.current) {
+            lastHoveredElement.current.dispatchEvent(new PointerEvent('pointerup', { 
+              bubbles: true, cancelable: true, clientX, clientY, pointerId: 999, pointerType: 'mouse' 
+            }));
+          }
         }
       }
 
