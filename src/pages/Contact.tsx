@@ -78,7 +78,7 @@ export default function Contact() {
 
         {/* Contact Details Top */}
         <Reveal>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 40, marginTop: 16 }}>
+          <div className="contact-info-grid" style={{ gap: 40, marginTop: 16 }}>
             {[
               { label: 'E-Mail', val: 'hello@schaeferdesigns.de' },
               { label: 'Telefon', val: '+49 711 000 000' },
@@ -113,7 +113,7 @@ export default function Contact() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, scale: 0.98, y: -20 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                style={{ maxWidth: 600, margin: '0 auto', width: '100%' }}
+                style={{ maxWidth: 800, margin: '0 auto', width: '100%' }}
               >
                 <Stepper
                   initialStep={1}
