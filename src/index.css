@@ -375,12 +375,12 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   letter-spacing: .2em; text-transform: uppercase; color: var(--accent);
   margin-bottom: 10px;
 }
-.form-field input, .form-field textarea {
+.form-field input:not([type="range"]), .form-field textarea {
   width: 100%; background: transparent; border: none; border-bottom: 1.5px solid var(--border);
   padding: 12px 0; font-family: var(--font-sans); font-size: 1rem; color: var(--ink);
   transition: border-color .3s; outline: none; resize: none;
 }
-.form-field input:focus, .form-field textarea:focus { border-color: var(--ink); }
+.form-field input:not([type="range"]):focus, .form-field textarea:focus { border-color: var(--ink); }
 .form-field textarea { min-height: 100px; }
 
 /* ── ABOUT PAGE ──────────────────────────────────────────── */
