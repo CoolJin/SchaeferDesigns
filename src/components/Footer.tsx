@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
-    <footer className="site-footer" style={{ display: 'block', padding: '80px 48px', background: 'var(--paper)', color: 'var(--ink)', borderTop: '1px solid var(--border)' }}>
+    <footer className="site-footer" style={{ display: 'block', padding: '80px 5%', background: 'var(--paper)', color: 'var(--ink)', borderTop: '1px solid var(--border)' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '60px' }}>
         
         {/* Column 1: Info */}

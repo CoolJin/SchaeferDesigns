@@ -141,7 +141,7 @@ export default function Home() {
       <TextMarquee />
 
       {/* ── ÜBER MICH ── */}
-      <section style={{ padding: '140px 48px', maxWidth: 1400, margin: '0 auto' }}>
+      <section style={{ padding: '140px 5%', maxWidth: 1400, margin: '0 auto' }}>
         <Reveal>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 40, alignItems: 'flex-start' }}>
             <div className="section-label" style={{ margin: 0 }}>// über mich</div>

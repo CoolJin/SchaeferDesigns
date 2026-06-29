@@ -62,7 +62,7 @@ export default function Contact() {
 
   return (
     <motion.div className="page-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
-      <div className="inner-hero" style={{ minHeight: '40vh', paddingBottom: 40 }}>
+      <div className="inner-hero" style={{ minHeight: '40vh', paddingBottom: 40, paddingLeft: '5%', paddingRight: '5%' }}>
         <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
           <div className="section-label">// lassen sie uns sprechen</div>
           <h1>Kontakt</h1>
@@ -70,7 +70,7 @@ export default function Contact() {
         </motion.div>
       </div>
 
-      <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 48px 80px', display: 'flex', flexDirection: 'column', gap: 40 }}>
+      <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 5% 80px', display: 'flex', flexDirection: 'column', gap: 40 }}>
         {/* Lange Hauptlinie unter dem Text */}
         <Reveal>
           <div style={{ width: '100%', height: '1px', backgroundColor: 'var(--border)' }}></div>
