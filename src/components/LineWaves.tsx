@@ -146,6 +146,7 @@ interface LineWavesProps {
   enableMouseInteraction?: boolean;
   mouseInfluence?: number;
   pause?: boolean;
+  simulateOnMobile?: boolean;
 }
 
 export default function LineWaves({
@@ -153,16 +154,17 @@ export default function LineWaves({
   innerLineCount = 32.0,
   outerLineCount = 36.0,
   warpIntensity = 1.0,
-  rotation = -45,
-  edgeFadeWidth = 0.0,
-  colorCycleSpeed = 1.0,
-  brightness = 0.2,
+  rotation = 0.0,
+  edgeFadeWidth = 0.15,
+  colorCycleSpeed = 0.5,
+  brightness = 1.0,
   color1 = '#ffffff',
   color2 = '#ffffff',
   color3 = '#ffffff',
   enableMouseInteraction = true,
   mouseInfluence = 1.0,
-  pause = false
+  pause = false,
+  simulateOnMobile = true
 }: LineWavesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const pauseRef = useRef(pause);
@@ -249,7 +251,7 @@ export default function LineWaves({
       if (program) {
         program.uniforms.uTime.value = t * 0.001;
         
-        if (isMobile && !enableMouseInteraction) {
+        if (isMobile && !enableMouseInteraction && simulateOnMobile) {
           autoTime += 0.02;
           const rect = container.getBoundingClientRect();
           const cx = rect.width / 2;
@@ -270,6 +272,10 @@ export default function LineWaves({
             currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1]);
             program.uniforms.uMouse.value[0] = currentMouse[0];
             program.uniforms.uMouse.value[1] = currentMouse[1];
+          } else {
+            // center mouse if no interaction and no simulation
+            program.uniforms.uMouse.value[0] = 0.5;
+            program.uniforms.uMouse.value[1] = 0.5;
           }
           setCursorPos(null);
         }
@@ -294,7 +300,7 @@ export default function LineWaves({
     <div
       ref={containerRef}
       className="line-waves-container"
-      style={{ width: '100%', height: '100%', position: 'relative' }}
+      style={{ width: '100%', height: '100%', position: 'relative', pointerEvents: enableMouseInteraction ? 'auto' : 'none' }}
     >
       {cursorPos && <SimulatedCursor x={cursorPos.x} y={cursorPos.y} />}
     </div>

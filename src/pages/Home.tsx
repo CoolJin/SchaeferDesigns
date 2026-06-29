@@ -84,6 +84,7 @@ export default function Home() {
               color3={isDark ? "#050505" : "#a0a0a0"}
               enableMouseInteraction={!isMobile}
               mouseInfluence={2.5}
+              simulateOnMobile={false}
             />
           </div>
         )}
