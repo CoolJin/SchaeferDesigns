@@ -94,6 +94,14 @@ export default function UIShowcase() {
   const kartenRef = useRef<HTMLDivElement>(null)
   const typografieRef = useRef<HTMLDivElement>(null)
   
+  const borderGlowRef = useRef<HTMLDivElement>(null)
+  const tiltedCardRef = useRef<HTMLDivElement>(null)
+  const chromaGridRef = useRef<HTMLDivElement>(null)
+  
+  const textPressureRef = useRef<HTMLDivElement>(null)
+  const trueFocusRef = useRef<HTMLDivElement>(null)
+  const scrambledTextRef = useRef<HTMLDivElement>(null)
+  
   const theme = useTheme()
   const isDark = theme === 'dark'
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -247,10 +255,10 @@ export default function UIShowcase() {
         {/* Cards & Hover Effects */}
         <Reveal delay={200}>
           <div ref={kartenRef} style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, overflow: 'hidden', background: 'var(--paper)', display: 'flex', flexDirection: 'column', minHeight: 320 }}>
-            <SimulatedMouse containerRef={kartenRef} />
             <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: 40 }}>Karten & Hover</h3>
             <div style={{ display: 'flex', gap: 40, flexWrap: 'wrap', alignItems: 'center', justifyContent: isMobile ? 'center' : 'flex-start' }}>
-              <div style={{ width: isMobile ? '100%' : 300, height: 300 }} className="cursor-target">
+              <div ref={borderGlowRef} style={{ position: 'relative', width: isMobile ? '100%' : 300, height: 300 }} className="cursor-target">
+                <SimulatedMouse containerRef={borderGlowRef} />
                 <BorderGlow
                   edgeSensitivity={30}
                   glowColor={isDark ? "0 0 100" : "0 0 0"}
@@ -259,7 +267,7 @@ export default function UIShowcase() {
                   glowRadius={60}
                   glowIntensity={2.0}
                   coneSpread={50}
-                  animated={true}
+                  animated={!isMobile}
                   colors={['#c084fc', '#f472b6', '#38bdf8']}
                 >
                   <div style={{
@@ -315,7 +323,8 @@ export default function UIShowcase() {
                 </BorderGlow>
               </div>
 
-              <div style={{ width: isMobile ? '100%' : 300 }}>
+              <div ref={tiltedCardRef} style={{ position: 'relative', width: isMobile ? '100%' : 300 }}>
+                <SimulatedMouse containerRef={tiltedCardRef} />
                 <TiltedCard
                   imageSrc={forestImg}
                   altText="Forest Landscape"
@@ -362,7 +371,8 @@ export default function UIShowcase() {
               </div>
 
               {/* ChromaGrid (Single Card) */}
-              <div style={{ width: isMobile ? '100%' : 300, height: 300 }} className="cursor-target">
+              <div ref={chromaGridRef} style={{ position: 'relative', width: isMobile ? '100%' : 300, height: 300 }} className="cursor-target">
+                <SimulatedMouse containerRef={chromaGridRef} />
                 <ChromaGrid 
                   items={[{
                     image: forestImg,
@@ -382,14 +392,16 @@ export default function UIShowcase() {
 
         {/* Typography */}
         <Reveal delay={400}>
-          <div ref={typografieRef} style={{ position: 'relative', padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', minHeight: 320, overflow: 'hidden' }}>
-            <SimulatedMouse containerRef={typografieRef} />
+        {/* Typography */}
+        <Reveal delay={400}>
+          <div ref={typografieRef} style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', minHeight: 320, overflow: 'hidden' }}>
             <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: 40 }}>Typografie</h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 60 }}>
               
               {/* TextPressure */}
-              <div style={{ position: 'relative', height: 'auto', maxWidth: '600px', width: '100%', margin: '0 auto' }}>
+              <div ref={textPressureRef} style={{ position: 'relative', height: 'auto', maxWidth: '600px', width: '100%', margin: '0 auto' }}>
+                <SimulatedMouse containerRef={textPressureRef} />
                 <TextPressure
                   text="DYNAMIK"
                   flex={true}
@@ -405,10 +417,11 @@ export default function UIShowcase() {
               </div>
 
               {/* TrueFocus */}
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div ref={trueFocusRef} style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+                <SimulatedMouse containerRef={trueFocusRef} />
                 <TrueFocus 
                   sentence="Fokus Behalten"
-                  manualMode={false}
+                  manualMode={true}
                   blurAmount={5}
                   borderColor="var(--accent)"
                   glowColor="rgba(255, 0, 0, 0.4)"
@@ -418,7 +431,8 @@ export default function UIShowcase() {
               </div>
 
               {/* ScrambledText */}
-              <div style={{ display: 'flex', justifyContent: 'center', textAlign: 'center', color: isDark ? '#fff' : '#000' }}>
+              <div ref={scrambledTextRef} style={{ position: 'relative', display: 'flex', justifyContent: 'center', textAlign: 'center', color: isDark ? '#fff' : '#000' }}>
+                <SimulatedMouse containerRef={scrambledTextRef} />
                 <ScrambledText
                   radius={80}
                   duration={1.2}

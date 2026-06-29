@@ -44,8 +44,8 @@ export default function SimulatedMouse({ containerRef }: { containerRef: React.R
       const cx = rect.width / 2;
       const cy = rect.height / 2;
       
-      const x = cx + Math.sin(time) * (rect.width * 0.45);
-      const y = cy + Math.sin(time * 1.5) * (rect.height * 0.45);
+      const x = cx + Math.sin(time) * (rect.width * 0.35);
+      const y = cy + Math.sin(time * 2) * (rect.height * 0.35);
 
       if (cursorRef.current) {
         cursorRef.current.style.transform = `translate(${x}px, ${y}px)`;
@@ -63,12 +63,16 @@ export default function SimulatedMouse({ containerRef }: { containerRef: React.R
       // Handle enter/leave
       if (el !== lastHoveredElement.current) {
         if (lastHoveredElement.current) {
-          lastHoveredElement.current.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true, cancelable: true, clientX, clientY }));
-          lastHoveredElement.current.dispatchEvent(new PointerEvent('pointerleave', { bubbles: true, cancelable: true, clientX, clientY }));
+          lastHoveredElement.current.dispatchEvent(new MouseEvent('mouseout', { bubbles: true, cancelable: true, clientX, clientY }));
+          lastHoveredElement.current.dispatchEvent(new MouseEvent('mouseleave', { bubbles: false, cancelable: true, clientX, clientY }));
+          lastHoveredElement.current.dispatchEvent(new PointerEvent('pointerout', { bubbles: true, cancelable: true, clientX, clientY }));
+          lastHoveredElement.current.dispatchEvent(new PointerEvent('pointerleave', { bubbles: false, cancelable: true, clientX, clientY }));
         }
         if (el) {
-          el.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true, cancelable: true, clientX, clientY }));
-          el.dispatchEvent(new PointerEvent('pointerenter', { bubbles: true, cancelable: true, clientX, clientY }));
+          el.dispatchEvent(new MouseEvent('mouseover', { bubbles: true, cancelable: true, clientX, clientY }));
+          el.dispatchEvent(new MouseEvent('mouseenter', { bubbles: false, cancelable: true, clientX, clientY }));
+          el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, cancelable: true, clientX, clientY }));
+          el.dispatchEvent(new PointerEvent('pointerenter', { bubbles: false, cancelable: true, clientX, clientY }));
         }
         lastHoveredElement.current = el;
       }
