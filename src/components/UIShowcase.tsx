@@ -392,8 +392,6 @@ export default function UIShowcase() {
 
         {/* Typography */}
         <Reveal delay={400}>
-        {/* Typography */}
-        <Reveal delay={400}>
           <div ref={typografieRef} style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', minHeight: 320, overflow: 'hidden' }}>
             <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: 40 }}>Typografie</h3>
             
