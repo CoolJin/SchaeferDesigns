@@ -643,7 +643,7 @@ export default function UIShowcase() {
           <Reveal delay={700}>
             <div className="wc13" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Letter Glitch</h3>
-              <HoverBackground hoverBg={isDark ? 'transparent' : '#cccccc'} simulateMouse={true}>
+              <HoverBackground hoverBg={isDark ? 'transparent' : '#cccccc'}>
                 <LetterGlitch isDark={isDark} glitchColors={isDark ? ['#2b4539', '#61dca3', '#61b3dc'] : ['#1a2a22', '#3a8a66', '#3a6b8a']} />
               </HoverBackground>
             </div>
