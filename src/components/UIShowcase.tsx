@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import forestDark from '../assets/forest-dark.png'
-import forestBright from '../assets/forest-bright.png'
 import Reveal from './Reveal'
 import GlassSurface from './GlassSurface'
 import LineWaves from './LineWaves'
@@ -22,6 +20,10 @@ import FloatingLines from './FloatingLines'
 import PixelBlast from './PixelBlast'
 import GridDistortion from './GridDistortion'
 import LetterGlitch from './LetterGlitch'
+
+// Images
+import forestDark from '../assets/forest-dark.png'
+import forestBright from '../assets/forest-bright.png'
 const HoverBackground = ({ children, hoverBg }: any) => {
   const [isHovered, setIsHovered] = useState(false)
   

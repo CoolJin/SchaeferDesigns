@@ -5,8 +5,6 @@ import Reveal from '../components/Reveal'
 import Footer from '../components/Footer'
 import TextPressure from '../components/TextPressure'
 import UIShowcase from '../components/UIShowcase'
-
-import logoBreit from '../assets/LogoBreit.svg'
 import LineWaves from '../components/LineWaves'
 import GlassSurface from '../components/GlassSurface'
 import TextMarquee from '../components/TextMarquee'
