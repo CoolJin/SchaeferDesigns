@@ -545,7 +545,7 @@ export default function UIShowcase() {
           <Reveal delay={600}>
             <div className="wc2" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Silk Flow</h3>
-              <HoverBackground simulateMouse={true}>
+              <HoverBackground>
                 <Silk
                     speed={5}
                     scale={1}

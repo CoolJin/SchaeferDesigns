@@ -485,10 +485,20 @@ const PixelBlast = ({
         uniforms.uClickTimes.value[ix] = uniforms.uTime.value;
         if (threeRef.current) threeRef.current.clickIx = (ix + 1) % MAX_CLICKS;
       };
+      let lastMoveClickTime = 0;
       const onPointerMove = e => {
-        if (!touch) return;
         const { fx, fy, w, h } = mapToPixels(e);
-        touch.addTouch({ x: fx / w, y: fy / h });
+        if (touch) touch.addTouch({ x: fx / w, y: fy / h });
+        
+        // Generate continuous ripples on move, throttled to avoid exhausting MAX_CLICKS instantly
+        const now = performance.now();
+        if (now - lastMoveClickTime > 150) {
+          lastMoveClickTime = now;
+          const ix = threeRef.current?.clickIx ?? 0;
+          uniforms.uClickPos.value[ix].set(fx, fy);
+          uniforms.uClickTimes.value[ix] = uniforms.uTime.value;
+          if (threeRef.current) threeRef.current.clickIx = (ix + 1) % MAX_CLICKS;
+        }
       };
       renderer.domElement.addEventListener('pointerdown', onPointerDown, {
         passive: true
