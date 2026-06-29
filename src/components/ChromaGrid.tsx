@@ -67,6 +67,30 @@ export const ChromaGrid = ({
     });
   };
 
+  useEffect(() => {
+    const isMobile = window.innerWidth <= 900;
+    if (!isMobile) return;
+    
+    let rafId: number;
+    let time = 0;
+    const animate = () => {
+      if (rootRef.current) {
+        time += 0.02;
+        const rect = rootRef.current.getBoundingClientRect();
+        const x = rect.width / 2 + Math.cos(time) * (rect.width / 3);
+        const y = rect.height / 2 + Math.sin(time) * (rect.height / 3);
+        moveTo(x, y);
+      }
+      rafId = requestAnimationFrame(animate);
+    };
+    animate();
+    
+    // Hide the fade layer for the simulation to be visible
+    gsap.to(fadeRef.current, { opacity: 0, duration: 0.25 });
+    
+    return () => cancelAnimationFrame(rafId);
+  }, []);
+
   const handleMove = (e: React.PointerEvent) => {
     if (!rootRef.current) return;
     const r = rootRef.current.getBoundingClientRect();

@@ -32,6 +32,14 @@ export default function Home() {
   const theme = useTheme()
   const isDark = theme === 'dark'
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 900)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
   // Fade out the scroll indicator on scroll
   useEffect(() => {
     const onScroll = () => {
@@ -59,7 +67,7 @@ export default function Home() {
     <motion.div className="page-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
 
       {/* ── HERO SECTION ── */}
-      <section className="hero-section" ref={heroRef} style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <section className="hero-section" ref={heroRef} style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', pointerEvents: isMobile ? 'none' : 'auto' }}>
         {heroVisible && (
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0, opacity: 0.5 }}>
             <LineWaves 
@@ -121,12 +129,12 @@ export default function Home() {
             </div>
           </div>
           
-          <div style={{ display: 'flex', gap: 24, justifyContent: 'center', marginTop: 60 }}>
-            <div className="cursor-target" style={{ width: 180, height: 56, borderRadius: 28, overflow: 'hidden', position: 'relative' }}>
+          <div style={{ display: 'flex', gap: 24, justifyContent: 'center', marginTop: 60, pointerEvents: 'auto' }}>
+            <div className="cursor-target" style={{ width: 180, height: 56, borderRadius: 28, overflow: 'hidden', position: 'relative', cursor: 'pointer' }}>
                <GlassSurface />
                <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Portfolio</div>
             </div>
-            <div className="cursor-target" style={{ width: 180, height: 56, borderRadius: 28, overflow: 'hidden', position: 'relative' }}>
+            <div className="cursor-target" style={{ width: 180, height: 56, borderRadius: 28, overflow: 'hidden', position: 'relative', cursor: 'pointer' }}>
                <GlassSurface />
                <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Kontakt</div>
             </div>

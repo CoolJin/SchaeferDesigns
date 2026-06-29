@@ -41,7 +41,9 @@ const HoverBackground = ({ children, hoverBg = 'transparent' }: { children: Reac
     if (!el) return
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsHovered(entry.isIntersecting)
+        if (!entry.isIntersecting) {
+          setIsHovered(false)
+        }
       },
       { rootMargin: '50px' }
     )
@@ -55,7 +57,15 @@ const HoverBackground = ({ children, hoverBg = 'transparent' }: { children: Reac
       style={{ width: '100%', height: '100%', position: 'absolute', inset: 0, cursor: 'crosshair', zIndex: 0 }}
       onMouseEnter={() => !isMobile && setIsHovered(true)}
       onMouseLeave={() => !isMobile && setIsHovered(false)}
+      onClick={() => isMobile && setIsHovered(prev => !prev)}
     >
+      {isMobile && !isHovered && (
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.5, pointerEvents: 'none' }}>
+          <div style={{ padding: '8px 16px', background: 'var(--paper)', border: '1px solid var(--border)', borderRadius: 100, fontSize: '0.8rem', fontFamily: 'var(--font-mono)' }}>
+            Tap to interact
+          </div>
+        </div>
+      )}
       <AnimatePresence>
         {isHovered && (
           <motion.div
@@ -162,7 +172,7 @@ export default function UIShowcase() {
                   color1={isDark ? "#ffffff" : "#000000"}
                   color2={isDark ? "#eeeeee" : "#111111"}
                   color3={isDark ? "#050505" : "#a0a0a0"}
-                  enableMouseInteraction={true}
+                  enableMouseInteraction={!isMobile}
                   mouseInfluence={2.5}
                   />
                 </div>
@@ -232,8 +242,8 @@ export default function UIShowcase() {
         <Reveal delay={300}>
           <div style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, overflow: 'hidden', background: 'var(--paper)', display: 'flex', flexDirection: 'column', minHeight: 320 }}>
             <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: 40 }}>Karten & Hover</h3>
-            <div style={{ display: 'flex', gap: 40, flexWrap: 'wrap', alignItems: 'center' }}>
-              <div style={{ width: 300, height: 300 }} className="cursor-target">
+            <div style={{ display: 'flex', gap: 40, flexWrap: 'wrap', alignItems: 'center', justifyContent: isMobile ? 'center' : 'flex-start' }}>
+              <div style={{ width: isMobile ? '100%' : 300, height: 300 }} className="cursor-target">
                 <BorderGlow
                   edgeSensitivity={30}
                   glowColor={isDark ? "0 0 100" : "0 0 0"}
@@ -298,15 +308,15 @@ export default function UIShowcase() {
                 </BorderGlow>
               </div>
 
-              <div>
+              <div style={{ width: isMobile ? '100%' : 300 }}>
                 <TiltedCard
                   imageSrc={forestImg}
                   altText="Forest Landscape"
                   captionText=""
                   containerHeight="300px"
-                  containerWidth="300px"
+                  containerWidth="100%"
                   imageHeight="300px"
-                  imageWidth="300px"
+                  imageWidth="100%"
                   rotateAmplitude={12}
                   scaleOnHover={1.1}
                   showMobileWarning={false}
@@ -345,7 +355,7 @@ export default function UIShowcase() {
               </div>
 
               {/* ChromaGrid (Single Card) */}
-              <div style={{ width: 300, height: 300 }} className="cursor-target">
+              <div style={{ width: isMobile ? '100%' : 300, height: 300 }} className="cursor-target">
                 <ChromaGrid 
                   items={[{
                     image: forestImg,
