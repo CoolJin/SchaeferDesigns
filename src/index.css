@@ -592,3 +592,9 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
     flex-shrink: 0;
   }
 }
+
+.hero-pressure {
+  display: flex !important;
+  justify-content: center !important;
+  gap: clamp(4px, 1.5vw, 16px);
+}
