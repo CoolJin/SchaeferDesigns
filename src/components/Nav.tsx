@@ -162,6 +162,7 @@ export default function Nav() {
                   key={l.to}
                   to={l.to}
                   end={l.to === '/'}
+                  onClick={() => setIsOpen(false)}
                   className={({ isActive }) => `mobile-nav-link${isActive ? ' active' : ''}`}
                 >
                   {l.label}

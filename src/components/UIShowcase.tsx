@@ -52,11 +52,22 @@ const HoverBackground = ({ children, hoverBg }: any) => {
 
 export default function UIShowcase() {
   const [buttonsHovered, setButtonsHovered] = useState(false)
-    const [isInView, setIsInView] = useState(false)
+  const [isInView, setIsInView] = useState(false)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
   const sectionRef = useRef<HTMLDivElement>(null)
   const proximityRef = useRef<HTMLDivElement>(null)
   const theme = useTheme()
   const isDark = theme === 'dark'
+  
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 900)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  useEffect(() => {
+    if (isMobile) setButtonsHovered(isInView)
+  }, [isMobile, isInView])
   
   const forestImg = isDark ? forestDark : forestBright
 
@@ -135,9 +146,9 @@ export default function UIShowcase() {
               </div>
             )}
 
-            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%', alignItems: isMobile ? 'center' : 'flex-start', textAlign: isMobile ? 'center' : 'left' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: 40 }}>Buttons & Actions</h3>
-              <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'center' }}>
+              <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'center', justifyContent: isMobile ? 'center' : 'flex-start' }}>
                 <button className="btn cursor-target"><span>Primary Button</span></button>
                 <button className="btn btn-outline cursor-target"><span>Outline Button</span></button>
 
@@ -422,9 +433,14 @@ export default function UIShowcase() {
 
         <div style={{ padding: '60px 0' }}>
           <div style={{ position: 'relative', padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-            <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: 40 }}>Hintergründe</h3>
+            <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: 10 }}>Hintergründe</h3>
+            {isMobile && (
+              <p style={{ opacity: 0.6, fontSize: '0.9rem', marginBottom: 30 }}>
+                Tippen oder wischen, um Effekte zu sehen.
+              </p>
+            )}
         
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 40 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: 40 }}>
           {/* Background 1: Silk */}
           <Reveal delay={600}>
             <div className="wc2" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
