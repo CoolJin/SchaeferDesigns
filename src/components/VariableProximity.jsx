@@ -18,6 +18,42 @@ function useMousePositionRef(containerRef) {
   const positionRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
+    const isMobile = window.innerWidth <= 900;
+    
+    if (isMobile) {
+      let animationFrameId;
+      let time = 0;
+      
+      const simulateMouse = () => {
+        time += 0.02;
+        if (containerRef?.current) {
+          const rect = containerRef.current.getBoundingClientRect();
+          // Simulate mouse moving back and forth across the container
+          const x = (Math.sin(time) * 0.5 + 0.5) * rect.width;
+          const y = rect.height / 2;
+          positionRef.current = { x, y };
+        }
+        animationFrameId = requestAnimationFrame(simulateMouse);
+      };
+
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          animationFrameId = requestAnimationFrame(simulateMouse);
+        } else {
+          cancelAnimationFrame(animationFrameId);
+        }
+      }, { rootMargin: '50px' });
+
+      if (containerRef?.current) {
+        observer.observe(containerRef.current);
+      }
+
+      return () => {
+        cancelAnimationFrame(animationFrameId);
+        observer.disconnect();
+      };
+    }
+
     const updatePosition = (x, y) => {
       if (containerRef?.current) {
         const rect = containerRef.current.getBoundingClientRect();

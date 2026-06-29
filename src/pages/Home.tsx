@@ -112,7 +112,7 @@ export default function Home() {
               imgStyle={{ filter: isDark ? 'invert(1)' : 'none', maxWidth: '90vw' }}
             />
           </div>
-          <div style={{ marginBottom: 40, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+          <div style={{ marginBottom: 40, width: '100%', padding: '0 5%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
             <div style={{ width: '100%', maxWidth: 420 }}>
               <TextPressure text="DESIGN" flex={true} alpha={false} stroke={false} width={true} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
             </div>
@@ -142,7 +142,7 @@ export default function Home() {
       <TextMarquee />
 
       {/* ── ÜBER MICH ── */}
-      <section style={{ padding: '140px 5%', maxWidth: 1400, margin: '0 auto' }}>
+      <section style={{ padding: 'clamp(60px, 10vw, 140px) 5%', maxWidth: 1400, margin: '0 auto' }}>
         <Reveal>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 40, alignItems: 'flex-start' }}>
             <div className="section-label" style={{ margin: 0 }}>// über mich</div>

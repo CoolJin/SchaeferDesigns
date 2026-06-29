@@ -24,14 +24,37 @@ import LetterGlitch from './LetterGlitch'
 // Images
 import forestDark from '../assets/forest-dark.png'
 import forestBright from '../assets/forest-bright.png'
-const HoverBackground = ({ children, hoverBg }: any) => {
+const HoverBackground = ({ children, hoverBg = 'transparent' }: { children: React.ReactNode, hoverBg?: string }) => {
   const [isHovered, setIsHovered] = useState(false)
-  
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 900)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  useEffect(() => {
+    if (!isMobile) return
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHovered(entry.isIntersecting)
+      },
+      { rootMargin: '50px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [isMobile])
+
   return (
     <div 
+      ref={ref}
       style={{ width: '100%', height: '100%', position: 'absolute', inset: 0, cursor: 'crosshair', zIndex: 0 }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => !isMobile && setIsHovered(true)}
+      onMouseLeave={() => !isMobile && setIsHovered(false)}
     >
       <AnimatePresence>
         {isHovered && (
@@ -85,7 +108,7 @@ export default function UIShowcase() {
   }, [])
 
   return (
-    <section style={{ padding: '120px 48px', maxWidth: 1400, margin: '0 auto' }}>
+    <section style={{ padding: 'clamp(60px, 10vw, 120px) 5%', maxWidth: 1400, margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 60, flexWrap: 'wrap', gap: 40 }}>
         <Reveal>
           <div className="section-label">// Design & Code Möglichkeiten</div>
@@ -179,25 +202,26 @@ export default function UIShowcase() {
 
                 {/* Gradient Glow Button */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start', marginTop: 12 }}>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Gradient Glow</span>
                   <ButtonColorful label="Explore Components" />
                 </div>
 
-                {/* Magnetic Button */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start', marginTop: 12 }}>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Magnetic Spring</span>
-                  <MagneticButton distance={0.7}>
-                    <button className="cursor-target" style={{ background: 'var(--ink)', color: 'var(--paper)', border: 'none', padding: '14px 32px', borderRadius: 100, fontSize: '0.95rem', fontWeight: 600, cursor: 'none', letterSpacing: '0.02em', whiteSpace: 'nowrap' }}>
-                      Magnetic Button
-                    </button>
-                  </MagneticButton>
-                </div>
+                {/* Magnetic Button - hidden on mobile */}
+                {!isMobile && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start', marginTop: 12 }}>
+                    <MagneticButton distance={0.7}>
+                      <button className="cursor-target" style={{ background: 'var(--ink)', color: 'var(--paper)', border: 'none', padding: '14px 32px', borderRadius: 100, fontSize: '0.95rem', fontWeight: 600, cursor: 'none', letterSpacing: '0.02em', whiteSpace: 'nowrap' }}>
+                        Magnetic Button
+                      </button>
+                    </MagneticButton>
+                  </div>
+                )}
 
-                {/* Sliding Chevron Button */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start', marginTop: 12 }}>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Sliding Reveal</span>
-                  <GetStartedButton label="Get Started" />
-                </div>
+                {/* Sliding Chevron Button - hidden on mobile */}
+                {!isMobile && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start', marginTop: 12 }}>
+                    <GetStartedButton label="Get Started" />
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -389,7 +413,7 @@ export default function UIShowcase() {
               </div>
 
               {/* RotatingText */}
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '2rem', fontWeight: 800 }}>
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 'clamp(1.2rem, 5vw, 2rem)', fontWeight: 800, whiteSpace: 'nowrap' }}>
                 <span>Modernes </span>
                 <RotatingText
                   texts={['Design', 'Layout', 'Branding', 'Web']}
@@ -433,10 +457,10 @@ export default function UIShowcase() {
 
         <div style={{ padding: '60px 0' }}>
           <div style={{ position: 'relative', padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-            <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: 10 }}>Hintergründe</h3>
+            <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: 10, textAlign: isMobile ? 'center' : 'left' }}>Hintergründe</h3>
             {isMobile && (
-              <p style={{ opacity: 0.6, fontSize: '0.9rem', marginBottom: 30 }}>
-                Tippen oder wischen, um Effekte zu sehen.
+              <p style={{ opacity: 0.6, fontSize: '0.9rem', marginBottom: 30, textAlign: 'center' }}>
+                Tippen Sie auf die Karten, um die Hintergründe aufzudecken.
               </p>
             )}
         
@@ -444,7 +468,7 @@ export default function UIShowcase() {
           {/* Background 1: Silk */}
           <Reveal delay={600}>
             <div className="wc2" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
-              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10 }}>Silk Flow</h3>
+              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Silk Flow</h3>
               <HoverBackground>
                 <Silk
                     speed={5}
@@ -460,7 +484,7 @@ export default function UIShowcase() {
           {/* Background 2: Floating Lines */}
           <Reveal delay={700}>
             <div className="wc3" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
-              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10 }}>Floating Lines</h3>
+              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Floating Lines</h3>
               <HoverBackground>
                 <FloatingLines isDark={isDark}
                     enabledWaves={['top', 'middle', 'bottom']}
@@ -480,7 +504,7 @@ export default function UIShowcase() {
           {/* Background 3: Pixel Blast */}
           <Reveal delay={800}>
             <div className="wc4" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
-              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10 }}>Pixel Blast</h3>
+              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Pixel Blast</h3>
               <HoverBackground hoverBg={isDark ? 'transparent' : '#cccccc'}>
                 <PixelBlast
                     variant="circle"
@@ -508,7 +532,7 @@ export default function UIShowcase() {
           {/* Background 4: Line Waves */}
           <Reveal delay={900}>
             <div className="wc5" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
-              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10 }}>Line Waves</h3>
+              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Line Waves</h3>
               <HoverBackground>
                 <LineWaves
                     speed={0.15}
@@ -532,7 +556,7 @@ export default function UIShowcase() {
           {/* Background 5: Grid Distortion */}
           <Reveal delay={600}>
             <div className="wc11" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
-              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10 }}>Grid Distortion</h3>
+              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Grid Distortion</h3>
               <HoverBackground>
                 <GridDistortion imageSrc={forestImg} />
               </HoverBackground>
@@ -542,7 +566,7 @@ export default function UIShowcase() {
           {/* Background 6: Letter Glitch */}
           <Reveal delay={700}>
             <div className="wc13" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
-              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10 }}>Letter Glitch</h3>
+              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Letter Glitch</h3>
               <HoverBackground hoverBg={isDark ? 'transparent' : '#cccccc'}>
                 <LetterGlitch isDark={isDark} glitchColors={isDark ? ['#2b4539', '#61dca3', '#61b3dc'] : ['#1a2a22', '#3a8a66', '#3a6b8a']} />
               </HoverBackground>

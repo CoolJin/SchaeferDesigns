@@ -50,33 +50,7 @@ const TargetCursor = ({
   }, []);
 
   useEffect(() => {
-    if (isMobile) {
-      let animationFrameId: number;
-      let time = 0;
-      
-      const simulateMouse = () => {
-        time += 0.015;
-        const x = window.innerWidth / 2 + Math.sin(time) * (window.innerWidth * 0.4);
-        const y = window.innerHeight / 2 + Math.cos(time * 0.8) * (window.innerHeight * 0.2);
-        
-        const target = document.elementFromPoint(x, y) || document.body;
-        
-        target.dispatchEvent(new MouseEvent('mousemove', {
-          clientX: x, clientY: y, bubbles: true, cancelable: true
-        }));
-        
-        target.dispatchEvent(new PointerEvent('pointermove', {
-          clientX: x, clientY: y, bubbles: true, cancelable: true
-        }));
-        
-        animationFrameId = requestAnimationFrame(simulateMouse);
-      };
-      
-      animationFrameId = requestAnimationFrame(simulateMouse);
-      return () => cancelAnimationFrame(animationFrameId);
-    }
-
-    if (!cursorRef.current) return;
+    if (!cursorRef.current || isMobile) return;
 
     const originalCursor = document.body.style.cursor;
     if (hideDefaultCursor) {
