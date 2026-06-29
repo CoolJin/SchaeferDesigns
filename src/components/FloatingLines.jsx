@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
-import SimulatedCursor from './SimulatedCursor';
+import { useEffect, useRef } from 'react';
 import {
   Clock,
   Mesh,
@@ -247,7 +246,6 @@ export default function FloatingLines({ isDark = true,
 }) {
   const containerRef = useRef(null);
   const targetMouseRef = useRef(new Vector2(-1000, -1000));
-  const cursorRef = useRef(null);
   const currentMouseRef = useRef(new Vector2(-1000, -1000));
   const targetInfluenceRef = useRef(0);
   const currentInfluenceRef = useRef(0);
@@ -424,26 +422,6 @@ export default function FloatingLines({ isDark = true,
 
       uniforms.iTime.value = clock.getElapsedTime();
 
-      const isMobile = window.innerWidth <= 900;
-      if (isMobile && interactive) {
-         const rect = renderer.domElement.getBoundingClientRect();
-         const cx = rect.width / 2;
-         const cy = rect.height / 2;
-         const sx = cx + Math.cos(uniforms.iTime.value) * (rect.width / 3);
-         const sy = cy + Math.sin(uniforms.iTime.value * 1.5) * (rect.height / 3);
-         const dpr = renderer.getPixelRatio();
-         targetMouseRef.current.set(sx * dpr, (rect.height - sy) * dpr);
-         targetInfluenceRef.current = 1.0;
-         if (cursorRef.current) {
-           cursorRef.current.style.transform = `translate(${sx}px, ${sy}px)`;
-           cursorRef.current.style.opacity = '1';
-         }
-      } else if (!isMobile) {
-        if (cursorRef.current) {
-          cursorRef.current.style.opacity = '0';
-        }
-      }
-
       if (interactive) {
         currentMouseRef.current.lerp(targetMouseRef.current, mouseDamping);
         uniforms.iMouse.value.copy(currentMouseRef.current);
@@ -506,13 +484,8 @@ export default function FloatingLines({ isDark = true,
       ref={containerRef}
       className="floating-lines-container"
       style={{
-        mixBlendMode: mixBlendMode,
-        position: 'relative',
-        width: '100%',
-        height: '100%'
+        mixBlendMode: mixBlendMode
       }}
-    >
-      <SimulatedCursor cursorRef={cursorRef} />
-    </div>
+    />
   );
 }

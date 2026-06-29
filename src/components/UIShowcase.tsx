@@ -24,7 +24,8 @@ import LetterGlitch from './LetterGlitch'
 // Images
 import forestDark from '../assets/forest-dark.png'
 import forestBright from '../assets/forest-bright.png'
-const HoverBackground = ({ children, hoverBg = 'transparent', isActive, onToggle }: { children: React.ReactNode, hoverBg?: string, isActive: boolean, onToggle: () => void }) => {
+const HoverBackground = ({ children, hoverBg = 'transparent' }: { children: React.ReactNode, hoverBg?: string }) => {
+  const [isHovered, setIsHovered] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -40,8 +41,8 @@ const HoverBackground = ({ children, hoverBg = 'transparent', isActive, onToggle
     if (!el) return
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting && isActive) {
-          onToggle() // Turn off if it scrolls out of view
+        if (!entry.isIntersecting) {
+          setIsHovered(false)
         }
       },
       { rootMargin: '50px' }
@@ -54,19 +55,19 @@ const HoverBackground = ({ children, hoverBg = 'transparent', isActive, onToggle
     <div 
       ref={ref}
       style={{ width: '100%', height: '100%', position: 'absolute', inset: 0, cursor: 'crosshair', zIndex: 0 }}
-      onMouseEnter={() => !isMobile && !isActive && onToggle()}
-      onMouseLeave={() => !isMobile && isActive && onToggle()}
-      onClick={() => isMobile && onToggle()}
+      onMouseEnter={() => !isMobile && setIsHovered(true)}
+      onMouseLeave={() => !isMobile && setIsHovered(false)}
+      onClick={() => isMobile && setIsHovered(prev => !prev)}
     >
-      {isMobile && !isActive && (
+      {isMobile && !isHovered && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.5, pointerEvents: 'none' }}>
-          <div style={{ padding: '8px 16px', background: 'var(--paper)', border: '1px solid var(--border)', borderRadius: 100, fontSize: '0.8rem', fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>
-            Zum Aktivieren antippen
+          <div style={{ padding: '8px 16px', background: 'var(--paper)', border: '1px solid var(--border)', borderRadius: 100, fontSize: '0.8rem', fontFamily: 'var(--font-mono)' }}>
+            Tap to interact
           </div>
         </div>
       )}
       <AnimatePresence>
-        {isActive && (
+        {isHovered && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -83,7 +84,7 @@ const HoverBackground = ({ children, hoverBg = 'transparent', isActive, onToggle
 }
 
 export default function UIShowcase() {
-  const [activeBgId, setActiveBgId] = useState<number | null>(null);
+  const [buttonsHovered, setButtonsHovered] = useState(false)
   const [isInView, setIsInView] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -478,10 +479,7 @@ export default function UIShowcase() {
           <Reveal delay={600}>
             <div className="wc2" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Silk Flow</h3>
-              <HoverBackground
-                isActive={activeBgId === 1}
-                onToggle={() => setActiveBgId(activeBgId === 1 ? null : 1)}
-              >
+              <HoverBackground>
                 <Silk
                     speed={5}
                     scale={1}
@@ -497,10 +495,7 @@ export default function UIShowcase() {
           <Reveal delay={700}>
             <div className="wc3" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Floating Lines</h3>
-              <HoverBackground
-                isActive={activeBgId === 2}
-                onToggle={() => setActiveBgId(activeBgId === 2 ? null : 2)}
-              >
+              <HoverBackground>
                 <FloatingLines isDark={isDark}
                     enabledWaves={['top', 'middle', 'bottom']}
                     lineCount={[10, 15, 20]}
@@ -520,11 +515,7 @@ export default function UIShowcase() {
           <Reveal delay={800}>
             <div className="wc4" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Pixel Blast</h3>
-              <HoverBackground 
-                hoverBg={isDark ? 'transparent' : '#cccccc'}
-                isActive={activeBgId === 3}
-                onToggle={() => setActiveBgId(activeBgId === 3 ? null : 3)}
-              >
+              <HoverBackground hoverBg={isDark ? 'transparent' : '#cccccc'}>
                 <PixelBlast
                     variant="circle"
                     pixelSize={6}
@@ -552,10 +543,7 @@ export default function UIShowcase() {
           <Reveal delay={900}>
             <div className="wc5" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Line Waves</h3>
-              <HoverBackground
-                isActive={activeBgId === 4}
-                onToggle={() => setActiveBgId(activeBgId === 4 ? null : 4)}
-              >
+              <HoverBackground>
                 <LineWaves
                     speed={0.15}
                     innerLineCount={32}
@@ -579,10 +567,7 @@ export default function UIShowcase() {
           <Reveal delay={600}>
             <div className="wc11" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Grid Distortion</h3>
-              <HoverBackground
-                isActive={activeBgId === 5}
-                onToggle={() => setActiveBgId(activeBgId === 5 ? null : 5)}
-              >
+              <HoverBackground>
                 <GridDistortion imageSrc={forestImg} />
               </HoverBackground>
             </div>
@@ -592,11 +577,7 @@ export default function UIShowcase() {
           <Reveal delay={700}>
             <div className="wc13" style={{ padding: 60, border: '1.5px solid var(--border)', borderRadius: 24, background: 'var(--paper)', display: 'flex', flexDirection: 'column', aspectRatio: '1 / 1', overflow: 'hidden', position: 'relative' }}>
               <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, position: 'relative', zIndex: 10, textAlign: isMobile ? 'center' : 'left' }}>Letter Glitch</h3>
-              <HoverBackground 
-                hoverBg={isDark ? 'transparent' : '#cccccc'}
-                isActive={activeBgId === 6}
-                onToggle={() => setActiveBgId(activeBgId === 6 ? null : 6)}
-              >
+              <HoverBackground hoverBg={isDark ? 'transparent' : '#cccccc'}>
                 <LetterGlitch isDark={isDark} glitchColors={isDark ? ['#2b4539', '#61dca3', '#61b3dc'] : ['#1a2a22', '#3a8a66', '#3a6b8a']} />
               </HoverBackground>
             </div>

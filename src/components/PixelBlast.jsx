@@ -1,6 +1,5 @@
 import { Effect, EffectComposer, EffectPass, RenderPass } from 'postprocessing';
-import { useEffect, useRef, useState } from 'react';
-import SimulatedCursor from './SimulatedCursor';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import './PixelBlast.css';
 
@@ -329,7 +328,6 @@ const PixelBlast = ({
   const containerRef = useRef(null);
   const visibilityRef = useRef({ visible: true });
   const speedRef = useRef(speed);
-  const cursorRef = useRef(null);
 
   const threeRef = useRef(null);
   const prevConfigRef = useRef(null);
@@ -499,7 +497,6 @@ const PixelBlast = ({
         passive: true
       });
       let raf = 0;
-      let autoTime = 0;
       const animate = () => {
         if (autoPauseOffscreen && !visibilityRef.current.visible) {
           raf = requestAnimationFrame(animate);
@@ -507,25 +504,6 @@ const PixelBlast = ({
         }
         uniforms.uTime.value = timeOffset + clock.getElapsedTime() * speedRef.current;
         if (liquidEffect) liquidEffect.uniforms.get('uTime').value = uniforms.uTime.value;
-        
-        const isMobile = window.innerWidth <= 900;
-        if (isMobile) {
-          autoTime += 0.02;
-          const sx = window.innerWidth / 2 + Math.cos(clock.getElapsedTime()) * window.innerWidth / 3;
-          const sy = window.innerHeight / 2 + Math.sin(clock.getElapsedTime() * 1.5) * window.innerHeight / 3;
-          
-          if (touch) touch.addTouch({ x: sx / window.innerWidth, y: sy / window.innerHeight });
-          
-          if (cursorRef.current) {
-            cursorRef.current.style.transform = `translate(${sx}px, ${sy}px)`;
-            cursorRef.current.style.opacity = '1';
-          }
-        } else {
-          if (cursorRef.current) {
-            cursorRef.current.style.opacity = '0';
-          }
-        }
-
         if (composer) {
           if (touch) touch.update();
           composer.passes.forEach(p => {
@@ -621,12 +599,10 @@ const PixelBlast = ({
   return (
     <div
       ref={containerRef}
-      className={`pixel-blast-container ${className || ''}`}
-      style={{ ...style, position: 'relative' }}
+      className={`pixel-blast-container ${className ?? ''}`}
+      style={style}
       aria-label="PixelBlast interactive background"
-    >
-      <SimulatedCursor cursorRef={cursorRef} />
-    </div>
+    />
   );
 };
 

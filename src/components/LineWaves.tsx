@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
-import SimulatedCursor from './SimulatedCursor';
+import { useEffect, useRef } from 'react';
+
 import './LineWaves.css';
 
 function hexToVec3(hex: string) {
@@ -131,44 +131,24 @@ void main() {
 }
 `;
 
-interface LineWavesProps {
-  speed?: number;
-  innerLineCount?: number;
-  outerLineCount?: number;
-  warpIntensity?: number;
-  rotation?: number;
-  edgeFadeWidth?: number;
-  colorCycleSpeed?: number;
-  brightness?: number;
-  color1?: string;
-  color2?: string;
-  color3?: string;
-  enableMouseInteraction?: boolean;
-  mouseInfluence?: number;
-  pause?: boolean;
-  simulateOnMobile?: boolean;
-}
-
 export default function LineWaves({
   speed = 0.3,
   innerLineCount = 32.0,
   outerLineCount = 36.0,
   warpIntensity = 1.0,
-  rotation = 0.0,
-  edgeFadeWidth = 0.15,
-  colorCycleSpeed = 0.5,
-  brightness = 1.0,
+  rotation = -45,
+  edgeFadeWidth = 0.0,
+  colorCycleSpeed = 1.0,
+  brightness = 0.2,
   color1 = '#ffffff',
   color2 = '#ffffff',
   color3 = '#ffffff',
   enableMouseInteraction = true,
-  mouseInfluence = 1.0,
-  pause = false,
-  simulateOnMobile = true
-}: LineWavesProps) {
+  mouseInfluence = 2.0,
+  pause = false
+}: any) {
   const containerRef = useRef<HTMLDivElement>(null);
   const pauseRef = useRef(pause);
-  const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     pauseRef.current = pause;
@@ -239,77 +219,39 @@ export default function LineWaves({
       window.addEventListener('mouseleave', handleMouseLeave);
     }
 
-    let rafId: number;
-    let autoTime = 0;
-    
-    function update(t: number) {
-      rafId = requestAnimationFrame(update);
-      if (pauseRef.current) return;
+    let animationFrameId: number;
 
-      const isMobile = window.innerWidth <= 900;
-      
-      if (program) {
-        program.uniforms.uTime.value = t * 0.001;
-        
-        if (isMobile && !enableMouseInteraction && simulateOnMobile) {
-          autoTime += 0.02;
-          const rect = container.getBoundingClientRect();
-          const cx = rect.width / 2;
-          const cy = rect.height / 2;
-          const rx = rect.width / 3;
-          const ry = rect.height / 3;
-          
-          const sx = cx + Math.cos(autoTime) * rx;
-          const sy = cy + Math.sin(autoTime * 1.5) * ry;
-          
-          program.uniforms.uMouse.value[0] = sx / rect.width;
-          program.uniforms.uMouse.value[1] = 1.0 - (sy / rect.height);
-          
-          if (cursorRef.current) {
-            cursorRef.current.style.transform = `translate(${sx}px, ${sy}px)`;
-            cursorRef.current.style.opacity = '1';
-          }
-        } else {
-          if (enableMouseInteraction) {
-            currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0]);
-            currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1]);
-            program.uniforms.uMouse.value[0] = currentMouse[0];
-            program.uniforms.uMouse.value[1] = currentMouse[1];
-          } else {
-            // center mouse if no interaction and no simulation
-            program.uniforms.uMouse.value[0] = 0.5;
-            program.uniforms.uMouse.value[1] = 0.5;
-          }
-          if (cursorRef.current) {
-            cursorRef.current.style.opacity = '0';
-          }
-        }
+    function update(time: number) {
+      animationFrameId = requestAnimationFrame(update);
+      if (pauseRef.current) return; // Skip updating and rendering if paused
+
+      program.uniforms.uTime.value = time * 0.001;
+
+      if (enableMouseInteraction) {
+        currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0]);
+        currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1]);
+        program.uniforms.uMouse.value[0] = currentMouse[0];
+        program.uniforms.uMouse.value[1] = currentMouse[1];
+      } else {
+        program.uniforms.uMouse.value[0] = 0.5;
+        program.uniforms.uMouse.value[1] = 0.5;
       }
+
       renderer.render({ scene: mesh });
     }
-    rafId = requestAnimationFrame(update);
+    animationFrameId = requestAnimationFrame(update);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', resize);
       if (enableMouseInteraction) {
         window.removeEventListener('mousemove', handleMouseMove);
         window.removeEventListener('mouseleave', handleMouseLeave);
       }
-      if (container.contains(gl.canvas)) {
-        container.removeChild(gl.canvas);
-      }
+      container.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
   }, [speed, innerLineCount, outerLineCount, warpIntensity, rotation, edgeFadeWidth, colorCycleSpeed, brightness, color1, color2, color3, enableMouseInteraction, mouseInfluence]);
 
-  return (
-    <div
-      ref={containerRef}
-      className="line-waves-container"
-      style={{ width: '100%', height: '100%', position: 'relative', pointerEvents: enableMouseInteraction ? 'auto' : 'none' }}
-    >
-      <SimulatedCursor cursorRef={cursorRef} />
-    </div>
-  );
+  return <div ref={containerRef} className="line-waves-container" />;
 }

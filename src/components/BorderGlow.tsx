@@ -1,5 +1,4 @@
-import React, { useRef, useCallback, useEffect, useState } from 'react';
-import SimulatedCursor from './SimulatedCursor';
+import React, { useRef, useCallback, useEffect } from 'react';
 import './BorderGlow.css';
 
 interface BorderGlowProps {
@@ -90,8 +89,6 @@ const BorderGlow = ({
 }: BorderGlowProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
-  const [cursorPos, setCursorPos] = useState<{ x: number; y: number } | null>(null);
-
   const getCenterOfElement = useCallback((el: HTMLElement) => {
     const { width, height } = el.getBoundingClientRect();
     return [width / 2, height / 2];
@@ -146,19 +143,9 @@ const BorderGlow = ({
       card.style.setProperty('--edge-proximity', '100');
       
       const loop = () => {
-        if (!cardRef.current) return;
-        const cRect = cardRef.current.getBoundingClientRect();
         time += 0.02;
         const angle = (time * 50) % 360;
         card.style.setProperty('--cursor-angle', `${angle}deg`);
-        
-        // Calculate fake cursor x,y on edge
-        const rad = (angle - 90) * (Math.PI / 180);
-        const radius = Math.min(cRect.width, cRect.height) / 2;
-        const cx = cRect.width / 2;
-        const cy = cRect.height / 2;
-        setCursorPos({ x: cx + Math.cos(rad) * radius, y: cy + Math.sin(rad) * radius });
-        
         rafId = requestAnimationFrame(loop);
       };
       loop();
@@ -206,7 +193,6 @@ const BorderGlow = ({
       <div className="border-glow-inner">
         {children}
       </div>
-      {cursorPos && <SimulatedCursor x={cursorPos.x} y={cursorPos.y} />}
     </div>
   );
 };
