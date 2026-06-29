@@ -51,6 +51,7 @@ const HoverBackground = ({ children, hoverBg = 'transparent', simulateMouse = fa
 
   useEffect(() => {
     const handleGlobalClick = (e: any) => {
+      if (!e.isTrusted) return;
       if (ref.current && !ref.current.contains(e.target)) {
         setIsHovered(false);
       }
@@ -78,8 +79,9 @@ const HoverBackground = ({ children, hoverBg = 'transparent', simulateMouse = fa
     return () => observer.disconnect()
   }, [isMobile])
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
     if (!isMobile) return;
+    if (!e.isTrusted) return;
     setIsHovered(prev => {
       const next = !prev;
       if (next) window.dispatchEvent(new CustomEvent('close-other-backgrounds', { detail: id }));
