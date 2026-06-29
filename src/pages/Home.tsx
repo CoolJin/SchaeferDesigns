@@ -82,7 +82,7 @@ export default function Home() {
               color1={isDark ? "#ffffff" : "#000000"}
               color2={isDark ? "#eeeeee" : "#111111"}
               color3={isDark ? "#050505" : "#a0a0a0"}
-              enableMouseInteraction={true}
+              enableMouseInteraction={!isMobile}
               mouseInfluence={2.5}
             />
           </div>

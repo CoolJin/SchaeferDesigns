@@ -40,7 +40,7 @@ export default function Process() {
         </motion.div>
       </div>
 
-      <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 48px 120px' }}>
+      <div style={{ maxWidth: 1000, margin: '0 auto', padding: window.innerWidth <= 900 ? '0 24px 80px' : '0 48px 120px' }}>
         <div className="process-list">
           {STEPS.map((s, i) => (
             <Reveal key={s.n} delay={i * 80}>
@@ -60,16 +60,15 @@ export default function Process() {
               </div>
             </Reveal>
           ))}
-        </div>
       </div>
 
       {/* Dark CTA */}
-      <section className="process-section" style={{ padding: '80px 48px' }}>
-        <div className="process-inner" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h2 style={{ fontSize: 'clamp(2rem,4vw,4rem)', fontWeight: 900, letterSpacing: '-.04em' }}>
+      <section className="process-section" style={{ padding: window.innerWidth <= 900 ? '40px 24px' : '80px 48px' }}>
+        <div className="process-inner" style={{ display: 'flex', flexDirection: window.innerWidth <= 900 ? 'column' : 'row', justifyContent: 'space-between', alignItems: window.innerWidth <= 900 ? 'center' : 'center', textAlign: window.innerWidth <= 900 ? 'center' : 'left', gap: window.innerWidth <= 900 ? 30 : 0 }}>
+          <h2 style={{ fontSize: 'clamp(2rem,4vw,4rem)', fontWeight: 900, letterSpacing: '-.04em', lineHeight: 1.1 }}>
             Bereit<br />loszulegen?
           </h2>
-          <a href="/contact" className="btn" style={{ background: 'transparent', border: '1.5px solid rgba(255,255,255,.25)', color: 'var(--paper)' }}>
+          <a href="/contact" className="btn" style={{ background: 'transparent', border: '1.5px solid rgba(255,255,255,.25)', color: 'var(--paper)', width: window.innerWidth <= 900 ? '200px' : 'auto', textAlign: 'center', display: 'inline-block' }}>
             <span>Kontakt aufnehmen</span>
           </a>
         </div>

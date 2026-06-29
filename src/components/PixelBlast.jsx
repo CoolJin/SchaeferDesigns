@@ -1,5 +1,6 @@
 import { Effect, EffectComposer, EffectPass, RenderPass } from 'postprocessing';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import SimulatedCursor from './SimulatedCursor';
 import * as THREE from 'three';
 import './PixelBlast.css';
 
@@ -328,6 +329,7 @@ const PixelBlast = ({
   const containerRef = useRef(null);
   const visibilityRef = useRef({ visible: true });
   const speedRef = useRef(speed);
+  const [cursorPos, setCursorPos] = useState(null);
 
   const threeRef = useRef(null);
   const prevConfigRef = useRef(null);
@@ -497,6 +499,7 @@ const PixelBlast = ({
         passive: true
       });
       let raf = 0;
+      let autoTime = 0;
       const animate = () => {
         if (autoPauseOffscreen && !visibilityRef.current.visible) {
           raf = requestAnimationFrame(animate);
@@ -504,6 +507,23 @@ const PixelBlast = ({
         }
         uniforms.uTime.value = timeOffset + clock.getElapsedTime() * speedRef.current;
         if (liquidEffect) liquidEffect.uniforms.get('uTime').value = uniforms.uTime.value;
+        
+        const isMobile = window.innerWidth <= 900;
+        if (isMobile) {
+          autoTime += 0.02;
+          const rect = renderer.domElement.getBoundingClientRect();
+          const cx = rect.width / 2;
+          const cy = rect.height / 2;
+          const rx = rect.width / 3;
+          const ry = rect.height / 3;
+          const sx = cx + Math.cos(autoTime) * rx;
+          const sy = cy + Math.sin(autoTime * 1.5) * ry;
+          if (touch) touch.addTouch({ x: sx / rect.width, y: sy / rect.height });
+          setCursorPos({ x: sx, y: sy });
+        } else {
+          setCursorPos(null);
+        }
+
         if (composer) {
           if (touch) touch.update();
           composer.passes.forEach(p => {
@@ -599,10 +619,12 @@ const PixelBlast = ({
   return (
     <div
       ref={containerRef}
-      className={`pixel-blast-container ${className ?? ''}`}
-      style={style}
+      className={`pixel-blast-container ${className || ''}`}
+      style={{ ...style, position: 'relative' }}
       aria-label="PixelBlast interactive background"
-    />
+    >
+      {cursorPos && <SimulatedCursor x={cursorPos.x} y={cursorPos.y} />}
+    </div>
   );
 };
 

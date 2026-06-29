@@ -1,4 +1,5 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import SimulatedCursor from './SimulatedCursor';
 import { gsap } from 'gsap';
 import './ChromaGrid.css';
 
@@ -39,6 +40,8 @@ export const ChromaGrid = ({
   const setX = useRef<Function | null>(null);
   const setY = useRef<Function | null>(null);
   const pos = useRef({ x: 0, y: 0 });
+  const [cursorPos, setCursorPos] = useState<{ x: number; y: number } | null>(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
 
   const data = items || [];
 
@@ -67,29 +70,38 @@ export const ChromaGrid = ({
     });
   };
 
-  useEffect(() => {
-    const isMobile = window.innerWidth <= 900;
-    if (!isMobile) return;
-    
-    let rafId: number;
-    let time = 0;
-    const animate = () => {
-      if (rootRef.current) {
-        time += 0.02;
-        const rect = rootRef.current.getBoundingClientRect();
-        const x = rect.width / 2 + Math.cos(time) * (rect.width / 3);
-        const y = rect.height / 2 + Math.sin(time) * (rect.height / 3);
-        moveTo(x, y);
+    useEffect(() => {
+      const handleResize = () => setIsMobile(window.innerWidth <= 900);
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
+      if (!isMobile) {
+        setCursorPos(null);
+        return;
       }
-      rafId = requestAnimationFrame(animate);
-    };
-    animate();
-    
-    // Hide the fade layer for the simulation to be visible
-    gsap.to(fadeRef.current, { opacity: 0, duration: 0.25 });
-    
-    return () => cancelAnimationFrame(rafId);
-  }, []);
+      
+      let rafId: number;
+      let time = 0;
+      const animate = () => {
+        if (rootRef.current) {
+          time += 0.02;
+          const rect = rootRef.current.getBoundingClientRect();
+          const x = rect.width / 2 + Math.cos(time) * (rect.width / 3);
+          const y = rect.height / 2 + Math.sin(time) * (rect.height / 3);
+          moveTo(x, y);
+          setCursorPos({ x, y });
+        }
+        rafId = requestAnimationFrame(animate);
+      };
+      animate();
+      
+      // Hide the fade layer for the simulation to be visible
+      gsap.to(fadeRef.current, { opacity: 0, duration: 0.25 });
+      
+      return () => cancelAnimationFrame(rafId);
+    }, [isMobile]);
 
   const handleMove = (e: React.PointerEvent) => {
     if (!rootRef.current) return;
@@ -158,6 +170,7 @@ export const ChromaGrid = ({
       ))}
       <div className="chroma-overlay" />
       <div ref={fadeRef} className="chroma-fade" />
+      {cursorPos && <SimulatedCursor x={cursorPos.x} y={cursorPos.y} />}
     </div>
   );
 };

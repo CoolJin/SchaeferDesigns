@@ -1,6 +1,6 @@
+import React, { useRef, useEffect, useState } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
-import { useEffect, useRef } from 'react';
-
+import SimulatedCursor from './SimulatedCursor';
 import './LineWaves.css';
 
 function hexToVec3(hex: string) {
@@ -131,6 +131,23 @@ void main() {
 }
 `;
 
+interface LineWavesProps {
+  speed?: number;
+  innerLineCount?: number;
+  outerLineCount?: number;
+  warpIntensity?: number;
+  rotation?: number;
+  edgeFadeWidth?: number;
+  colorCycleSpeed?: number;
+  brightness?: number;
+  color1?: string;
+  color2?: string;
+  color3?: string;
+  enableMouseInteraction?: boolean;
+  mouseInfluence?: number;
+  pause?: boolean;
+}
+
 export default function LineWaves({
   speed = 0.3,
   innerLineCount = 32.0,
@@ -144,11 +161,12 @@ export default function LineWaves({
   color2 = '#ffffff',
   color3 = '#ffffff',
   enableMouseInteraction = true,
-  mouseInfluence = 2.0,
+  mouseInfluence = 1.0,
   pause = false
-}: any) {
+}: LineWavesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const pauseRef = useRef(pause);
+  const [cursorPos, setCursorPos] = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     pauseRef.current = pause;
@@ -219,30 +237,49 @@ export default function LineWaves({
       window.addEventListener('mouseleave', handleMouseLeave);
     }
 
-    let animationFrameId: number;
+    let rafId: number;
+    let autoTime = 0;
+    
+    function update(t: number) {
+      rafId = requestAnimationFrame(update);
+      if (pauseRef.current) return;
 
-    function update(time: number) {
-      animationFrameId = requestAnimationFrame(update);
-      if (pauseRef.current) return; // Skip updating and rendering if paused
-
-      program.uniforms.uTime.value = time * 0.001;
-
-      if (enableMouseInteraction) {
-        currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0]);
-        currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1]);
-        program.uniforms.uMouse.value[0] = currentMouse[0];
-        program.uniforms.uMouse.value[1] = currentMouse[1];
-      } else {
-        program.uniforms.uMouse.value[0] = 0.5;
-        program.uniforms.uMouse.value[1] = 0.5;
+      const isMobile = window.innerWidth <= 900;
+      
+      if (program) {
+        program.uniforms.uTime.value = t * 0.001;
+        
+        if (isMobile && !enableMouseInteraction) {
+          autoTime += 0.02;
+          const rect = container.getBoundingClientRect();
+          const cx = rect.width / 2;
+          const cy = rect.height / 2;
+          const rx = rect.width / 3;
+          const ry = rect.height / 3;
+          
+          const sx = cx + Math.cos(autoTime) * rx;
+          const sy = cy + Math.sin(autoTime * 1.5) * ry;
+          
+          program.uniforms.uMouse.value[0] = sx / rect.width;
+          program.uniforms.uMouse.value[1] = 1.0 - (sy / rect.height);
+          
+          setCursorPos({ x: sx, y: sy });
+        } else {
+          if (enableMouseInteraction) {
+            currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0]);
+            currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1]);
+            program.uniforms.uMouse.value[0] = currentMouse[0];
+            program.uniforms.uMouse.value[1] = currentMouse[1];
+          }
+          setCursorPos(null);
+        }
       }
-
       renderer.render({ scene: mesh });
     }
-    animationFrameId = requestAnimationFrame(update);
+    rafId = requestAnimationFrame(update);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      cancelAnimationFrame(rafId);
       window.removeEventListener('resize', resize);
       if (enableMouseInteraction) {
         window.removeEventListener('mousemove', handleMouseMove);
@@ -253,5 +290,13 @@ export default function LineWaves({
     };
   }, [speed, innerLineCount, outerLineCount, warpIntensity, rotation, edgeFadeWidth, colorCycleSpeed, brightness, color1, color2, color3, enableMouseInteraction, mouseInfluence]);
 
-  return <div ref={containerRef} className="line-waves-container" />;
+  return (
+    <div
+      ref={containerRef}
+      className="line-waves-container"
+      style={{ width: '100%', height: '100%', position: 'relative' }}
+    >
+      {cursorPos && <SimulatedCursor x={cursorPos.x} y={cursorPos.y} />}
+    </div>
+  );
 }

@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import SimulatedCursor from './SimulatedCursor';
 import { gsap } from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
@@ -18,6 +19,7 @@ const ScrambledText = ({
 }) => {
   const rootRef = useRef(null);
   const charsRef = useRef([]);
+  const [cursorPos, setCursorPos] = useState(null);
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -72,6 +74,7 @@ const ScrambledText = ({
           const x = cx + Math.cos(time) * (rect.width / 2);
           const y = cy + Math.sin(time * 1.5) * 50;
           handleMove({ clientX: x, clientY: y });
+          setCursorPos({ x: x - rect.left, y: y - rect.top });
         }
         rafId = requestAnimationFrame(animate);
       };
@@ -91,8 +94,9 @@ const ScrambledText = ({
   }, [radius, duration, speed, scrambleChars]);
 
   return (
-    <div ref={rootRef} className={`text-block ${className}`} style={style}>
+    <div ref={rootRef} className={`text-block ${className}`} style={{ ...style, position: 'relative' }}>
       <p>{children}</p>
+      {cursorPos && <SimulatedCursor x={cursorPos.x} y={cursorPos.y} />}
     </div>
   );
 };

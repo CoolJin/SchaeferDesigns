@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import SimulatedCursor from './SimulatedCursor';
 import {
   Clock,
   Mesh,
@@ -246,6 +247,7 @@ export default function FloatingLines({ isDark = true,
 }) {
   const containerRef = useRef(null);
   const targetMouseRef = useRef(new Vector2(-1000, -1000));
+  const [cursorPos, setCursorPos] = useState(null);
   const currentMouseRef = useRef(new Vector2(-1000, -1000));
   const targetInfluenceRef = useRef(0);
   const currentInfluenceRef = useRef(0);
@@ -422,6 +424,22 @@ export default function FloatingLines({ isDark = true,
 
       uniforms.iTime.value = clock.getElapsedTime();
 
+      const isMobile = window.innerWidth <= 900;
+      if (isMobile && interactive) {
+         // simulated loop
+         const rect = renderer.domElement.getBoundingClientRect();
+         const cx = rect.width / 2;
+         const cy = rect.height / 2;
+         const sx = cx + Math.cos(uniforms.iTime.value) * (rect.width / 3);
+         const sy = cy + Math.sin(uniforms.iTime.value * 1.5) * (rect.height / 3);
+         const dpr = renderer.getPixelRatio();
+         targetMouseRef.current.set(sx * dpr, (rect.height - sy) * dpr);
+         targetInfluenceRef.current = 1.0;
+         setCursorPos({ x: sx, y: sy });
+      } else if (!isMobile) {
+         setCursorPos(null);
+      }
+
       if (interactive) {
         currentMouseRef.current.lerp(targetMouseRef.current, mouseDamping);
         uniforms.iMouse.value.copy(currentMouseRef.current);
@@ -484,8 +502,11 @@ export default function FloatingLines({ isDark = true,
       ref={containerRef}
       className="floating-lines-container"
       style={{
-        mixBlendMode: mixBlendMode
+        mixBlendMode: mixBlendMode,
+        position: 'relative'
       }}
-    />
+    >
+      {cursorPos && <SimulatedCursor x={cursorPos.x} y={cursorPos.y} />}
+    </div>
   );
 }
