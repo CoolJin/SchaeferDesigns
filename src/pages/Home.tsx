@@ -11,6 +11,7 @@ import TextMarquee from '../components/TextMarquee'
 import TiltedCard from '../components/TiltedCard'
 import { useTheme } from '../hooks/useTheme'
 import logoBreit from '../assets/LogoBreit.svg'
+import SimulatedMouse from '../components/SimulatedMouse'
 
 const MARQUEE_ITEMS = ['Konzept','Design','Entwicklung','Strategie','Motion','Branding','UX','Identity']
 
@@ -69,7 +70,7 @@ export default function Home() {
       {/* ── HERO SECTION ── */}
       <section className="hero-section" ref={heroRef} style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', pointerEvents: isMobile ? 'none' : 'auto' }}>
         {heroVisible && (
-          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0, opacity: 0.5 }}>
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0, opacity: 0.5, pointerEvents: 'none' }}>
             <LineWaves 
               speed={0.15}
               innerLineCount={32}
@@ -82,7 +83,7 @@ export default function Home() {
               color1={isDark ? "#ffffff" : "#000000"}
               color2={isDark ? "#eeeeee" : "#111111"}
               color3={isDark ? "#050505" : "#a0a0a0"}
-              enableMouseInteraction={true}
+              enableMouseInteraction={!isMobile}
               mouseInfluence={2.5}
             />
           </div>
@@ -104,23 +105,38 @@ export default function Home() {
         `}</style>
         <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '-12vh' }}>
           <div style={{ marginBottom: 40, width: '100%', display: 'flex', justifyContent: 'center' }}>
-            <TiltedCard
-              imageSrc={logoBreit}
-              altText="SchaeferDesigns Logo"
-              containerWidth="clamp(300px, 75vw, 1000px)"
-              containerHeight="clamp(130px, 25vw, 320px)"
-              imageWidth="100%"
-              imageHeight="100%"
-              rotateAmplitude={12}
-              scaleOnHover={1.05}
-              showMobileWarning={false}
-              showTooltip={false}
-              transparent={true}
-              disableCursorTarget={true}
-              imgStyle={{ filter: isDark ? 'invert(1)' : 'none', maxWidth: '90vw' }}
-            />
+            {isMobile ? (
+              <img 
+                src={logoBreit} 
+                alt="SchaeferDesigns Logo" 
+                style={{ 
+                  width: '90vw', 
+                  maxWidth: '500px', 
+                  height: 'auto', 
+                  filter: isDark ? 'invert(1)' : 'none',
+                  marginTop: '10px'
+                }} 
+              />
+            ) : (
+              <TiltedCard
+                imageSrc={logoBreit}
+                altText="SchaeferDesigns Logo"
+                containerWidth="clamp(300px, 75vw, 1000px)"
+                containerHeight="clamp(130px, 25vw, 320px)"
+                imageWidth="100%"
+                imageHeight="100%"
+                rotateAmplitude={12}
+                scaleOnHover={1.05}
+                showMobileWarning={false}
+                showTooltip={false}
+                transparent={true}
+                disableCursorTarget={true}
+                imgStyle={{ filter: isDark ? 'invert(1)' : 'none', maxWidth: '90vw' }}
+              />
+            )}
           </div>
-          <div style={{ marginBottom: 40, width: '100%', padding: '0 5%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+          <div ref={heroRef} style={{ marginBottom: 40, width: '100%', padding: '0 5%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, position: 'relative' }}>
+            <SimulatedMouse containerRef={heroRef} autoClick={false} invisible={true} />
             <div style={{ width: '100%', maxWidth: 420 }}>
               <TextPressure text="DESIGN" flex={true} alpha={false} stroke={false} width={true} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
             </div>

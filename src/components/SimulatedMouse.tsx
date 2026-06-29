@@ -18,7 +18,7 @@ const CursorSVG = () => (
   </svg>
 );
 
-export default function SimulatedMouse({ containerRef, autoClick = false }: { containerRef: React.RefObject<HTMLDivElement>, autoClick?: boolean }) {
+export default function SimulatedMouse({ containerRef, autoClick = false, invisible = false }: { containerRef: React.RefObject<HTMLDivElement>, autoClick?: boolean, invisible?: boolean }) {
   const cursorRef = useRef<HTMLDivElement>(null);
   const lastHoveredElement = useRef<Element | null>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
@@ -99,12 +99,15 @@ export default function SimulatedMouse({ containerRef, autoClick = false }: { co
             lastHoveredElement.current.dispatchEvent(new PointerEvent('pointerup', { 
               bubbles: true, cancelable: true, clientX, clientY, pointerId: 999, pointerType: 'mouse' 
             }));
+            lastHoveredElement.current.dispatchEvent(new MouseEvent('click', { 
+              bubbles: true, cancelable: true, clientX, clientY 
+            }));
           }
         }
       }
 
       if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+        cursorRef.current.style.transform = `translate3d(${clientX}px, ${clientY}px, 0) scale(${scale})`;
       }
 
       if (el) {
@@ -137,7 +140,8 @@ export default function SimulatedMouse({ containerRef, autoClick = false }: { co
         left: 0, 
         pointerEvents: 'none', 
         zIndex: 9999,
-        willChange: 'transform'
+        willChange: 'transform',
+        opacity: invisible ? 0 : 1
       }}
     >
       <CursorSVG />
