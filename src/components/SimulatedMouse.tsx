@@ -34,6 +34,8 @@ export default function SimulatedMouse({ containerRef }: { containerRef: React.R
 
     let rafId: number;
     let time = 0;
+    let lastClickTime = performance.now();
+    let isClicking = false;
 
     const animate = () => {
       time += 0.015;
@@ -46,10 +48,6 @@ export default function SimulatedMouse({ containerRef }: { containerRef: React.R
       
       const x = cx + Math.sin(time) * (rect.width * 0.35);
       const y = cy + Math.sin(time * 2) * (rect.height * 0.35);
-
-      if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate(${x}px, ${y}px)`;
-      }
 
       const clientX = rect.left + x;
       const clientY = rect.top + y;
@@ -77,20 +75,45 @@ export default function SimulatedMouse({ containerRef }: { containerRef: React.R
         lastHoveredElement.current = el;
       }
       
+      let scale = 1;
+      const now = performance.now();
+      const timeSinceClick = now - lastClickTime;
+
+      if (timeSinceClick > 2000) {
+        lastClickTime = now;
+        isClicking = true;
+        if (lastHoveredElement.current) {
+          lastHoveredElement.current.dispatchEvent(new PointerEvent('pointerdown', { 
+            bubbles: true, cancelable: true, clientX, clientY, pointerId: 999, pointerType: 'mouse' 
+          }));
+        }
+      }
+
+      if (timeSinceClick < 150) {
+        const progress = timeSinceClick / 150;
+        scale = progress < 0.5 ? 1 - (progress * 2) * 0.15 : 0.85 + ((progress - 0.5) * 2) * 0.15;
+      } else if (isClicking) {
+        isClicking = false;
+        if (lastHoveredElement.current) {
+          lastHoveredElement.current.dispatchEvent(new PointerEvent('pointerup', { 
+            bubbles: true, cancelable: true, clientX, clientY, pointerId: 999, pointerType: 'mouse' 
+          }));
+          lastHoveredElement.current.dispatchEvent(new MouseEvent('click', { 
+            bubbles: true, cancelable: true, clientX, clientY 
+          }));
+        }
+      }
+
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+      }
+
       if (el) {
         const pointerEvent = new PointerEvent('pointermove', {
-          bubbles: true,
-          cancelable: true,
-          clientX,
-          clientY,
-          pointerId: 999,
-          pointerType: 'mouse'
+          bubbles: true, cancelable: true, clientX, clientY, pointerId: 999, pointerType: 'mouse'
         });
         const mouseEvent = new MouseEvent('mousemove', {
-          bubbles: true,
-          cancelable: true,
-          clientX,
-          clientY
+          bubbles: true, cancelable: true, clientX, clientY
         });
         
         el.dispatchEvent(pointerEvent);
