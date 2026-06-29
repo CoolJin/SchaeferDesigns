@@ -71,11 +71,6 @@ export default function Contact() {
       </div>
 
       <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 5% 80px', display: 'flex', flexDirection: 'column', gap: 40 }}>
-        {/* Lange Hauptlinie unter dem Text */}
-        <Reveal>
-          <div style={{ width: '100%', height: '1px', backgroundColor: 'var(--border)' }}></div>
-        </Reveal>
-
         {/* Contact Details Top */}
         <Reveal>
           <div className="contact-info-grid" style={{ gap: 40, marginTop: 16 }}>
