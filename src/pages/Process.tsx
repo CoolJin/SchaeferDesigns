@@ -5,28 +5,24 @@ import Footer from '../components/Footer'
 
 const STEPS = [
   {
-    n: '01', t: 'Entdeckung & Kontakt', d: 'Entweder kommst du mit einer Vision auf mich zu, oder ich sehe das Potenzial deiner aktuellen Seite und melde mich proaktiv. Der erste Schritt ist immer eine ehrliche und transparente Einschätzung.',
-    sub: ['Vision', 'Potenzialanalyse', 'Ehrliche Beratung'],
+    n: '01', t: 'Kontakt', d: 'Sie kommen mit Ihrer Idee auf mich zu, oder ich sehe das Potenzial Ihrer aktuellen Seite und melde mich proaktiv.',
+    sub: ['Vision', 'Potenzialanalyse', 'Erstes Feedback'],
   },
   {
-    n: '02', t: 'Das Konzept (oder die Demo)', d: 'Wenn du eine neue Seite brauchst, besprechen wir deine Ziele im Detail. Oft baue ich sogar schon vorab eine erste Demo aus deinen bestehenden Inhalten, damit du sofort siehst, was möglich ist.',
-    sub: ['Zieldefinition', 'Live-Prototyp', 'Kein Risiko'],
+    n: '02', t: 'Das Konzept / Die Demo', d: 'Brauchen Sie eine neue Seite, besprechen wir Ihre Ideen im Detail. Habe ich bereits eine neue Demo Ihrer aktuellen Seite gemacht, stelle ich Ihnen diese vor und wir passen sie gemeinsam an.',
+    sub: ['Zieldefinition', 'Live-Prototyp', 'Besprechung'],
   },
   {
-    n: '03', t: 'Feinschliff & Angebot', d: 'Wir gehen das Konzept gemeinsam durch. Wir passen Texte, Farben und Buttons an, bis alles zu 100% sitzt. Dazu gibt es ein glasklares Angebot ohne versteckte Kosten.',
-    sub: ['Iteration', 'Transparenz', 'Detailarbeit'],
+    n: '03', t: 'Angebot', d: 'Auf Basis unserer Besprechung erhalten Sie von mir ein glasklares Angebot ohne versteckte Kosten sowie die Anzahlungsrechnung.',
+    sub: ['Transparenz', 'Fairer Preis', 'Klarheit'],
   },
   {
-    n: '04', t: 'Entwicklung & Launch', d: 'Ich baue deine Seite mit modernster KI-Technologie und blitzschnellem Code. Alles wird strikt Mobile-First entwickelt, damit es auf dem Smartphone genauso beeindruckt wie auf dem Desktop. Nach intensiven Tests geht dein neues digitales Erlebnis live.',
-    sub: ['Mobile-First', 'KI-Entwicklung', 'High-Performance'],
+    n: '04', t: 'Setup & Zusammenarbeit', d: 'Nach Vertragsannahme und Eingang der Zahlung arbeiten wir gemeinsam an Ihrem Projekt. Ich entwickle Ihre Seite und Sie liefern mir die benötigten Materialien und Zugangsdaten. Mit gezielter Zusammenarbeit erreichen wir Ihr Ziel schneller und besser.',
+    sub: ['Struktur', 'Teamwork', 'Effizienz'],
   },
   {
-    n: '05', t: 'Laufender Support', d: 'Nach dem Launch lasse ich dich nicht allein. Ich bleibe dein direkter Ansprechpartner für Fragen, kleine Anpassungen und halte deine Seite technisch auf dem neuesten Stand.',
-    sub: ['Persönlicher Support', 'Updates', 'Langfristige Partnerschaft'],
-  },
-  {
-    n: '06', t: 'Mein Qualitätsversprechen', d: 'Du bezahlst für das makellose Ergebnis, nicht für den Weg. Ich nutze KI für extreme Effizienz, aber jede Zeile Code, jeder Button, jede Datenbank-Verbindung und API wird von mir manuell auf Sicherheit, Edge-Cases und perfekte Funktionalität (inkl. Mehrsprachigkeit) geprüft. 100% Perfektion, null Kompromisse.',
-    sub: ['Manuelles QA', 'Security First', 'Pixel Perfect'],
+    n: '05', t: 'Feinschliff & Launch', d: 'In zwei Feedbackschleifen passen wir die Details an, bis alles perfekt funktioniert und exakt Ihren Vorstellungen entspricht. Danach ist Ihre neue Webseite fertig.',
+    sub: ['Feedback', 'Detailarbeit', 'Go-Live'],
   },
 ]
 
@@ -36,8 +32,8 @@ export default function Process() {
       <div className="inner-hero">
         <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
           <div className="section-label">// wie ich arbeite</div>
-          <h1>Der<br />Prozess.</h1>
-          <p>Kein Chaos. Keine Überraschungen. Fünf klare Phasen — von der ersten Idee bis zum Go-Live.</p>
+          <h1>Der<br />Prozess</h1>
+          <p>Kein Chaos. Keine Überraschungen. Fünf Schritte, von der ersten Idee bis zur fertigen Seite.</p>
         </motion.div>
       </div>
 
