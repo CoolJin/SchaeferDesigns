@@ -8,6 +8,13 @@ export function usePerformance(): PerformanceTier {
   useEffect(() => {
     let isLowTier = false;
 
+    // Check URL override for testing
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('perf') === 'low') {
+      setTier('low');
+      return;
+    }
+
     // 1. Static checks
     // Check RAM (Strictly less than 4GB, so 4GB is considered okay)
     // @ts-ignore

@@ -10,6 +10,7 @@ import GlassSurface from '../components/GlassSurface'
 import TextMarquee from '../components/TextMarquee'
 import TiltedCard from '../components/TiltedCard'
 import { useTheme } from '../hooks/useTheme'
+import { usePerformance } from '../hooks/usePerformance'
 import logoBreit from '../assets/LogoBreit.svg'
 import SimulatedMouse from '../components/SimulatedMouse'
 
@@ -29,9 +30,10 @@ const PROJECTS = [
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
-  const [heroVisible, setHeroVisible] = useState(true)
   const theme = useTheme()
   const isDark = theme === 'dark'
+  const perfTier = usePerformance()
+  const [heroVisible, setHeroVisible] = useState(true)
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
 
@@ -146,14 +148,23 @@ export default function Home() {
           </div>
           
           <div style={{ display: 'flex', gap: 24, justifyContent: 'center', marginTop: 60, pointerEvents: 'auto' }}>
-            <div className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
-               <GlassSurface width="100%" height="100%" borderRadius={28} />
-               <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Portfolio</div>
-            </div>
-            <div className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
-               <GlassSurface width="100%" height="100%" borderRadius={28} />
-               <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Kontakt</div>
-            </div>
+            {perfTier === 'low' ? (
+              <>
+                <button className="frosted-glass-btn-pill cursor-target" style={{ width: 180, height: 56, fontSize: '16px' }}>Portfolio</button>
+                <button className="frosted-glass-btn-pill cursor-target" style={{ width: 180, height: 56, fontSize: '16px' }}>Kontakt</button>
+              </>
+            ) : (
+              <>
+                <div className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
+                   <GlassSurface width="100%" height="100%" borderRadius={28} />
+                   <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Portfolio</div>
+                </div>
+                <div className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
+                   <GlassSurface width="100%" height="100%" borderRadius={28} />
+                   <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Kontakt</div>
+                </div>
+              </>
+            )}
           </div>
         </div>
         
