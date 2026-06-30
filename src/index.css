@@ -63,16 +63,16 @@ a { color: inherit; text-decoration: none; }
   transform: translateY(16px);
 }
 .nav-pill-outer:not(.scrolled) .nav-pill {
-  transform: scale(1.15) translateZ(0);
+  transform: scale(1.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   background: rgba(var(--paper-rgb), 0.4);
 }
 .nav-pill-outer:not(.scrolled) .mobile-nav-toggle {
-  transform: translateX(16px) scale(1.1) translateZ(0);
+  transform: translateX(16px) scale(1.1);
 }
 .nav-pill-outer:not(.scrolled) .theme-toggle {
-  transform: translateY(-50%) translateX(-16px) scale(1.1) translateZ(0);
+  transform: translateY(-50%) translateX(-16px) scale(1.1);
 }
 .nav-pill {
   pointer-events: auto;
@@ -80,7 +80,6 @@ a { color: inherit; text-decoration: none; }
   background: rgba(var(--paper-rgb), 0.65);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  transform: translateZ(0);
   border: 1px solid rgba(var(--ink-rgb), 0.08);
   padding: 8px;
   border-radius: 100px;
@@ -111,7 +110,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .theme-toggle {
-  position: absolute; right: 48px; top: 50%; transform: translateY(-50%) translateZ(0);
+  position: absolute; right: 48px; top: 50%; transform: translateY(-50%);
   pointer-events: auto; background: rgba(var(--paper-rgb), 0.65); border: none;
   backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
   color: var(--ink); cursor: none; width: 40px; height: 40px;
@@ -541,7 +540,6 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   pointer-events: auto;
   background: rgba(var(--paper-rgb), 0.65);
   backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
-  transform: translateZ(0);
   border: 1px solid rgba(var(--ink-rgb), 0.08);
   border-radius: 50%;
   width: 48px; height: 48px;
