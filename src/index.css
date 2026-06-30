@@ -523,7 +523,7 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   .nav-pill-link { padding: 8px 14px; font-size: 0.65rem; white-space: nowrap; }
   
   .nav-pill-outer:not(.scrolled) { 
-    top: 24px; 
+    top: 32px; 
   }
   .nav-pill-outer:not(.scrolled) .nav-pill {
     -webkit-transform: scale(1) translateZ(0);
@@ -541,7 +541,7 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
     transform: translateZ(0) scale(1);
   }
   .theme-toggle:not(.scrolled) {
-    top: 24px;
+    top: 32px;
     right: 32px;
     -webkit-transform: translateZ(0) scale(1.2);
     transform: translateZ(0) scale(1.2);
