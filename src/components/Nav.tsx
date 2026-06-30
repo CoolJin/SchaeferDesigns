@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import GlassSurface from './GlassSurface'
 
 const links = [
   { to: '/', label: 'Start' },
@@ -88,20 +87,17 @@ export default function Nav() {
     <>
       <div className={`nav-pill-outer ${scrolled ? 'scrolled' : ''}`}>
         {isMobile ? (
-          <GlassSurface width={48} height={48} borderRadius={24} blur={12} backgroundOpacity={0.08} className="mobile-nav-glass" borderWidth={0.05}>
-            <div className="mobile-nav-toggle">
-              <button className="hamburger-btn" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle Menu">
-                {isOpen ? (
-                  <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                ) : (
-                  <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-                )}
-              </button>
-            </div>
-          </GlassSurface>
+          <div className="mobile-nav-toggle">
+            <button className="hamburger-btn" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle Menu">
+              {isOpen ? (
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              ) : (
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+              )}
+            </button>
+          </div>
         ) : (
-          <GlassSurface width="max-content" height="auto" borderRadius={100} blur={12} backgroundOpacity={0.08} className="nav-pill-glass" borderWidth={0.05}>
-            <nav className="nav-pill" ref={navRef} onMouseLeave={handleMouseLeave}>
+          <nav className="nav-pill" ref={navRef} onMouseLeave={handleMouseLeave}>
             {/* Hover background */}
             <AnimatePresence>
               {hoverRect && hoveredIdx !== null && (
@@ -137,19 +133,16 @@ export default function Nav() {
                 {l.label}
               </NavLink>
             ))}
-            </nav>
-          </GlassSurface>
+          </nav>
         )}
 
-        <GlassSurface width={40} height={40} borderRadius={20} blur={12} backgroundOpacity={0.08} className="theme-toggle-glass" borderWidth={0.05}>
-          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-            {theme === 'light' ? (
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            ) : (
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-            )}
-          </button>
-        </GlassSurface>
+        <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+          {theme === 'light' ? (
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          ) : (
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          )}
+        </button>
       </div>
 
       {/* Mobile Menu Overlay */}
