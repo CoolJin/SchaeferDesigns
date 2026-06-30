@@ -66,6 +66,12 @@ a { color: inherit; text-decoration: none; }
   -webkit-backdrop-filter: blur(4px);
   background: rgba(var(--paper-rgb), 0.4);
 }
+.nav-pill-outer:not(.scrolled) .mobile-nav-toggle {
+  transform: translateX(16px) scale(1.1);
+}
+.nav-pill-outer:not(.scrolled) .theme-toggle {
+  transform: translateY(-50%) translateX(-16px) scale(1.1);
+}
 .nav-pill {
   pointer-events: auto;
   display: flex; align-items: center; gap: 4px;
@@ -107,7 +113,8 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink); cursor: none; width: 40px; height: 40px;
   display: flex; align-items: center; justify-content: center;
   border-radius: 50%; border: 1.5px solid rgba(var(--ink-rgb), 0.1);
-  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  transition: transform 0.4s var(--ease-out), background 0.3s, color 0.3s, border-color 0.3s;
+  transform-origin: center;
 }
 @media (hover: hover) {
   .theme-toggle:hover {
@@ -534,6 +541,8 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   border-radius: 50%;
   width: 48px; height: 48px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  transition: transform 0.4s var(--ease-out);
+  transform-origin: center;
 }
 .hamburger-btn {
   background: transparent; border: none; color: var(--ink);
