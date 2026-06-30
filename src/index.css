@@ -6,7 +6,7 @@
   --ink-rgb: 42, 42, 42;
   --paper:  #e2dfd8;
   --paper-rgb: 226, 223, 216;
-  --section-contrast-bg: color-mix(in srgb, var(--paper) 75%, var(--ink) 25%);
+  --section-contrast-bg: color-mix(in srgb, var(--paper) 65%, var(--ink) 35%);
   --accent: #ff3a2d;
   --mid:    #404040;
   --muted:  rgba(42,42,42,.45);
@@ -21,6 +21,7 @@
   --ink-rgb: 196, 193, 188;
   --paper:  #202020;
   --paper-rgb: 32, 32, 32;
+  --section-contrast-bg: color-mix(in srgb, var(--paper) 85%, var(--ink) 15%);
   --accent: #ff3a2d;
   --mid:    #909090;
   --muted:  rgba(196,193,188,.45);
