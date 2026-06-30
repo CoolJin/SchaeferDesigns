@@ -106,7 +106,7 @@ export default function Home() {
             100% { transform: scaleY(0); transform-origin: bottom; }
           }
         `}</style>
-        <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '-12vh' }}>
+        <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: isMobile ? '-18vh' : '-12vh' }}>
           <div style={{ marginBottom: 40, width: '100%', display: 'flex', justifyContent: 'center' }}>
             {isMobile ? (
               <img 
@@ -148,19 +148,19 @@ export default function Home() {
             </div>
           </div>
           
-          <div style={{ display: 'flex', gap: 24, justifyContent: 'center', marginTop: 60, pointerEvents: 'auto' }}>
+          <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 16 : 24, justifyContent: 'center', alignItems: 'center', marginTop: isMobile ? 40 : 60, pointerEvents: 'auto' }}>
             {perfTier === 'low' ? (
               <>
-                <button onClick={() => navigate('/process')} className="frosted-glass-btn-pill cursor-target" style={{ width: 180, height: 56, fontSize: '16px' }}>Prozess</button>
-                <button onClick={() => navigate('/contact')} className="frosted-glass-btn-pill cursor-target" style={{ width: 180, height: 56, fontSize: '16px' }}>Kontakt</button>
+                <button onClick={() => navigate('/process')} className="frosted-glass-btn-pill cursor-target" style={{ width: isMobile ? 220 : 180, height: 56, fontSize: '16px' }}>Prozess</button>
+                <button onClick={() => navigate('/contact')} className="frosted-glass-btn-pill cursor-target" style={{ width: isMobile ? 220 : 180, height: 56, fontSize: '16px' }}>Kontakt</button>
               </>
             ) : (
               <>
-                <div onClick={() => navigate('/process')} className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
+                <div onClick={() => navigate('/process')} className="cursor-target" style={{ width: isMobile ? 220 : 180, height: 56, position: 'relative', cursor: 'pointer' }}>
                    <GlassSurface width="100%" height="100%" borderRadius={28} />
                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Prozess</div>
                 </div>
-                <div onClick={() => navigate('/contact')} className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
+                <div onClick={() => navigate('/contact')} className="cursor-target" style={{ width: isMobile ? 220 : 180, height: 56, position: 'relative', cursor: 'pointer' }}>
                    <GlassSurface width="100%" height="100%" borderRadius={28} />
                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Kontakt</div>
                 </div>
