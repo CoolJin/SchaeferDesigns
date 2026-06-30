@@ -146,12 +146,12 @@ export default function Home() {
           </div>
           
           <div style={{ display: 'flex', gap: 24, justifyContent: 'center', marginTop: 60, pointerEvents: 'auto' }}>
-            <div className="cursor-target" style={{ width: 180, height: 56, borderRadius: 28, overflow: 'hidden', position: 'relative', cursor: 'pointer' }}>
-               <GlassSurface />
+            <div className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
+               <GlassSurface width="100%" height="100%" borderRadius={28} />
                <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Portfolio</div>
             </div>
-            <div className="cursor-target" style={{ width: 180, height: 56, borderRadius: 28, overflow: 'hidden', position: 'relative', cursor: 'pointer' }}>
-               <GlassSurface />
+            <div className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
+               <GlassSurface width="100%" height="100%" borderRadius={28} />
                <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Kontakt</div>
             </div>
           </div>
