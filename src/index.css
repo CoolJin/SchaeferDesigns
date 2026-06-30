@@ -6,8 +6,8 @@
   --ink-rgb: 42, 42, 42;
   --paper:  #e2dfd8;
   --paper-rgb: 226, 223, 216;
-  --section-contrast-bg: color-mix(in srgb, var(--paper) 70%, var(--ink) 30%);
-  --accent: #ff3a2d;
+  --section-contrast-bg: color-mix(in srgb, var(--paper) 80%, var(--ink) 20%);
+  --accent: #d32f2f;
   --mid:    #404040;
   --muted:  rgba(42,42,42,.45);
   --border: rgba(42,42,42,.14);
