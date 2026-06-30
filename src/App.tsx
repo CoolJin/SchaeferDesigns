@@ -4,7 +4,6 @@ import Nav from './components/Nav'
 import TargetCursor from './components/TargetCursor'
 import NoiseCanvas from './components/NoiseCanvas'
 import Home from './pages/Home'
-import Work from './pages/Work'
 import Process from './pages/Process'
 import Contact from './pages/Contact'
 import About from './pages/About'
@@ -18,7 +17,6 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
-        <Route path="/work" element={<Work />} />
         <Route path="/process" element={<Process />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />

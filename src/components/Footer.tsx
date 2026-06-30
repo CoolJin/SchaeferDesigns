@@ -20,7 +20,6 @@ export default function Footer() {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 16 }}>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: 8 }}>Sitemap</div>
           <Link to="/" style={{ color: 'inherit', textDecoration: 'none', opacity: 0.8 }}>Start</Link>
-          <Link to="/work" style={{ color: 'inherit', textDecoration: 'none', opacity: 0.8 }}>Projekte</Link>
           <Link to="/process" style={{ color: 'inherit', textDecoration: 'none', opacity: 0.8 }}>Prozess</Link>
           <Link to="/about" style={{ color: 'inherit', textDecoration: 'none', opacity: 0.8 }}>Über mich</Link>
           <Link to="/contact" style={{ color: 'inherit', textDecoration: 'none', opacity: 0.8 }}>Kontakt</Link>
