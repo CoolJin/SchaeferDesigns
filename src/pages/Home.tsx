@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Reveal from '../components/Reveal'
 import Footer from '../components/Footer'
 import TextPressure from '../components/TextPressure'
@@ -28,6 +28,7 @@ const PROJECTS = [
 */
 
 export default function Home() {
+  const navigate = useNavigate()
   const heroRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
   const theme = useTheme()
@@ -150,16 +151,16 @@ export default function Home() {
           <div style={{ display: 'flex', gap: 24, justifyContent: 'center', marginTop: 60, pointerEvents: 'auto' }}>
             {perfTier === 'low' ? (
               <>
-                <button onClick={() => document.getElementById('process')?.scrollIntoView({behavior: 'smooth'})} className="frosted-glass-btn-pill cursor-target" style={{ width: 180, height: 56, fontSize: '16px' }}>Prozess</button>
-                <button onClick={() => document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'})} className="frosted-glass-btn-pill cursor-target" style={{ width: 180, height: 56, fontSize: '16px' }}>Kontakt</button>
+                <button onClick={() => navigate('/process')} className="frosted-glass-btn-pill cursor-target" style={{ width: 180, height: 56, fontSize: '16px' }}>Prozess</button>
+                <button onClick={() => navigate('/contact')} className="frosted-glass-btn-pill cursor-target" style={{ width: 180, height: 56, fontSize: '16px' }}>Kontakt</button>
               </>
             ) : (
               <>
-                <div onClick={() => document.getElementById('process')?.scrollIntoView({behavior: 'smooth'})} className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
+                <div onClick={() => navigate('/process')} className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
                    <GlassSurface width="100%" height="100%" borderRadius={28} />
                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Prozess</div>
                 </div>
-                <div onClick={() => document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'})} className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
+                <div onClick={() => navigate('/contact')} className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
                    <GlassSurface width="100%" height="100%" borderRadius={28} />
                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Kontakt</div>
                 </div>
