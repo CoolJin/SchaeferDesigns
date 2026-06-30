@@ -468,7 +468,6 @@ export default function UIShowcase() {
 
               {/* ScrambledText */}
               <div ref={scrambledTextRef} style={{ position: 'relative', display: 'flex', justifyContent: 'center', textAlign: 'center', color: isDark ? '#fff' : '#000' }}>
-                <SimulatedMouse containerRef={scrambledTextRef} />
                 <ScrambledText
                   radius={80}
                   duration={1.2}
@@ -516,7 +515,7 @@ export default function UIShowcase() {
                   radius={120}
                   falloff='gaussian'
                   containerRef={proximityRef}
-                  style={{ color: isDark ? '#fff' : '#000', marginBottom: '8px' }}
+                  style={{ color: isDark ? '#fff' : '#000', marginBottom: '8px', whiteSpace: 'nowrap' }}
                 />
                 <VariableProximity
                   label="in die Nähe dieses Textes"
@@ -525,7 +524,7 @@ export default function UIShowcase() {
                   radius={120}
                   falloff='gaussian'
                   containerRef={proximityRef}
-                  style={{ color: isDark ? '#fff' : '#000' }}
+                  style={{ color: isDark ? '#fff' : '#000', whiteSpace: 'nowrap' }}
                 />
               </div>
 
