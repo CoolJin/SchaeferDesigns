@@ -6,6 +6,7 @@
   --ink-rgb: 42, 42, 42;
   --paper:  #e2dfd8;
   --paper-rgb: 226, 223, 216;
+  --section-contrast-bg: color-mix(in srgb, var(--paper) 75%, var(--ink) 25%);
   --accent: #ff3a2d;
   --mid:    #404040;
   --muted:  rgba(42,42,42,.45);
@@ -170,14 +171,14 @@ a { color: inherit; text-decoration: none; }
 .marquee-band {
   border-top: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink);
   overflow: hidden; white-space: nowrap; padding: 18px 0;
-  background: var(--ink); position: relative; z-index: 2;
+  background: var(--section-contrast-bg); position: relative; z-index: 2;
 }
 .marquee-track {
   display: inline-flex; animation: marquee 20s linear infinite;
 }
 .marquee-item {
   font-family: var(--font-mono); font-size: .85rem;
-  color: var(--paper); letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink); letter-spacing: .1em; text-transform: uppercase;
   padding: 0 36px;
 }
 .marquee-item.dot { color: var(--accent); padding: 0 12px; }
@@ -231,7 +232,7 @@ a { color: inherit; text-decoration: none; }
   transition: background .3s;
 }
 .stat-item:last-child { border-right: none; }
-.stat-item:hover { background: var(--ink); color: var(--paper); }
+.stat-item:hover { background: var(--section-contrast-bg); color: var(--ink); }
 .stat-num {
   font-size: clamp(2.5rem,4vw,4rem); font-weight: 900;
   letter-spacing: -.05em; line-height: 1;
@@ -288,7 +289,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ── PROCESS DARK SECTION ────────────────────────────────── */
 .process-section {
-  background: var(--ink); color: var(--paper);
+  background: var(--section-contrast-bg); color: var(--ink);
   padding: 120px 48px; position: relative; overflow: hidden;
 }
 .process-inner { max-width: 1400px; margin: 0 auto; }
@@ -424,7 +425,7 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   background: var(--paper); padding: 48px 40px;
   transition: background .3s, color .3s;
 }
-.value-item:hover { background: var(--ink); color: var(--paper); }
+.value-item:hover { background: var(--section-contrast-bg); color: var(--ink); }
 .value-num {
   font-family: var(--font-mono); font-size: .7rem; color: var(--accent);
   letter-spacing: .15em; margin-bottom: 20px;

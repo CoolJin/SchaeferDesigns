@@ -261,7 +261,7 @@ export default function Home() {
           </Reveal>
           <Reveal delay={200}>
             <div style={{ marginTop: 60, textAlign: 'center' }}>
-              <Link to="/process" className="btn btn-outline" style={{ borderColor: 'rgba(255,255,255,0.2)', color: 'var(--paper)' }}>
+              <Link to="/process" className="btn btn-outline" style={{ borderColor: 'rgba(var(--ink-rgb), 0.2)', color: 'var(--ink)' }}>
                 <span style={{ color: 'inherit' }}>Details zum Ablauf</span>
               </Link>
             </div>

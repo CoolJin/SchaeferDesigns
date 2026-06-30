@@ -30,7 +30,7 @@ export default function About() {
       </div>
 
       {/* Manifesto strip */}
-      <div style={{ background: 'var(--ink)', color: 'var(--paper)', padding: '80px 48px', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ background: 'var(--section-contrast-bg)', color: 'var(--ink)', padding: '80px 48px', overflow: 'hidden', position: 'relative' }}>
         <Reveal>
           <p style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3.5rem)', fontWeight: 700, lineHeight: 1.2, letterSpacing: '-.03em', maxWidth: 900 }}>
             Ich glaube daran, dass <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>Design denkt</em>, Code <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>fühlt</em> und jedes Projekt die Chance ist, etwas zu bauen, das wirklich <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>bleibt</em>.
@@ -68,7 +68,7 @@ export default function About() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 2, marginTop: 56, background: 'var(--border)' }}>
             {EXPERTISE.map((e, i) => (
               <div key={e.title} style={{ background: 'var(--paper)', padding: '48px 32px', transition: 'background .3s, color .3s' }}
-                onMouseEnter={ev => { (ev.currentTarget as HTMLElement).style.background = 'var(--ink)'; (ev.currentTarget as HTMLElement).style.color = 'var(--paper)' }}
+                onMouseEnter={ev => { (ev.currentTarget as HTMLElement).style.background = 'var(--section-contrast-bg)'; (ev.currentTarget as HTMLElement).style.color = 'var(--ink)' }}
                 onMouseLeave={ev => { (ev.currentTarget as HTMLElement).style.background = 'var(--paper)'; (ev.currentTarget as HTMLElement).style.color = 'var(--ink)' }}
               >
                 <div style={{ width: 60, height: 60, background: `hsl(${i * 60 + 200},60%,50%)`, borderRadius: '50%', marginBottom: 24, opacity: .7 }} />

@@ -70,7 +70,7 @@ export default function Process() {
           <h2 style={{ fontSize: 'clamp(2rem,4vw,4rem)', fontWeight: 900, letterSpacing: '-.04em' }}>
             Bereit<br />loszulegen?
           </h2>
-          <Link to="/contact" className="btn" style={{ background: 'transparent', border: '1.5px solid rgba(255,255,255,.25)', color: 'var(--paper)' }}>
+          <Link to="/contact" className="btn" style={{ background: 'transparent', border: '1.5px solid rgba(var(--ink-rgb), 0.25)', color: 'var(--ink)' }}>
             <span>Kontakt aufnehmen</span>
           </Link>
         </div>
