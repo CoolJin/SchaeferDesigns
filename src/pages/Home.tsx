@@ -248,7 +248,7 @@ export default function Home() {
               {[
                 { n: '01 —', t: 'Kontakt', d: 'Sie melden sich, oder ich baue proaktiv eine erste Demo Ihrer neuen Seite.' },
                 { n: '02 —', t: 'Konzept', d: 'Wir besprechen die Demo, passen Texte und Design an und klären alle Details.' },
-                { n: '03 —', t: 'Entwickeln', d: 'Ich entwickle Ihre Seite. In zwei Feedbackschleifen passen wir die Details an, bis alles perfekt funktioniert und Ihren Vorstellungen entspricht.' },
+                { n: '03 —', t: 'Entwickeln', d: 'Ich entwickle Ihre Seite. In zwei Feedbackschleifen passen wir die Details an, bis alles Ihren Vorstellungen entspricht.' },
                 { n: '04 —', t: 'Support', d: 'Nach dem Veröffentlichen der Seite bleibe ich Ihr direkter Ansprechpartner für Fragen und Updates.' },
               ].map(s => (
                 <div className="step" key={s.n}>
