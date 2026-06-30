@@ -13,7 +13,7 @@ const STEPS = [
     sub: ['Zieldefinition', 'Live-Prototyp', 'Besprechung'],
   },
   {
-    n: '03', t: 'Angebot', d: 'Auf Basis unserer Besprechung erhalten Sie von mir ein glasklares Angebot ohne versteckte Kosten sowie die Anzahlungsrechnung.',
+    n: '03', t: 'Angebot', d: 'Auf Basis unserer Besprechung erhalten Sie von mir ein glasklares Angebot sowie die Anzahlungsrechnung ohne versteckte Kosten.',
     sub: ['Transparenz', 'Fairer Preis', 'Klarheit'],
   },
   {
@@ -21,7 +21,7 @@ const STEPS = [
     sub: ['Struktur', 'Teamwork', 'Effizienz'],
   },
   {
-    n: '05', t: 'Feinschliff & Launch', d: 'In zwei Feedbackschleifen passen wir die Details an, bis alles perfekt funktioniert und exakt Ihren Vorstellungen entspricht. Danach ist Ihre neue Webseite fertig.',
+    n: '05', t: 'Feinschliff & Launch', d: 'In zwei Feedbackschleifen passen wir die Details an, bis alles perfekt funktioniert und exakt Ihren Vorstellungen entspricht. Danach ist Ihre neue Webseite bereit für die Öffentlichkeit.',
     sub: ['Feedback', 'Detailarbeit', 'Go-Live'],
   },
 ]
