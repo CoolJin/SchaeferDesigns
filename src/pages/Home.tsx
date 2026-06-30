@@ -150,16 +150,16 @@ export default function Home() {
           <div style={{ display: 'flex', gap: 24, justifyContent: 'center', marginTop: 60, pointerEvents: 'auto' }}>
             {perfTier === 'low' ? (
               <>
-                <button className="frosted-glass-btn-pill cursor-target" style={{ width: 180, height: 56, fontSize: '16px' }}>Portfolio</button>
-                <button className="frosted-glass-btn-pill cursor-target" style={{ width: 180, height: 56, fontSize: '16px' }}>Kontakt</button>
+                <button onClick={() => document.getElementById('process')?.scrollIntoView({behavior: 'smooth'})} className="frosted-glass-btn-pill cursor-target" style={{ width: 180, height: 56, fontSize: '16px' }}>Prozess</button>
+                <button onClick={() => document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'})} className="frosted-glass-btn-pill cursor-target" style={{ width: 180, height: 56, fontSize: '16px' }}>Kontakt</button>
               </>
             ) : (
               <>
-                <div className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
+                <div onClick={() => document.getElementById('process')?.scrollIntoView({behavior: 'smooth'})} className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
                    <GlassSurface width="100%" height="100%" borderRadius={28} />
-                   <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Portfolio</div>
+                   <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Prozess</div>
                 </div>
-                <div className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
+                <div onClick={() => document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'})} className="cursor-target" style={{ width: 180, height: 56, position: 'relative', cursor: 'pointer' }}>
                    <GlassSurface width="100%" height="100%" borderRadius={28} />
                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', zIndex: 10, pointerEvents: 'none', color: isDark ? '#fff' : '#000' }}>Kontakt</div>
                 </div>
@@ -237,7 +237,7 @@ export default function Home() {
       */}
 
       {/* ── PROCESS TEASER ── */}
-      <section className="process-section">
+      <section id="process" className="process-section">
         <div className="process-inner">
           <Reveal>
             <h2 className="process-heading">Wie ich<br /><em>arbeite</em></h2>
@@ -269,7 +269,7 @@ export default function Home() {
         <div className="bg-word">WIE</div>
       </section>
 
-      <section className="contact-section">
+      <section id="contact" className="contact-section">
         <Reveal>
           <div className="section-label" style={{ textAlign: 'center' }}>// bereit?</div>
           <h2 className="contact-heading" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
