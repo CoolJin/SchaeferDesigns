@@ -55,7 +55,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ── NAV ─────────────────────────────────────────────────── */
 .nav-pill-outer {
-  position: fixed; top: 32px; left: 0; right: 0; z-index: 1000;
+  position: fixed; top: 32px; left: 0; right: 0; z-index: auto;
   display: flex; justify-content: center; pointer-events: none;
   transition: margin-top 0.4s var(--ease-out);
 }
@@ -63,15 +63,16 @@ a { color: inherit; text-decoration: none; }
   margin-top: 16px;
 }
 .nav-pill-outer:not(.scrolled) .nav-pill {
-  transform: scale(1.15) translateZ(0);
+  transform: scale(1.15);
 }
 .nav-pill-outer:not(.scrolled) .mobile-nav-toggle {
-  transform: translateX(16px) scale(1.1) translateZ(0);
+  transform: translateX(16px) scale(1.1);
 }
 .nav-pill-outer:not(.scrolled) .theme-toggle {
-  transform: translateY(-50%) translateX(-16px) scale(1.1) translateZ(0);
+  transform: translateY(-50%) translateX(-16px) scale(1.1);
 }
 .nav-pill {
+  z-index: 1000;
   pointer-events: auto;
   display: flex; align-items: center; gap: 4px;
   background: rgba(255, 255, 255, 0.05);
@@ -82,8 +83,6 @@ a { color: inherit; text-decoration: none; }
   border-radius: 100px;
   position: relative;
   box-shadow: none;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
   transition: transform 0.4s var(--ease-out), backdrop-filter 0.4s, background 0.4s;
   transform-origin: top center;
 }
@@ -109,7 +108,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 .theme-toggle {
-  position: absolute; right: 48px; top: 50%; transform: translateY(-50%) translateZ(0);
+  z-index: 1000;
+  position: absolute; right: 48px; top: 50%; transform: translateY(-50%);
   pointer-events: auto;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
@@ -117,7 +117,6 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink); cursor: none; width: 40px; height: 40px;
   display: flex; align-items: center; justify-content: center;
   border-radius: 50%;
-  -webkit-transform: translateZ(0);
   transition: transform 0.4s var(--ease-out), background 0.3s, color 0.3s, border-color 0.3s;
   transform-origin: center;
 }
@@ -538,6 +537,7 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
 
 /* ── MOBILE NAV OVERLAY ──────────────────────────────────── */
 .mobile-nav-toggle {
+  z-index: 1000;
   display: flex; align-items: center; justify-content: center;
   pointer-events: auto;
   background: rgba(255, 255, 255, 0.05);
@@ -546,8 +546,6 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   border-radius: 50%;
   width: 48px; height: 48px;
   box-shadow: none;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
   transition: transform 0.4s var(--ease-out);
   transform-origin: center;
 }
