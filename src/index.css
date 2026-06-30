@@ -4,8 +4,8 @@
 :root {
   --ink:    #2a2a2a;
   --ink-rgb: 42, 42, 42;
-  --paper:  #e2dfd8;
-  --paper-rgb: 226, 223, 216;
+  --paper:  #cac8c2;
+  --paper-rgb: 202, 200, 194;
   --section-contrast-bg: color-mix(in srgb, var(--paper) 80%, var(--ink) 20%);
   --accent: #cc1a10;
   --mid:    #404040;
@@ -114,14 +114,14 @@ a { color: inherit; text-decoration: none; }
   background: rgba(255, 255, 255, 0.05);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
+  -webkit-transform: translateZ(0) scale(1);
+  transform: translateZ(0) scale(1);
   border: 1px solid rgba(255, 255, 255, 0.08);
   
   color: var(--ink); cursor: none;
   display: flex; align-items: center; justify-content: center;
   border-radius: 50%;
-  transition: right 0.4s var(--ease-out), background 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
+  transition: right 0.4s var(--ease-out), background 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s, transform 0.4s var(--ease-out);
 }
 @media (hover: hover) {
   .theme-toggle:hover {
@@ -533,21 +533,29 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   .theme-toggle { 
     position: fixed; right: 16px; width: 48px; height: 48px; 
     top: 16px;
-    transition: right 0.4s var(--ease-out), top 0.4s var(--ease-out), background 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
+    transition: right 0.4s var(--ease-out), top 0.4s var(--ease-out), background 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s, transform 0.4s var(--ease-out);
   }
   .theme-toggle.scrolled {
     top: 16px;
+    -webkit-transform: translateZ(0) scale(1);
+    transform: translateZ(0) scale(1);
   }
   .theme-toggle:not(.scrolled) {
     top: 24px;
     right: 32px;
+    -webkit-transform: translateZ(0) scale(1.2);
+    transform: translateZ(0) scale(1.2);
   }
 
   .mobile-nav-toggle {
     margin-left: 0;
+    -webkit-transform: translateZ(0) scale(1);
+    transform: translateZ(0) scale(1);
   }
   .nav-pill-outer:not(.scrolled) .mobile-nav-toggle {
     margin-left: 16px;
+    -webkit-transform: translateZ(0) scale(1.2);
+    transform: translateZ(0) scale(1.2);
   }
 
   /* Contact Form Mobile */
