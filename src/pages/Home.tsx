@@ -121,8 +121,8 @@ export default function Home() {
               <TiltedCard
                 imageSrc={logoBreit}
                 altText="SchaeferDesigns Logo"
-                containerWidth="clamp(300px, 75vw, 1000px)"
-                containerHeight="clamp(130px, 25vw, 320px)"
+                containerWidth="clamp(250px, 60vw, 800px)"
+                containerHeight="clamp(100px, 20vw, 250px)"
                 imageWidth="100%"
                 imageHeight="100%"
                 rotateAmplitude={12}
@@ -137,10 +137,10 @@ export default function Home() {
           </div>
           <div ref={heroRef} style={{ marginBottom: 40, width: '100%', padding: '0 5%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, position: 'relative' }}>
             <SimulatedMouse containerRef={heroRef} autoClick={false} invisible={true} xAmplitude={0.45} yAmplitude={0.15} />
-            <div style={{ width: '150%', maxWidth: 630 }}>
+            <div style={{ width: isMobile ? '150%' : '100%', maxWidth: isMobile ? 630 : 420 }}>
               <TextPressure className="hero-pressure" text="DESIGN" flex={false} alpha={false} stroke={false} width={true} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
             </div>
-            <div style={{ width: '150%', maxWidth: 945 }}>
+            <div style={{ width: isMobile ? '150%' : '100%', maxWidth: isMobile ? 945 : 630 }}>
               <TextPressure className="hero-pressure" text="DAS WIRKT" flex={false} alpha={false} stroke={false} width={true} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
             </div>
           </div>
