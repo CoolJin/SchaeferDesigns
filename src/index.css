@@ -59,7 +59,11 @@ a { color: inherit; text-decoration: none; }
   transition: top 0.4s var(--ease-out);
 }
 .nav-pill-outer:not(.scrolled) {
-  top: 48px;
+  top: 56px;
+}
+.nav-pill-outer:not(.scrolled) .nav-pill {
+  -webkit-transform: scale(1.5) translateZ(0);
+  transform: scale(1.5) translateZ(0);
 }
 .nav-pill {
   pointer-events: auto;
@@ -76,7 +80,7 @@ a { color: inherit; text-decoration: none; }
   padding: 8px;
   border-radius: 100px;
   position: relative;
-  transition: padding 0.4s var(--ease-out), background 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: padding 0.4s var(--ease-out), background 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s var(--ease-out);
 }
 .nav-pill-link {
   position: relative; z-index: 2;
@@ -518,8 +522,16 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   .nav-pill::-webkit-scrollbar { display: none; }
   .nav-pill-link { padding: 8px 14px; font-size: 0.65rem; white-space: nowrap; }
   
+  .nav-pill-outer:not(.scrolled) { 
+    top: 24px; 
+  }
+  .nav-pill-outer:not(.scrolled) .nav-pill {
+    -webkit-transform: scale(1) translateZ(0);
+    transform: scale(1) translateZ(0);
+  }
+  
   .theme-toggle { 
-    position: absolute; right: 16px; width: 48px; height: 48px; 
+    position: fixed; right: 16px; width: 48px; height: 48px; 
     top: 16px;
     transition: right 0.4s var(--ease-out), top 0.4s var(--ease-out), background 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
   }
