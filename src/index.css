@@ -608,11 +608,14 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   
   /* Der Glassmorphismus-Effekt */
   background: rgba(255, 255, 255, 0.05);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   
   /* Lichtkanten (Glaseffekt) */
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -627,7 +630,7 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   box-shadow: 
     0 6px 16px rgba(0, 0, 0, 0.4),
     inset 0 1px 1px rgba(255, 255, 255, 0.15);
-  transform: translateY(-1px);
+  transform: translateY(-1px) translateZ(0);
 }
 
 .frosted-glass-btn-pill {
@@ -639,11 +642,14 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   
   /* Der Glassmorphismus-Effekt */
   background: rgba(255, 255, 255, 0.05);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   
   /* Lichtkanten (Glaseffekt) */
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -658,5 +664,5 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   box-shadow: 
     0 6px 16px rgba(0, 0, 0, 0.4),
     inset 0 1px 1px rgba(255, 255, 255, 0.15);
-  transform: translateY(-1px);
+  transform: translateY(-1px) translateZ(0);
 }
