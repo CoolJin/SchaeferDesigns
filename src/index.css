@@ -598,3 +598,65 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
   justify-content: center !important;
   gap: clamp(4px, 1.5vw, 16px);
 }
+
+.frosted-glass-btn-standard {
+  /* Layout & Text */
+  padding: 12px 24px;
+  border-radius: 18px; /* <- Standard Rundung (Nicht-Pill) */
+  color: white;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  
+  /* Der Glassmorphismus-Effekt */
+  background: transparent;
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  
+  /* Lichtkanten (Glaseffekt) */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.frosted-glass-btn-standard:hover {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 
+    0 6px 16px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.frosted-glass-btn-pill {
+  /* Layout & Text */
+  padding: 12px 24px;
+  border-radius: 50px; /* <- Pill Rundung */
+  color: white;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  
+  /* Der Glassmorphismus-Effekt */
+  background: transparent;
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  
+  /* Lichtkanten (Glaseffekt) */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.frosted-glass-btn-pill:hover {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 
+    0 6px 16px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}

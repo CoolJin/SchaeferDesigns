@@ -257,9 +257,9 @@ export default function UIShowcase() {
                   </GlassSurface>
                 )}
 
-                <GlassSurface className="cursor-target" forceMode="low" width={220} height={60} borderRadius={100} backgroundOpacity={0.1}>
-                  <span style={{ color: 'var(--ink)', fontWeight: 600, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Frosted Glass</span>
-                </GlassSurface>
+                <button className="frosted-glass-btn-pill cursor-target" style={{ width: 220, height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ color: 'white', fontWeight: 600, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Frosted Glass</span>
+                </button>
                 
                 <button className="btn btn-link cursor-target"><span>Text Link</span></button>
 
