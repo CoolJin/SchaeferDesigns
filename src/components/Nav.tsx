@@ -85,14 +85,6 @@ export default function Nav() {
 
   return (
     <>
-      {/* Hidden SVG blur filter – same technique as GlassSurface (avoids backdrop-filter: blur() compositing issues) */}
-      <svg style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }} aria-hidden="true">
-        <defs>
-          <filter id="nav-blur">
-            <feGaussianBlur stdDeviation="6" />
-          </filter>
-        </defs>
-      </svg>
       <div className={`nav-pill-outer ${scrolled ? 'scrolled' : ''}`}>
         {isMobile ? (
           <div className="mobile-nav-toggle">
