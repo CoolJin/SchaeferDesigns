@@ -45,12 +45,11 @@ a { color: inherit; text-decoration: none; }
 /* ── NOISE LAYER ─────────────────────────────────────────── */
 #noise-canvas {
   position: fixed; inset: 0; pointer-events: none;
-  z-index: 9999; opacity: .04; mix-blend-mode: multiply;
+  z-index: 9999; opacity: .05;
 }
 
 [data-theme="dark"] #noise-canvas {
-  mix-blend-mode: screen;
-  opacity: 0.03;
+  opacity: 0.04;
 }
 
 /* ── NAV ─────────────────────────────────────────────────── */
