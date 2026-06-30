@@ -445,9 +445,11 @@ footer.site-footer p { font-family: var(--font-mono); font-size: .68rem; letter-
 .process-item {
   display: grid; grid-template-columns: 80px 1fr;
   gap: 40px; padding: 48px 0; border-bottom: 1.5px solid var(--border);
-  align-items: start; transition: padding-left .4s var(--ease-out);
+  align-items: start; transition: transform .4s var(--ease-out);
 }
-.process-item:hover { padding-left: 20px; }
+@media (hover: hover) and (pointer: fine) {
+  .process-item:hover { transform: translateX(20px); }
+}
 .process-item-num {
   font-family: var(--font-mono); font-size: .75rem; color: var(--accent);
   letter-spacing: .15em; padding-top: 6px;
