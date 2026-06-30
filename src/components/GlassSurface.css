@@ -5,6 +5,8 @@
   justify-content: center;
   overflow: hidden;
   transition: opacity 0.26s ease-out;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .glass-surface__filter {
