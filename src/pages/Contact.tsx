@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Reveal from '../components/Reveal'
 import Footer from '../components/Footer'
@@ -248,7 +249,7 @@ export default function Contact() {
                 </div>
 
                 <div style={{ fontSize: '0.8rem', color: 'var(--muted)', marginTop: 24, lineHeight: 1.5 }}>
-                  Mit dem Absenden erklären Sie sich mit der Verarbeitung Ihrer Daten gemäß der <a href="/datenschutz" style={{ color: 'var(--ink)', textDecoration: 'underline' }} target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a> einverstanden.
+                  Mit dem Absenden erklären Sie sich mit der Verarbeitung Ihrer Daten gemäß der <Link to="/datenschutz" style={{ color: 'var(--ink)', textDecoration: 'underline' }} target="_blank" rel="noopener noreferrer">Datenschutzerklärung</Link> einverstanden.
                 </div>
               </Step>
             </Stepper>
