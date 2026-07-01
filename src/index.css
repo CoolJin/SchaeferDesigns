@@ -54,12 +54,12 @@ a { color: inherit; text-decoration: none; }
 
 /* ── NAV ─────────────────────────────────────────────────── */
 .nav-pill-outer {
-  position: fixed; top: 32px; left: 0; right: 0; z-index: 1000;
+  position: fixed; top: 16px; left: 0; right: 0; z-index: 1000;
   display: flex; justify-content: center; pointer-events: none;
   transition: top 0.4s var(--ease-out);
 }
 .nav-pill-outer:not(.scrolled) {
-  top: 56px;
+  top: 28px;
 }
 .nav-pill-outer:not(.scrolled) .nav-pill {
   -webkit-transform: scale(1.05) translateZ(0);
@@ -143,8 +143,6 @@ a { color: inherit; text-decoration: none; }
 .hero {
   min-height: 100svh; display: flex; align-items: center;
   justify-content: center; position: relative; overflow: hidden;
-  padding-top: 120px;
-  padding-bottom: 40px;
 }
 .hero-grid-line {
   position: absolute; background: var(--ink); opacity: .06; pointer-events: none;
