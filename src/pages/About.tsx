@@ -24,7 +24,7 @@ export default function About() {
       <div style={{ background: 'var(--section-contrast-bg)', color: 'var(--ink)', padding: '80px 48px', overflow: 'hidden', position: 'relative' }}>
         <Reveal>
           <p style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3.5rem)', fontWeight: 700, lineHeight: 1.2, letterSpacing: '-.03em', maxWidth: 900 }}>
-            Webseiten visualisieren <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>ihren Status</em> und sie haben den <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>besten Status</em> verdient.
+            Ihre Website ist Ihr <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>digitaler Status</em>. Und Sie haben nur den <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>besten verdient</em>.
           </p>
         </Reveal>
         <div className="bg-word" style={{ fontSize: '28vw', bottom: -80 }}>ME</div>
