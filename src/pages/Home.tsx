@@ -180,7 +180,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 16 : 24, justifyContent: 'center', alignItems: 'center', marginTop: isMobile ? 20 : ((isTouch && !isMobile) ? 20 : 60), marginBottom: (isTouch && !isMobile) ? 20 : 0, pointerEvents: 'auto' }}>
+          <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 16 : 24, justifyContent: 'center', alignItems: 'center', marginTop: isMobile ? 20 : ((isTouch && !isMobile) ? 80 : 60), marginBottom: (isTouch && !isMobile) ? 80 : 0, pointerEvents: 'auto' }}>
             {perfTier === 'low' ? (
               <>
                 <button onClick={() => navigate('/process')} className="frosted-glass-btn-pill cursor-target" style={{ width: isMobile ? 220 : 180, height: 56, fontSize: '16px' }}>Prozess</button>
