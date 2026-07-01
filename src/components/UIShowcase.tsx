@@ -242,7 +242,7 @@ export default function UIShowcase() {
                   color1={isDark ? "#ffffff" : "#000000"}
                   color2={isDark ? "#eeeeee" : "#111111"}
                   color3={isDark ? "#050505" : "#a0a0a0"}
-                  enableMouseInteraction={!isMobile}
+                  enableMouseInteraction={!isTouch}
                   mouseInfluence={2.5}
                   />
                 </div>
