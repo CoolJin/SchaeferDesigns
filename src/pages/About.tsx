@@ -3,10 +3,9 @@ import Reveal from '../components/Reveal'
 import Footer from '../components/Footer'
 
 const VALUES = [
-  { n: '01', t: 'Unvergleichliche Ästhetik', d: 'Design, das nicht nur funktioniert, sondern Kunden sprachlos macht. Visuelles Premium-Level.' },
-  { n: '02', t: 'Extreme Geschwindigkeit', d: 'Ohne Meetings und Hierarchien setze ich Projekte in Rekordzeit um. Maximale Effizienz.' },
-  { n: '03', t: 'Krankhafter Perfektionismus', d: 'Ich schleife an jeder Kurve, jedem Abstand und jeder Animation, bis es sich magisch anfühlt.' },
-  { n: '04', t: 'Funktion & Magie', d: 'Eine Website muss extrem schnell konvertieren UND gleichzeitig aussehen wie digitale Kunst.' }
+  { n: '01', t: 'Unvergleichliche Ästhetik', d: 'Design, das nicht nur funktioniert, sondern Kunden sprachlos macht.' },
+  { n: '02', t: 'Absoluter Perfektionismus', d: 'Ich schleife an jeder Kurve, jedem Abstand und jeder Animation, bis es sich richtig anfühlt.' },
+  { n: '03', t: 'Umsatz durch Design', d: 'Eine Website ist kein Kunstprojekt. Sie muss messbare Ergebnisse liefern, Vertrauen aufbauen und Besucher in Kunden verwandeln.' }
 ]
 
 export default function About() {
