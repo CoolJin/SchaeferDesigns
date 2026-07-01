@@ -235,7 +235,6 @@ export default function LineWaves({
 
     if (enableMouseInteraction) {
       window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('touchmove', handleTouchMove, { passive: true });
       window.addEventListener('mouseleave', handleMouseLeave);
     }
 
@@ -266,7 +265,6 @@ export default function LineWaves({
       resizeObserver.disconnect();
       if (enableMouseInteraction) {
         window.removeEventListener('mousemove', handleMouseMove);
-        window.removeEventListener('touchmove', handleTouchMove);
         window.removeEventListener('mouseleave', handleMouseLeave);
       }
       container.removeChild(gl.canvas);
