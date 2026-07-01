@@ -177,13 +177,24 @@ export default function LineWaves({
       targetMouse = [0.5, 0.5];
     }
 
-    function resize() {
-      renderer.setSize(container.offsetWidth, container.offsetHeight);
+    function resize(entries?: ResizeObserverEntry[]) {
+      if (!container) return;
+      let width = container.offsetWidth;
+      let height = container.offsetHeight;
+      
+      if (entries && entries.length > 0) {
+        width = entries[0].contentRect.width;
+        height = entries[0].contentRect.height;
+      }
+      
+      renderer.setSize(width, height);
       if (program) {
         program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height];
       }
     }
-    window.addEventListener('resize', resize);
+    
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(container);
     resize();
 
     const geometry = new Triangle(gl);
@@ -243,7 +254,7 @@ export default function LineWaves({
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', resize);
+      resizeObserver.disconnect();
       if (enableMouseInteraction) {
         window.removeEventListener('mousemove', handleMouseMove);
         window.removeEventListener('mouseleave', handleMouseLeave);
