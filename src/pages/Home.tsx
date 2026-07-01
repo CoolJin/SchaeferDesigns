@@ -152,7 +152,7 @@ export default function Home() {
             )}
           </div>
           <div ref={heroRef} style={{ marginBottom: 40, width: '100%', padding: '0 5%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, position: 'relative' }}>
-            <SimulatedMouse containerRef={heroRef} autoClick={false} invisible={false} xAmplitude={0.45} yAmplitude={0.15} />
+            <SimulatedMouse containerRef={heroRef} autoClick={false} invisible={true} xAmplitude={0.45} yAmplitude={0.15} />
             <div style={{ width: isMobile ? '150%' : '100%', maxWidth: isMobile ? 630 : (isTouch ? 320 : 420) }}>
               <TextPressure className="hero-pressure" text="DESIGN" flex={false} alpha={false} stroke={false} width={true} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
             </div>
