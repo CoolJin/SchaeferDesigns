@@ -3,9 +3,12 @@ import Reveal from '../components/Reveal'
 import Footer from '../components/Footer'
 
 const VALUES = [
-  { n: '01', t: 'Unvergleichliche Ästhetik', d: 'Design, das nicht nur funktioniert, sondern Kunden sprachlos macht.' },
-  { n: '02', t: 'Absoluter Perfektionismus', d: 'Ich schleife an jeder Kurve, jedem Abstand und jeder Animation, bis es sich richtig anfühlt.' },
-  { n: '03', t: 'Umsatz durch Design', d: 'Eine Website ist kein Kunstprojekt. Sie muss messbare Ergebnisse liefern, Vertrauen aufbauen und Besucher in Kunden verwandeln.' }
+  { n: '01', t: 'Ästhetik', d: 'Premium-Design, das sofort überzeugt und Ihre Marke stärkt.' },
+  { n: '02', t: 'Perfektionismus', d: 'Keine halben Sachen. Jedes Detail und jede Animation sitzt exakt.' },
+  { n: '03', t: 'Verkaufspsychologie', d: 'Strategisch aufgebaut, um aus Besuchern echte Kunden zu machen.' },
+  { n: '04', t: 'Handhabung', d: 'Eine mühelose und logische Nutzerführung für jeden.' },
+  { n: '05', t: 'Leistung', d: 'Extrem schnelle Ladezeiten und sauberer Code auf allen Geräten.' },
+  { n: '06', t: 'Vertrauen', d: 'Ein professioneller Auftritt, der ab der ersten Sekunde Sicherheit vermittelt.' }
 ]
 
 export default function About() {
@@ -15,7 +18,7 @@ export default function About() {
         <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
           <div className="section-label">// über mich</div>
           <h1>Ich.</h1>
-          <p>Keine Agentur. Kein Bullshit. Nur pure digitale Exzellenz und kompromissloses Premium-Design. Ich arbeite komplett alleine, extrem schnell und mit dem Anspruch, dass jedes Projekt am Ende atemberaubend ist.</p>
+          <p>Als unabhängiges Studio entwickle ich Webseiten, die herausragend aussehen, schnell laden und messbar verkaufen. Keine Agentur-Umwege, sondern direkte Zusammenarbeit und kompromisslose Qualität für Ihr Projekt.</p>
         </motion.div>
       </div>
 
