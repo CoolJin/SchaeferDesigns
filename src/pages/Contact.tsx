@@ -81,7 +81,7 @@ export default function Contact() {
             ].map(item => (
               <div key={item.label} style={{ padding: '24px 0', textAlign: 'center' }}>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '.68rem', letterSpacing: '.2em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 8 }}>{item.label}</div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 500 }}>{item.val}</div>
+                <div style={{ fontSize: '1.1rem', fontWeight: 500, whiteSpace: 'nowrap' }}>{item.val}</div>
               </div>
             ))}
           </div>
