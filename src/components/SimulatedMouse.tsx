@@ -25,11 +25,11 @@ export default function SimulatedMouse({ containerRef, autoClick = false, invisi
 
   useEffect(() => {
     const checkIsMobileOrTouch = () => {
-      const isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-      const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-      const isTouch = isTouchOnly || (hasTouchScreen && !hasFinePointer);
-      return window.innerWidth <= 900 || isTouch;
+      if (typeof window === 'undefined') return false;
+      const isIPad = /Macintosh/i.test(navigator.userAgent) && navigator.maxTouchPoints && navigator.maxTouchPoints > 1;
+      const isMobileAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      return isIPad || isMobileAgent || (isTouchScreen && window.innerWidth <= 1200);
     };
     
     setIsMobile(checkIsMobileOrTouch());
@@ -119,16 +119,19 @@ export default function SimulatedMouse({ containerRef, autoClick = false, invisi
         cursorRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
       }
 
+      const pointerEvent = new PointerEvent('pointermove', {
+        bubbles: true, cancelable: true, clientX, clientY, pointerId: 999, pointerType: 'mouse'
+      });
+      const mouseEvent = new MouseEvent('mousemove', {
+        bubbles: true, cancelable: true, clientX, clientY
+      });
+      
       if (el) {
-        const pointerEvent = new PointerEvent('pointermove', {
-          bubbles: true, cancelable: true, clientX, clientY, pointerId: 999, pointerType: 'mouse'
-        });
-        const mouseEvent = new MouseEvent('mousemove', {
-          bubbles: true, cancelable: true, clientX, clientY
-        });
-        
         el.dispatchEvent(pointerEvent);
         el.dispatchEvent(mouseEvent);
+      } else {
+        window.dispatchEvent(pointerEvent);
+        window.dispatchEvent(mouseEvent);
       }
       
       rafId = requestAnimationFrame(animate);
