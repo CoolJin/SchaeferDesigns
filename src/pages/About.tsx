@@ -35,8 +35,8 @@ export default function About() {
       {/* Values */}
       <section style={{ padding: '100px 48px', maxWidth: 1400, margin: '0 auto' }}>
         <Reveal>
-          <div className="section-label">// meine werte</div>
-          <h2 className="section-heading" style={{ marginBottom: 0 }}>Woran<br />ich glaube.</h2>
+          <div className="section-label">// was sie erwartet</div>
+          <h2 className="section-heading" style={{ marginBottom: 0 }}>Mein<br />Versprechen.</h2>
         </Reveal>
         <Reveal delay={80}>
           <div className="about-values">
