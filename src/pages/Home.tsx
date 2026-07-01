@@ -91,7 +91,7 @@ export default function Home() {
     <motion.div className="page-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
 
       {/* ── HERO SECTION ── */}
-      <section className="hero-section" ref={heroRef} style={{ position: 'relative', overflow: 'hidden', minHeight: viewportHeight, display: 'flex', flexDirection: 'column', justifyContent: 'center', pointerEvents: isMobile ? 'none' : 'auto', paddingTop: (isTouch && !isMobile) ? 70 : 0, paddingBottom: (isTouch && !isMobile) ? 20 : 0 }}>
+      <section className="hero-section" ref={heroRef} style={{ position: 'relative', overflow: 'hidden', minHeight: viewportHeight, display: 'flex', flexDirection: 'column', justifyContent: 'center', pointerEvents: isMobile ? 'none' : 'auto', paddingTop: (isTouch && !isMobile) ? 40 : 0, paddingBottom: isMobile ? 80 : ((isTouch && !isMobile) ? 20 : 0) }}>
         {heroVisible && (
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0, opacity: 0.5, pointerEvents: 'none' }}>
             <LineWaves 
@@ -127,7 +127,7 @@ export default function Home() {
           }
         `}</style>
         <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 0 }}>
-          <div style={{ marginBottom: 40, width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <div style={{ marginBottom: isMobile ? 20 : 40, width: '100%', display: 'flex', justifyContent: 'center' }}>
             {isMobile || isTouch ? (
               <img 
                 src={logoBreit} 
@@ -137,7 +137,7 @@ export default function Home() {
                   maxWidth: (isTouch && !isMobile) ? '220px' : '320px', 
                   height: 'auto', 
                   filter: isDark ? 'invert(1)' : 'none',
-                  marginTop: (isTouch && !isMobile) ? '16px' : '10px'
+                  marginTop: (isTouch && !isMobile) ? '6px' : '10px'
                 }} 
               />
             ) : (
@@ -160,15 +160,15 @@ export default function Home() {
           </div>
           <div ref={heroRef} style={{ marginBottom: 40, width: '100%', padding: '0 5%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, position: 'relative' }}>
             <SimulatedMouse containerRef={heroRef} autoClick={false} invisible={true} xAmplitude={(isTouch && !isMobile) ? 0.3 : 0.45} yAmplitude={(isTouch && !isMobile) ? 0.1 : 0.15} />
-            <div style={{ width: isMobile ? '150%' : '100%', maxWidth: isMobile ? 630 : (isTouch ? 150 : 420) }}>
+            <div style={{ width: isMobile ? '150%' : '100%', maxWidth: isMobile ? 630 : (isTouch ? 125 : 420) }}>
               <TextPressure className="hero-pressure" text="DESIGN" flex={false} alpha={false} stroke={false} width={true} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
             </div>
-            <div style={{ width: isMobile ? '150%' : '100%', maxWidth: isMobile ? 945 : (isTouch ? 230 : 630) }}>
+            <div style={{ width: isMobile ? '150%' : '100%', maxWidth: isMobile ? 945 : (isTouch ? 195 : 630) }}>
               <TextPressure className="hero-pressure" text="DAS WIRKT" flex={false} alpha={false} stroke={false} width={true} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
             </div>
           </div>
           
-          <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 16 : 24, justifyContent: 'center', alignItems: 'center', marginTop: isMobile ? 40 : ((isTouch && !isMobile) ? 20 : 60), marginBottom: (isTouch && !isMobile) ? 20 : 0, pointerEvents: 'auto' }}>
+          <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 16 : 24, justifyContent: 'center', alignItems: 'center', marginTop: isMobile ? 20 : ((isTouch && !isMobile) ? 20 : 60), marginBottom: (isTouch && !isMobile) ? 20 : 0, pointerEvents: 'auto' }}>
             {perfTier === 'low' ? (
               <>
                 <button onClick={() => navigate('/process')} className="frosted-glass-btn-pill cursor-target" style={{ width: isMobile ? 220 : 180, height: 56, fontSize: '16px' }}>Prozess</button>
