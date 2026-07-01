@@ -125,6 +125,18 @@ export default function Home() {
             50.1% { transform: scaleY(1); transform-origin: bottom; }
             100% { transform: scaleY(0); transform-origin: bottom; }
           }
+          .chevron-tick {
+            margin: 8px auto 0;
+            animation: chevron-tick-anim 2.5s infinite ease-in-out;
+          }
+          @keyframes chevron-tick-anim {
+            0% { transform: translateY(0); }
+            8% { transform: translateY(6px); }
+            16% { transform: translateY(0); }
+            24% { transform: translateY(6px); }
+            32% { transform: translateY(0); }
+            100% { transform: translateY(0); }
+          }
         `}</style>
         <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 0 }}>
           <div style={{ marginBottom: isMobile ? 20 : 40, width: '100%', display: 'flex', justifyContent: 'center' }}>
@@ -189,9 +201,19 @@ export default function Home() {
           </div>
         </div>
         
-        <div ref={scrollRef} style={{ position: 'absolute', bottom: 40, left: '50%', transform: 'translateX(-50%)', opacity: 0.6, textAlign: 'center' }}>
+        <div ref={scrollRef} style={{ position: 'absolute', bottom: 40, left: '50%', transform: 'translateX(-50%)', opacity: 0.6, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <span style={{ fontSize: '0.75rem', letterSpacing: 3, textTransform: 'uppercase', color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)' }}>Scroll</span>
-          <div className="scroll-line-anim" />
+          {(isTouch && !isMobile) ? (
+            <svg 
+              className="chevron-tick"
+              width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)'} 
+              strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          ) : (
+            <div className="scroll-line-anim" />
+          )}
         </div>
       </section>
 
