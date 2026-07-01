@@ -223,7 +223,7 @@ export default function Home() {
       <section style={{ padding: 'clamp(60px, 10vw, 140px) 5%', maxWidth: 1400, margin: '0 auto' }}>
         <Reveal>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 40, alignItems: 'flex-start' }}>
-            <div className="section-label" style={{ margin: 0 }}>// über mich</div>
+            <div className="section-label" style={{ margin: 0 }}>// Über mich</div>
             
             <div style={{ maxWidth: '850px' }}>
               <h2 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)', lineHeight: 1.4, margin: '0 0 32px 0', fontWeight: 400, letterSpacing: '-0.02em' }}>
