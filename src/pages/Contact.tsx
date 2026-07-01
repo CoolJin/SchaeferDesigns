@@ -76,7 +76,7 @@ export default function Contact() {
         <Reveal>
           <div className="contact-info-grid" style={{ gap: 40, marginTop: 16 }}>
             {[
-              { label: 'E-Mail', val: 'hello@schaeferdesigns.de' },
+              { label: 'E-Mail', val: 'kontakt@schaeferdesigns.de' },
               { label: 'Telefon', val: '+49 711 000 000' },
               { label: 'Antwortzeit', val: 'Innerhalb 24h' },
             ].map(item => (

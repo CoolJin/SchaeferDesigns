@@ -11,8 +11,8 @@ export default function Footer() {
           <p style={{ opacity: 0.6, fontSize: '0.9rem', lineHeight: 1.6, margin: 0, maxWidth: 300 }}>
             Studio für digitale Erlebnisse. Konzept, Design und Entwicklung.
           </p>
-          <a href="mailto:hello@schaeferdesigns.de" style={{ color: 'var(--ink)', textDecoration: 'none', fontWeight: 500, display: 'inline-block', marginTop: 12 }}>
-            hello@schaeferdesigns.de
+          <a href="mailto:kontakt@schaeferdesigns.de" style={{ color: 'var(--ink)', textDecoration: 'none', fontWeight: 500, display: 'inline-block', marginTop: 12 }}>
+            kontakt@schaeferdesigns.de
           </a>
         </div>
 
