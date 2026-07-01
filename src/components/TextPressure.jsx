@@ -55,12 +55,6 @@ const TextPressure = ({
   const chars = text.split('');
 
   useEffect(() => {
-    const isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-    const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const isTouch = isTouchOnly || (hasTouchScreen && !hasFinePointer);
-    if (isTouch) return;
-
     const handleMouseMove = e => {
       cursorRef.current.x = e.clientX;
       cursorRef.current.y = e.clientY;
@@ -71,7 +65,6 @@ const TextPressure = ({
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
 
     if (containerRef.current) {
       const { left, top, width, height } = containerRef.current.getBoundingClientRect();
@@ -83,7 +76,6 @@ const TextPressure = ({
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchmove', handleTouchMove);
     };
   }, []);
 
