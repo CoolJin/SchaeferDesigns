@@ -18,7 +18,7 @@ export default function About() {
         <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
           <div className="section-label">// über mich</div>
           <h1>Ich.</h1>
-          <p>Als unabhängiges Studio entwickle ich Webseiten, die herausragend aussehen, schnell laden und messbar verkaufen. Keine Agentur-Umwege, sondern direkte Zusammenarbeit und kompromisslose Qualität für Ihr Projekt.</p>
+          <p>Ich entwickle die passende Webseite nach Ihren Ansprüchen. Sie erhalten perfektes Design, schnelle Geschwindigkeit und einen klaren Fokus auf den Umsatz Ihres Unternehmens.</p>
         </motion.div>
       </div>
 
