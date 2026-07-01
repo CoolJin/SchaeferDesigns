@@ -281,8 +281,8 @@ export default function UIShowcase() {
                   <ButtonColorful label="Explore Components" />
                 </div>
 
-                {/* Magnetic Button - hidden on mobile */}
-                {!isMobile && (
+                {/* Magnetic Button - hidden on touch */}
+                {!isMobile && !isTouch && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start', marginTop: 12 }}>
                     <MagneticButton distance={0.7}>
                       <button className="cursor-target" style={{ background: 'var(--ink)', color: 'var(--paper)', border: 'none', padding: '14px 32px', borderRadius: 100, fontSize: '0.95rem', fontWeight: 600, cursor: 'none', letterSpacing: '0.02em', whiteSpace: 'nowrap' }}>
@@ -292,8 +292,8 @@ export default function UIShowcase() {
                   </div>
                 )}
 
-                {/* Sliding Chevron Button - hidden on mobile */}
-                {!isMobile && (
+                {/* Sliding Chevron Button - hidden on touch */}
+                {!isMobile && !isTouch && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start', marginTop: 12 }}>
                     <GetStartedButton label="Get Started" />
                   </div>

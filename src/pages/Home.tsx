@@ -162,7 +162,7 @@ export default function Home() {
           </div>
           
           <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 16 : 24, justifyContent: 'center', alignItems: 'center', marginTop: isMobile ? 40 : 60, pointerEvents: 'auto' }}>
-            {perfTier === 'low' || isTouch ? (
+            {perfTier === 'low' ? (
               <>
                 <button onClick={() => navigate('/process')} className="frosted-glass-btn-pill cursor-target" style={{ width: isMobile ? 220 : 180, height: 56, fontSize: '16px' }}>Prozess</button>
                 <button onClick={() => navigate('/contact')} className="frosted-glass-btn-pill cursor-target" style={{ width: isMobile ? 220 : 180, height: 56, fontSize: '16px' }}>Kontakt</button>
