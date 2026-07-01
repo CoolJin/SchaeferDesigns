@@ -37,9 +37,22 @@ export default function Home() {
   const [heroVisible, setHeroVisible] = useState(true)
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
+  const [isTouch, setIsTouch] = useState(false)
 
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth <= 900)
+    const checkTouch = () => {
+      if (typeof window === 'undefined') return false;
+      const isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+      const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      return isTouchOnly || (hasTouchScreen && !hasFinePointer);
+    };
+    setIsTouch(checkTouch());
+    
+    const onResize = () => {
+      setIsMobile(window.innerWidth <= 900);
+      setIsTouch(checkTouch());
+    };
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [])
@@ -86,7 +99,7 @@ export default function Home() {
               color1={isDark ? "#ffffff" : "#000000"}
               color2={isDark ? "#eeeeee" : "#111111"}
               color3={isDark ? "#050505" : "#a0a0a0"}
-              enableMouseInteraction={!isMobile}
+              enableMouseInteraction={!isMobile && !isTouch}
               mouseInfluence={2.5}
             />
           </div>
@@ -106,9 +119,9 @@ export default function Home() {
             100% { transform: scaleY(0); transform-origin: bottom; }
           }
         `}</style>
-        <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: isMobile ? '-10vh' : '-6vh' }}>
+        <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 0 }}>
           <div style={{ marginBottom: 40, width: '100%', display: 'flex', justifyContent: 'center' }}>
-            {isMobile ? (
+            {isMobile || isTouch ? (
               <img 
                 src={logoBreit} 
                 alt="SchaeferDesigns Logo" 
@@ -149,7 +162,7 @@ export default function Home() {
           </div>
           
           <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 16 : 24, justifyContent: 'center', alignItems: 'center', marginTop: isMobile ? 40 : 60, pointerEvents: 'auto' }}>
-            {perfTier === 'low' ? (
+            {perfTier === 'low' || isTouch ? (
               <>
                 <button onClick={() => navigate('/process')} className="frosted-glass-btn-pill cursor-target" style={{ width: isMobile ? 220 : 180, height: 56, fontSize: '16px' }}>Prozess</button>
                 <button onClick={() => navigate('/contact')} className="frosted-glass-btn-pill cursor-target" style={{ width: isMobile ? 220 : 180, height: 56, fontSize: '16px' }}>Kontakt</button>

@@ -113,7 +113,7 @@ const HoverBackground = ({ children, hoverBg = 'transparent', simulateMouse = fa
             transition={{ duration: 0.5, ease: "easeInOut" }}
             style={{ width: '100%', height: '100%', backgroundColor: hoverBg || 'transparent' }}
           >
-            {isMobile && simulateMouse && <SimulatedMouse containerRef={ref} autoClick={autoClickMouse} />}
+            {simulateMouse && <SimulatedMouse containerRef={ref} autoClick={autoClickMouse} />}
             {children}
           </motion.div>
         )}
@@ -126,6 +126,7 @@ export default function UIShowcase() {
   const [buttonsHovered, setButtonsHovered] = useState(false)
   const [isInView, setIsInView] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
+  const [isTouch, setIsTouch] = useState(false)
   
   const ref = useRef<HTMLDivElement>(null)
   const proximityRef = useRef<HTMLDivElement>(null)
@@ -146,7 +147,19 @@ export default function UIShowcase() {
   const sectionRef = useRef<HTMLDivElement>(null)
   
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth <= 900)
+    const checkTouch = () => {
+      if (typeof window === 'undefined') return false;
+      const isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+      const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      return isTouchOnly || (hasTouchScreen && !hasFinePointer);
+    };
+    setIsTouch(checkTouch());
+    
+    const onResize = () => {
+      setIsMobile(window.innerWidth <= 900);
+      setIsTouch(checkTouch());
+    };
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [])

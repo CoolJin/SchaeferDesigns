@@ -55,14 +55,19 @@ const TextPressure = ({
   const chars = text.split('');
 
   useEffect(() => {
+    const isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const isTouch = isTouchOnly || (hasTouchScreen && !hasFinePointer);
+    if (isTouch) return;
+
     const handleMouseMove = e => {
       cursorRef.current.x = e.clientX;
       cursorRef.current.y = e.clientY;
     };
     const handleTouchMove = e => {
-      const t = e.touches[0];
-      cursorRef.current.x = t.clientX;
-      cursorRef.current.y = t.clientY;
+      cursorRef.current.x = e.touches[0].clientX;
+      cursorRef.current.y = e.touches[0].clientY;
     };
 
     window.addEventListener('mousemove', handleMouseMove);

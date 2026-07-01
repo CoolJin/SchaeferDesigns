@@ -21,10 +21,19 @@ const CursorSVG = () => (
 export default function SimulatedMouse({ containerRef, autoClick = false, invisible = false, xAmplitude = 0.35, yAmplitude = 0.35 }: { containerRef: React.RefObject<HTMLDivElement>, autoClick?: boolean, invisible?: boolean, xAmplitude?: number, yAmplitude?: number }) {
   const cursorRef = useRef<HTMLDivElement>(null);
   const lastHoveredElement = useRef<Element | null>(null);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth <= 900);
+    const checkIsMobileOrTouch = () => {
+      const isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+      const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const isTouch = isTouchOnly || (hasTouchScreen && !hasFinePointer);
+      return window.innerWidth <= 900 || isTouch;
+    };
+    
+    setIsMobile(checkIsMobileOrTouch());
+    const onResize = () => setIsMobile(checkIsMobileOrTouch());
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
