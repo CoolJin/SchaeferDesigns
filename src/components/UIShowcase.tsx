@@ -76,7 +76,6 @@ const HoverBackground = ({ children, hoverBg = 'transparent', simulateMouse = fa
           setIsHovered(false)
         }
       },
-      },
       { rootMargin: '50px' }
     )
     observer.observe(el)
