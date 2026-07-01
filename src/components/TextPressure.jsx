@@ -160,7 +160,7 @@ const TextPressure = ({
   const styleElement = useMemo(() => {
     return (
       <style>{`
-        @import url('${fontUrl}');
+
 
         .flex {
           display: flex;

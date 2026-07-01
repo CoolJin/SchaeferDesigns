@@ -246,6 +246,10 @@ export default function Contact() {
                     onChange={handlePhoneChange}
                   />
                 </div>
+
+                <div style={{ fontSize: '0.8rem', color: 'var(--muted)', marginTop: 24, lineHeight: 1.5 }}>
+                  Mit dem Absenden erklären Sie sich mit der Verarbeitung Ihrer Daten gemäß der <a href="/datenschutz" style={{ color: 'var(--ink)', textDecoration: 'underline' }} target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a> einverstanden.
+                </div>
               </Step>
             </Stepper>
               </motion.div>
