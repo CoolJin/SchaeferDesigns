@@ -56,6 +56,12 @@ const TextPressure = ({
 
   useEffect(() => {
     const handleMouseMove = e => {
+      const simulatedOrigin = window.__simulatedOrigin;
+      if (('ontouchstart' in window) || (navigator.maxTouchPoints > 0)) {
+        if (!simulatedOrigin) return;
+      }
+      if (simulatedOrigin && !simulatedOrigin.contains(containerRef.current)) return;
+
       cursorRef.current.x = e.clientX;
       cursorRef.current.y = e.clientY;
     };

@@ -120,9 +120,12 @@ export default function SimulatedMouse({ containerRef, autoClick = false, invisi
       const pointerEvent = new PointerEvent('pointermove', {
         bubbles: true, cancelable: true, clientX, clientY, pointerId: 999, pointerType: 'mouse'
       });
+      
       const mouseEvent = new MouseEvent('mousemove', {
         bubbles: true, cancelable: true, clientX, clientY
       });
+      
+      (window as any).__simulatedOrigin = containerRef.current;
       
       if (el) {
         el.dispatchEvent(pointerEvent);
@@ -132,6 +135,8 @@ export default function SimulatedMouse({ containerRef, autoClick = false, invisi
       // ALWAYs dispatch to window to guarantee global listeners (like TextPressure) receive it
       // even if bubbling is stopped or elementFromPoint is acting weird on mobile Safari
       window.dispatchEvent(mouseEvent);
+      
+      (window as any).__simulatedOrigin = null;
       
       rafId = requestAnimationFrame(animate);
     };

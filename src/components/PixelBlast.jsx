@@ -491,7 +491,14 @@ const PixelBlast = ({
         if (threeRef.current) threeRef.current.clickIx = (ix + 1) % MAX_CLICKS;
       };
       const onPointerMove = e => {
-        if (!touch || e.pointerType === 'touch') return;
+        const simulatedOrigin = window.__simulatedOrigin;
+        if (('ontouchstart' in window) || (navigator.maxTouchPoints > 0)) {
+          if (!simulatedOrigin) return;
+        }
+        if (simulatedOrigin && !simulatedOrigin.contains(container)) return;
+        if (e.pointerType === 'touch' && !simulatedOrigin) return;
+
+        if (!touch) return;
         const { fx, fy, w, h } = mapToPixels(e);
         touch.addTouch({ x: fx / w, y: fy / h });
       };

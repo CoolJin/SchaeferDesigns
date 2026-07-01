@@ -390,7 +390,13 @@ export default function FloatingLines({ isDark = true,
     if (ro) ro.observe(container);
 
     const handlePointerMove = event => {
-      if (event.pointerType === 'touch') return;
+      const simulatedOrigin = window.__simulatedOrigin;
+      if (('ontouchstart' in window) || (navigator.maxTouchPoints > 0)) {
+        if (!simulatedOrigin) return;
+      }
+      if (simulatedOrigin && !simulatedOrigin.contains(container)) return;
+      if (event.pointerType === 'touch' && !simulatedOrigin) return;
+
       const rect = renderer.domElement.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;

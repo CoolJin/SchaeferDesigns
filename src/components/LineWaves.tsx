@@ -166,6 +166,12 @@ export default function LineWaves({
     let targetMouse = [0.5, 0.5];
 
     function handleMouseMove(e: MouseEvent) {
+      const simulatedOrigin = (window as any).__simulatedOrigin;
+      if (('ontouchstart' in window) || (navigator.maxTouchPoints > 0)) {
+        if (!simulatedOrigin) return;
+      }
+      if (simulatedOrigin && !simulatedOrigin.contains(container)) return;
+
       const rect = gl.canvas.getBoundingClientRect();
       targetMouse = [
         (e.clientX - rect.left) / rect.width,
