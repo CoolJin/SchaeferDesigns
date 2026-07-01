@@ -106,7 +106,7 @@ export default function Home() {
             100% { transform: scaleY(0); transform-origin: bottom; }
           }
         `}</style>
-        <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: isMobile ? '-18vh' : '-12vh' }}>
+        <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: isMobile ? '-10vh' : '-6vh' }}>
           <div style={{ marginBottom: 40, width: '100%', display: 'flex', justifyContent: 'center' }}>
             {isMobile ? (
               <img 
