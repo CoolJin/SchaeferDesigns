@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useId } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Reveal from './Reveal'
 import GlassSurface from './GlassSurface'
@@ -29,14 +29,20 @@ let hoverBgCounter = 0;
 
 const HoverBackground = ({ children, hoverBg = 'transparent', simulateMouse = false, autoClickMouse = false }: { children: React.ReactNode, hoverBg?: string, simulateMouse?: boolean, autoClickMouse?: boolean }) => {
   const [isHovered, setIsHovered] = useState(false)
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
+  const [isTouch, setIsTouch] = useState(false)
+  const id = useId();
   const ref = useRef<HTMLDivElement>(null)
-  
-  // Assign a unique id to each instance
-  const [id] = useState(() => `hover-bg-${++hoverBgCounter}`);
 
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth <= 900)
+    const checkTouch = () => {
+      if (typeof window === 'undefined') return false;
+      const isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+      const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      return isTouchOnly || (hasTouchScreen && !hasFinePointer) || window.innerWidth <= 900;
+    };
+    setIsTouch(checkTouch());
+    const onResize = () => setIsTouch(checkTouch());
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [])
@@ -56,15 +62,15 @@ const HoverBackground = ({ children, hoverBg = 'transparent', simulateMouse = fa
         setIsHovered(false);
       }
     };
-    if (isHovered && isMobile) {
+    if (isHovered && isTouch) {
       // Small timeout to prevent immediate close on the opening click
       setTimeout(() => window.addEventListener('click', handleGlobalClick), 0);
       return () => window.removeEventListener('click', handleGlobalClick);
     }
-  }, [isHovered, isMobile]);
+  }, [isHovered, isTouch]);
 
   useEffect(() => {
-    if (!isMobile) return
+    if (!isTouch) return
     const el = ref.current
     if (!el) return
     const observer = new IntersectionObserver(
@@ -73,14 +79,15 @@ const HoverBackground = ({ children, hoverBg = 'transparent', simulateMouse = fa
           setIsHovered(false)
         }
       },
+      },
       { rootMargin: '50px' }
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [isMobile])
+  }, [isTouch])
 
   const handleClick = (e: React.MouseEvent) => {
-    if (!isMobile) return;
+    if (!isTouch) return;
     if (!e.isTrusted) return;
     setIsHovered(prev => {
       const next = !prev;
@@ -93,11 +100,11 @@ const HoverBackground = ({ children, hoverBg = 'transparent', simulateMouse = fa
     <div 
       ref={ref}
       style={{ width: '100%', height: '100%', position: 'absolute', inset: 0, cursor: 'crosshair', zIndex: 0 }}
-      onMouseEnter={() => !isMobile && setIsHovered(true)}
-      onMouseLeave={() => !isMobile && setIsHovered(false)}
+      onMouseEnter={() => !isTouch && setIsHovered(true)}
+      onMouseLeave={() => !isTouch && setIsHovered(false)}
       onClick={handleClick}
     >
-      {isMobile && !isHovered && (
+      {isTouch && !isHovered && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.5, pointerEvents: 'none' }}>
           <div style={{ padding: '8px 16px', background: 'var(--paper)', border: '1px solid var(--border)', borderRadius: 100, fontSize: '0.8rem', fontFamily: 'var(--font-mono)' }}>
             Tippe, um aufzudecken

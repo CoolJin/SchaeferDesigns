@@ -56,20 +56,16 @@ const TextPressure = ({
 
   useEffect(() => {
     const handleMouseMove = e => {
-      cursorRef.current.x = e.clientX;
-      cursorRef.current.y = e.clientY;
-    };
-    const handleTouchMove = e => {
-      cursorRef.current.x = e.touches[0].clientX;
-      cursorRef.current.y = e.touches[0].clientY;
+      cursorRef.current.x = e.clientX + window.scrollX;
+      cursorRef.current.y = e.clientY + window.scrollY;
     };
 
     window.addEventListener('mousemove', handleMouseMove);
 
     if (containerRef.current) {
       const { left, top, width, height } = containerRef.current.getBoundingClientRect();
-      mouseRef.current.x = left + width / 2;
-      mouseRef.current.y = top + height / 2;
+      mouseRef.current.x = left + width / 2 + window.scrollX;
+      mouseRef.current.y = top + height / 2 + window.scrollY;
       cursorRef.current.x = mouseRef.current.x;
       cursorRef.current.y = mouseRef.current.y;
     }
@@ -126,8 +122,8 @@ const TextPressure = ({
 
           const rect = span.getBoundingClientRect();
           const charCenter = {
-            x: rect.x + rect.width / 2,
-            y: rect.y + rect.height / 2
+            x: rect.x + rect.width / 2 + window.scrollX,
+            y: rect.y + rect.height / 2 + window.scrollY
           };
 
           const d = dist(mouseRef.current, charCenter);

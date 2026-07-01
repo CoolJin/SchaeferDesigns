@@ -67,8 +67,8 @@ export default function TiltedCard({
     // Removed mobile loop
   }, []);
 
-  function handleMouse(e: React.MouseEvent<HTMLElement>) {
-    if (!ref.current) return;
+  function handleMouse(e: React.PointerEvent<HTMLElement>) {
+    if (!ref.current || e.pointerType === 'touch') return;
 
     const rect = ref.current.getBoundingClientRect();
     const offsetX = e.clientX - rect.left - rect.width / 2;
@@ -88,12 +88,14 @@ export default function TiltedCard({
     setLastY(offsetY);
   }
 
-  function handleMouseEnter() {
+  function handleMouseEnter(e: React.PointerEvent<HTMLElement>) {
+    if (e.pointerType === 'touch') return;
     scale.set(scaleOnHover);
     opacity.set(1);
   }
 
-  function handleMouseLeave() {
+  function handleMouseLeave(e: React.PointerEvent<HTMLElement>) {
+    if (e.pointerType === 'touch') return;
     opacity.set(0);
     scale.set(1);
     rotateX.set(0);
@@ -109,9 +111,9 @@ export default function TiltedCard({
         height: containerHeight,
         width: containerWidth
       }}
-      onMouseMove={handleMouse}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onPointerMove={handleMouse}
+      onPointerEnter={handleMouseEnter}
+      onPointerLeave={handleMouseLeave}
     >
       {showMobileWarning && (
         <div className="tilted-card-mobile-alert">This effect is not optimized for mobile. Check on desktop.</div>

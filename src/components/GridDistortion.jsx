@@ -149,6 +149,7 @@ const GridDistortion = ({ grid = 15, mouse = 0.1, strength = 0.15, relaxation = 
     };
 
     const handleMouseMove = e => {
+      if (e.pointerType === 'touch') return;
       const rect = container.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
       const y = 1 - (e.clientY - rect.top) / rect.height;
@@ -157,7 +158,8 @@ const GridDistortion = ({ grid = 15, mouse = 0.1, strength = 0.15, relaxation = 
       Object.assign(mouseState, { x, y, prevX: x, prevY: y });
     };
 
-    const handleMouseLeave = () => {
+    const handleMouseLeave = e => {
+      if (e && e.pointerType === 'touch') return;
       if (dataTexture) {
         dataTexture.needsUpdate = true;
       }
@@ -171,8 +173,8 @@ const GridDistortion = ({ grid = 15, mouse = 0.1, strength = 0.15, relaxation = 
       });
     };
 
-    container.addEventListener('mousemove', handleMouseMove);
-    container.addEventListener('mouseleave', handleMouseLeave);
+    container.addEventListener('pointermove', handleMouseMove);
+    container.addEventListener('pointerleave', handleMouseLeave);
 
     handleResize();
 

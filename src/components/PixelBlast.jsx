@@ -483,6 +483,7 @@ const PixelBlast = ({
         };
       };
       const onPointerDown = e => {
+        if (e.pointerType === 'touch') return;
         const { fx, fy } = mapToPixels(e);
         const ix = threeRef.current?.clickIx ?? 0;
         uniforms.uClickPos.value[ix].set(fx, fy);
@@ -490,7 +491,7 @@ const PixelBlast = ({
         if (threeRef.current) threeRef.current.clickIx = (ix + 1) % MAX_CLICKS;
       };
       const onPointerMove = e => {
-        if (!touch) return;
+        if (!touch || e.pointerType === 'touch') return;
         const { fx, fy, w, h } = mapToPixels(e);
         touch.addTouch({ x: fx / w, y: fy / h });
       };

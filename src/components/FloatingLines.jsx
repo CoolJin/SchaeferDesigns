@@ -390,6 +390,7 @@ export default function FloatingLines({ isDark = true,
     if (ro) ro.observe(container);
 
     const handlePointerMove = event => {
+      if (event.pointerType === 'touch') return;
       const rect = renderer.domElement.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
@@ -407,7 +408,8 @@ export default function FloatingLines({ isDark = true,
       }
     };
 
-    const handlePointerLeave = () => {
+    const handlePointerLeave = event => {
+      if (event && event.pointerType === 'touch') return;
       targetInfluenceRef.current = 0.0;
     };
 
