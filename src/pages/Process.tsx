@@ -62,7 +62,7 @@ export default function Process() {
 
       {/* Dark CTA */}
       <section className="process-section cta-section">
-        <div className="process-inner process-cta-inner" style={{ display: 'flex', justifyContent: 'center', gap: '80px', alignItems: 'center' }}>
+        <div className="process-inner process-cta-inner" style={{ display: 'flex', justifyContent: 'center', gap: '40px', alignItems: 'center' }}>
           <h2 style={{ fontSize: 'clamp(2rem,4vw,4rem)', fontWeight: 900, letterSpacing: '-.04em' }}>
             Bereit<br />loszulegen?
           </h2>
