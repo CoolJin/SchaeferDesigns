@@ -149,7 +149,8 @@ export default function Home() {
                   maxWidth: (isTouch && !isMobile) ? '220px' : '320px', 
                   height: 'auto', 
                   filter: isDark ? 'invert(1)' : 'none',
-                  marginTop: (isTouch && !isMobile) ? '6px' : '10px'
+                  marginTop: (isTouch && !isMobile) ? '6px' : '10px',
+                  transform: (isTouch && !isMobile) ? 'translateY(40px)' : 'none'
                 }} 
               />
             ) : (
