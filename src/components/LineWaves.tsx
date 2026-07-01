@@ -173,6 +173,14 @@ export default function LineWaves({
       ];
     }
 
+    function handleTouchMove(e: TouchEvent) {
+      const rect = gl.canvas.getBoundingClientRect();
+      targetMouse = [
+        (e.touches[0].clientX - rect.left) / rect.width,
+        1.0 - (e.touches[0].clientY - rect.top) / rect.height
+      ];
+    }
+
     function handleMouseLeave() {
       targetMouse = [0.5, 0.5];
     }
@@ -227,6 +235,7 @@ export default function LineWaves({
 
     if (enableMouseInteraction) {
       window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('touchmove', handleTouchMove, { passive: true });
       window.addEventListener('mouseleave', handleMouseLeave);
     }
 
@@ -257,6 +266,7 @@ export default function LineWaves({
       resizeObserver.disconnect();
       if (enableMouseInteraction) {
         window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('touchmove', handleTouchMove);
         window.removeEventListener('mouseleave', handleMouseLeave);
       }
       container.removeChild(gl.canvas);
