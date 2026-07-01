@@ -36,10 +36,7 @@ const HoverBackground = ({ children, hoverBg = 'transparent', simulateMouse = fa
   useEffect(() => {
     const checkTouch = () => {
       if (typeof window === 'undefined') return false;
-      const isIPad = /Macintosh/i.test(navigator.userAgent) && navigator.maxTouchPoints && navigator.maxTouchPoints > 1;
-      const isMobileAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      const isTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      return isIPad || isMobileAgent || (isTouchScreen && window.innerWidth <= 1200);
+      return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
     };
     setIsTouch(checkTouch());
     const onResize = () => setIsTouch(checkTouch());

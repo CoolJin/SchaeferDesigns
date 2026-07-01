@@ -26,10 +26,8 @@ export default function SimulatedMouse({ containerRef, autoClick = false, invisi
   useEffect(() => {
     const checkIsMobileOrTouch = () => {
       if (typeof window === 'undefined') return false;
-      const isIPad = /Macintosh/i.test(navigator.userAgent) && navigator.maxTouchPoints && navigator.maxTouchPoints > 1;
-      const isMobileAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      const isTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      return isIPad || isMobileAgent || (isTouchScreen && window.innerWidth <= 1200);
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      return window.innerWidth <= 900 || isTouch;
     };
     
     setIsMobile(checkIsMobileOrTouch());

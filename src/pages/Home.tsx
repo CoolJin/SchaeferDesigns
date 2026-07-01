@@ -38,15 +38,14 @@ export default function Home() {
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
   const [isTouch, setIsTouch] = useState(false)
-  const [viewportHeight, setViewportHeight] = useState('100svh')
+  const [viewportHeight, setViewportHeight] = useState('100vh')
 
   useEffect(() => {
+    // Set the exact pixel height ONCE on mount to prevent any jumps when address bar hides/shows
+    setViewportHeight(`${window.innerHeight}px`);
     const checkTouch = () => {
       if (typeof window === 'undefined') return false;
-      const isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-      const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-      return isTouchOnly || (hasTouchScreen && !hasFinePointer);
+      return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
     };
     setIsTouch(checkTouch());
     
