@@ -84,7 +84,7 @@ export default function Home() {
     <motion.div className="page-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
 
       {/* ── HERO SECTION ── */}
-      <section className="hero-section" ref={heroRef} style={{ position: 'relative', overflow: 'hidden', minHeight: '100svh', display: 'flex', flexDirection: 'column', justifyContent: 'center', pointerEvents: isMobile ? 'none' : 'auto', paddingTop: (isTouch && !isMobile) ? 140 : 0, paddingBottom: (isTouch && !isMobile) ? 40 : 0 }}>
+      <section className="hero-section" ref={heroRef} style={{ position: 'relative', overflow: 'hidden', minHeight: '100svh', display: 'flex', flexDirection: 'column', justifyContent: 'center', pointerEvents: isMobile ? 'none' : 'auto', paddingTop: (isTouch && !isMobile) ? 90 : 0, paddingBottom: (isTouch && !isMobile) ? 20 : 0 }}>
         {heroVisible && (
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0, opacity: 0.5, pointerEvents: 'none' }}>
             <LineWaves 
@@ -127,10 +127,10 @@ export default function Home() {
                 alt="SchaeferDesigns Logo" 
                 style={{ 
                   width: '80vw', 
-                  maxWidth: '320px', 
+                  maxWidth: (isTouch && !isMobile) ? '220px' : '320px', 
                   height: 'auto', 
                   filter: isDark ? 'invert(1)' : 'none',
-                  marginTop: (isTouch && !isMobile) ? '40px' : '10px'
+                  marginTop: (isTouch && !isMobile) ? '26px' : '10px'
                 }} 
               />
             ) : (
@@ -152,16 +152,16 @@ export default function Home() {
             )}
           </div>
           <div ref={heroRef} style={{ marginBottom: 40, width: '100%', padding: '0 5%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, position: 'relative' }}>
-            <SimulatedMouse containerRef={heroRef} autoClick={false} invisible={true} xAmplitude={0.45} yAmplitude={0.15} />
-            <div style={{ width: isMobile ? '150%' : '100%', maxWidth: isMobile ? 630 : (isTouch ? 260 : 420) }}>
+            <SimulatedMouse containerRef={heroRef} autoClick={false} invisible={true} xAmplitude={(isTouch && !isMobile) ? 0.3 : 0.45} yAmplitude={(isTouch && !isMobile) ? 0.1 : 0.15} />
+            <div style={{ width: isMobile ? '150%' : '100%', maxWidth: isMobile ? 630 : (isTouch ? 180 : 420) }}>
               <TextPressure className="hero-pressure" text="DESIGN" flex={false} alpha={false} stroke={false} width={true} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
             </div>
-            <div style={{ width: isMobile ? '150%' : '100%', maxWidth: isMobile ? 945 : (isTouch ? 390 : 630) }}>
+            <div style={{ width: isMobile ? '150%' : '100%', maxWidth: isMobile ? 945 : (isTouch ? 270 : 630) }}>
               <TextPressure className="hero-pressure" text="DAS WIRKT" flex={false} alpha={false} stroke={false} width={true} weight={true} italic={true} textColor={isDark ? '#ffffff' : '#000000'} strokeColor={isDark ? '#ff0000' : '#ff0000'} minFontSize={36} />
             </div>
           </div>
           
-          <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 16 : 24, justifyContent: 'center', alignItems: 'center', marginTop: isMobile ? 40 : 60, marginBottom: (isTouch && !isMobile) ? 40 : 0, pointerEvents: 'auto' }}>
+          <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 16 : 24, justifyContent: 'center', alignItems: 'center', marginTop: isMobile ? 40 : 60, marginBottom: (isTouch && !isMobile) ? 20 : 0, pointerEvents: 'auto' }}>
             {perfTier === 'low' ? (
               <>
                 <button onClick={() => navigate('/process')} className="frosted-glass-btn-pill cursor-target" style={{ width: isMobile ? 220 : 180, height: 56, fontSize: '16px' }}>Prozess</button>
