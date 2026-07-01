@@ -3,11 +3,11 @@ import Reveal from '../components/Reveal'
 import Footer from '../components/Footer'
 
 const VALUES = [
-  { n: '01', t: 'Ästhetik', d: 'Premium-Design, das sofort überzeugt und Ihre Marke stärkt.' },
+  { n: '01', t: 'Ästhetik', d: 'Unschlagbares Design, das sofort überzeugt und Ihre Marke prägt.' },
   { n: '02', t: 'Perfektionismus', d: 'Keine halben Sachen. Jedes Detail und jede Animation sitzt exakt.' },
   { n: '03', t: 'Verkaufspsychologie', d: 'Strategisch aufgebaut, um aus Besuchern echte Kunden zu machen.' },
   { n: '04', t: 'Handhabung', d: 'Eine mühelose und logische Nutzerführung für jeden.' },
-  { n: '05', t: 'Leistung', d: 'Extrem schnelle Ladezeiten und sauberer Code auf allen Geräten.' },
+  { n: '05', t: 'Leistung', d: 'Extrem schnelle Ladezeiten auf allen Geräten.' },
   { n: '06', t: 'Vertrauen', d: 'Ein professioneller Auftritt, der ab der ersten Sekunde Sicherheit vermittelt.' }
 ]
 
