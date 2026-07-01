@@ -50,15 +50,9 @@ export default function Home() {
     };
     setIsTouch(checkTouch());
     
-    const updateViewportHeight = () => {
-      setViewportHeight(`${window.innerHeight}px`);
-    };
-    updateViewportHeight();
-    
     const onResize = () => {
       setIsMobile(window.innerWidth <= 900);
       setIsTouch(checkTouch());
-      updateViewportHeight();
     };
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)

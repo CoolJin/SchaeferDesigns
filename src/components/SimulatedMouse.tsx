@@ -129,10 +129,11 @@ export default function SimulatedMouse({ containerRef, autoClick = false, invisi
       if (el) {
         el.dispatchEvent(pointerEvent);
         el.dispatchEvent(mouseEvent);
-      } else {
-        window.dispatchEvent(pointerEvent);
-        window.dispatchEvent(mouseEvent);
       }
+      
+      // ALWAYs dispatch to window to guarantee global listeners (like TextPressure) receive it
+      // even if bubbling is stopped or elementFromPoint is acting weird on mobile Safari
+      window.dispatchEvent(mouseEvent);
       
       rafId = requestAnimationFrame(animate);
     };
