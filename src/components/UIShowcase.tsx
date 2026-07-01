@@ -223,10 +223,10 @@ export default function UIShowcase() {
           >
             {/* Background for Glass Refraction — only rendered when in view */}
             {isInView && (
-              <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: buttonsHovered ? (isDark ? 0.7 : 0.4) : 0, transition: 'opacity 0.5s ease', pointerEvents: 'none' }}>
+              <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: (isTouch ? true : buttonsHovered) ? (isDark ? 0.7 : 0.4) : 0, transition: 'opacity 0.5s ease', pointerEvents: 'none' }}>
                 <div style={{ position: 'absolute', inset: 0, transform: 'scale(1.5)', transformOrigin: 'center center' }}>
                   <LineWaves
-                  pause={!buttonsHovered}
+                  pause={!(isTouch ? true : buttonsHovered)}
                   speed={0.15}
                   innerLineCount={32}
                   outerLineCount={36}
