@@ -77,7 +77,7 @@ export default function Contact() {
             {[
               { label: 'E-Mail', val: 'hello@schaeferdesigns.de' },
               { label: 'Telefon', val: '+49 711 000 000' },
-              { label: 'Studio', val: 'Stuttgart, Deutschland' },
+              { label: 'Antwortzeit', val: 'Innerhalb 24h' },
             ].map(item => (
               <div key={item.label} style={{ padding: '24px 0', textAlign: 'center' }}>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '.68rem', letterSpacing: '.2em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 8 }}>{item.label}</div>
