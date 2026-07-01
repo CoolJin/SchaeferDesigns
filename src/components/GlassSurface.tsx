@@ -157,7 +157,7 @@ const GlassSurface = ({
   };
 
   const isLowPerf = forceMode === 'low' || (forceMode === 'auto' && perfTier === 'low');
-  const shouldUseFallback = isLowPerf || !svgSupported;
+  const shouldUseFallback = forceMode !== 'forced' && (isLowPerf || !svgSupported);
 
   return (
     <div

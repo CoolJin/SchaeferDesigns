@@ -260,7 +260,7 @@ export default function UIShowcase() {
                 {isInView && (
                   <GlassSurface
                     className="cursor-target"
-                    forceMode={buttonsHovered ? 'high' : 'low'}
+                    forceMode="forced"
                     width={220} height={60} borderRadius={100}
                     backgroundOpacity={0.1}
                     distortionScale={-180}
